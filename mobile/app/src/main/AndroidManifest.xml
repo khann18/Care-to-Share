@@ -16,6 +16,21 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".ClaimPostActivity">
+    </activity>
+        <activity android:name=".CreatePostActivity">
+        </activity>
+        <activity android:name=".EditProfileActivity">
+        </activity>
+        <activity android:name=".LoginActivity">
+        </activity>
+        <activity android:name=".MessageBoardActivity">
+        </activity>
+        <activity android:name=".MessageResponseActivity">
+        </activity>
+        <activity android:name=".ViewDonorResponsesActivity">
+        </activity>
     </application>
 
 </manifest>
