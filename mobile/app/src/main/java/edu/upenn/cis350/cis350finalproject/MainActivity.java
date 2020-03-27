@@ -1,30 +1,50 @@
 package edu.upenn.cis350.cis350finalproject;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
 
-import android.widget.Toolbar;
+import android.view.View;
+import android.widget.ListView;
+import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
+import java.util.ArrayList;
+
+public class MainActivity extends AppCompatActivity implements RAdapter.ItemClickListener {
+    private RecyclerView recyclerView;
+    private RAdapter mAdapter;
+    private RecyclerView.LayoutManager layoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+        // recyclerView = (RecyclerView) findViewById(R.id.recycler);
         setContentView(R.layout.activity_main);
-//        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
 
-        //setSupportActionBar(myToolbar);
+        // data to populate the RecyclerView with
+        ArrayList<String> animalNames = new ArrayList<>();
+        animalNames.add("Horse");
+        animalNames.add("Cow");
+        animalNames.add("Camel");
+        animalNames.add("Sheep");
+        animalNames.add("Goat");
+
+        ListView listView = (ListView) findViewById(R.id.listView);
+        listView.setAdapter(new CustomAdapter(this));
+        // set up the RecyclerView
+//        RecyclerView recyclerView = findViewById(R.id.recycler);
+//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+//        mAdapter = new RAdapter(this, animalNames);
+//        mAdapter.setClickListener(this);
+//        recyclerView.setAdapter(mAdapter);
     }
 
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        MenuInflater inflater = getMenuInflater();
-//        inflater.inflate(R.menu.menu1, menu);
-//        return true;
-//    }
+    @Override
+    public void onItemClick(View view, int position) {
+        Toast.makeText(this, "You clicked " + mAdapter.getItem(position) + " on row number " + position, Toast.LENGTH_SHORT).show();
+    }
 
 }
