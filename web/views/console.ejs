@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="UTF-8">
+<title>Admin Console</title>
+
+<!-- CSS (load bootstrap from a CDN) -->
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+<style>
+    body    { padding-top:50px; }
+</style>
+
+<nav class="navbar navbar-default" role="navigation">
+<div class="container-fluid">
+
+    <div class="navbar-header">
+        <a class="navbar-brand" href="#">
+            <span class="glyphicon glyphicon glyphicon-tree-deciduous"></span>
+            More Info
+        </a>
+
+        <ul class="nav navbar-nav">
+            <li><a href="/">Home</a></li>
+            <li><a href="/about">About</a></li>
+        </ul>
+
+    </div>
+</div>
+</nav>
+
+
+<main>
+    <div class="jumbotron">
+        <h2>Admin Console</h2>
+        <p>Search for Users</p>
+      <div class="topnav">
+		  <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names..">
+	  </div>
+        <ul id = "myUL">
+        <%for (var result in results){%>
+          <li><a href="<%= result %>" class="btn btn-primary" role="button"><%= results[result] %></a></li>    
+          <%}%>
+        </ul>
+    </div>
+</main>
+
+<!-- views/partials/footer.ejs -->
+<p class="text-center text-muted">CIS 350 Final Project</p>
+
+
+<script>
+function myFunction() {
+  // Declare variables
+  var input, filter, ul, li, a, i, txtValue;
+  input = document.getElementById('myInput');
+  filter = input.value.toUpperCase();
+  ul = document.getElementById("myUL");
+  li = ul.getElementsByTagName('li');
+
+  // Loop through all list items, and hide those who don't match the search query
+  for (i = 0; i < li.length; i++) {
+    a = li[i].getElementsByTagName("a")[0];
+    txtValue = a.textContent || a.innerText;
+    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+      li[i].style.display = "";
+    } else {
+      li[i].style.display = "none";
+    }
+  }
+}
+</script>
+
+</html>
+
+

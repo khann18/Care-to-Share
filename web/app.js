@@ -9,6 +9,7 @@ var app = express();
 
 app.get('/', routes.login);
 
+app.get('/console', routes.console);
 
 
 app.listen(3000, function () {
