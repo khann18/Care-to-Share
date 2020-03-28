@@ -10,12 +10,19 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapView;
+
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity implements RAdapter.ItemClickListener {
-    private RecyclerView recyclerView;
-    private RAdapter mAdapter;
-    private RecyclerView.LayoutManager layoutManager;
+public class MainActivity extends AppCompatActivity  {
+//    private RecyclerView recyclerView;
+//    private RAdapter mAdapter;
+//    private RecyclerView.LayoutManager layoutManager;
+
+    MapView mapView;
+    GoogleMap map;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,9 +49,9 @@ public class MainActivity extends AppCompatActivity implements RAdapter.ItemClic
 //        recyclerView.setAdapter(mAdapter);
     }
 
-    @Override
-    public void onItemClick(View view, int position) {
-        Toast.makeText(this, "You clicked " + mAdapter.getItem(position) + " on row number " + position, Toast.LENGTH_SHORT).show();
-    }
+//    @Override
+//    public void onItemClick(View view, int position) {
+//        Toast.makeText(this, "You clicked " + mAdapter.getItem(position) + " on row number " + position, Toast.LENGTH_SHORT).show();
+//    }
 
 }
