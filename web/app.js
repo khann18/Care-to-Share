@@ -12,8 +12,11 @@ var routes = require('./routes/routes.js');
 
 
 app.get('/', routes.login);
+
 app.get('/home', routes.home);
 app.get('/createaccount', routes.create_user);
+app.get('/console', routes.console);
+
 
 app.listen(3000, function () {
   console.log('listening on port 3000!');

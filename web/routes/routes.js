@@ -4,6 +4,7 @@ var post_db = require('../database/userdatabase.js');
 var User = require('../database/users.js');
 var Post = require('../database/posts.js');
 
+var testArray = ["Alex", "Taki", "Vatsin", "Katherine"]
 
 var getLogin = function (req, res){
 	res.render('login.ejs', {message : null});
@@ -45,6 +46,9 @@ var createNewUser = function(req, res) {
 
 }
 
+var displayConsole = function (req, res){
+	res.render('console.ejs', {message : null, results:testArray});
+};
 
 var routes = {
   login: getLogin,
@@ -52,8 +56,18 @@ var routes = {
   home: getHome,
   account_creation: getCreateAccount,
   create_user: createNewUser,
-
+  console: displayConsole,
 };
+
+
+
+// var displayLogin = function (req, res){
+// 	res.render('login.ejs', {message : null, results:[]});
+// };
+
+
+
+
 
 //exporting the routes
 module.exports = routes;

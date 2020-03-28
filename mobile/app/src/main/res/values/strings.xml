@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">CIS350 Final Project</string>
+    <string-array name="images">
+        <item>Living Room</item>
+        <item>Master Bedroom</item>
+        <item>Children Bedroom</item>
+        <item>Kitchen1</item>
+        <item>Kitchen2</item>
+        <item>Gallery</item>
+    </string-array>
 </resources>

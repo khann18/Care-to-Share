@@ -6,13 +6,89 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <!--    <android.support.v7.widget.Toolbar-->
+    <!--        android:id="@+id/my_toolbar"-->
+    <!--        android:layout_width="409dp"-->
+    <!--        android:layout_height="55dp"-->
+    <!--        android:layout_marginStart="1dp"-->
+    <!--        android:layout_marginTop="33dp"-->
+    <!--        android:background="?attr/colorPrimary"-->
+    <!--        android:elevation="4dp"-->
+    <!--        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toTopOf="parent"-->
+    <!--        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />-->
+
+    <SearchView
+        android:layout_width="414dp"
+        android:layout_height="44dp"
+        android:layout_marginTop="231dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!--    <androidx.recyclerview.widget.RecyclerView-->
+    <!--        android:id = "@+id/recycler"-->
+    <!--        android:layout_width="409dp"-->
+    <!--        android:layout_height="454dp"-->
+    <!--        android:layout_marginEnd="1dp"-->
+    <!--        android:layout_marginBottom="1dp"-->
+    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent" />-->
+    <!--    -->
+
+    <ListView
+        android:id="@+id/listView"
+        android:layout_width="414dp"
+        android:layout_height="452dp"
+        android:layout_marginTop="279dp"
+        android:divider="#666666"
+        android:dividerHeight="0.1dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
+        android:id="@+id/textView"
+        android:layout_width="410dp"
+        android:layout_height="88dp"
+        android:background="#4CAF50"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="Logout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="348dp"
+        android:layout_marginTop="21dp"
+        android:layout_marginEnd="16dp"
+        android:src="@drawable/profile_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="150dp"
+        android:layout_height="28dp"
+        android:layout_marginTop="31dp"
+        android:text="Final Project"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.557"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
