@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import android.view.View;
@@ -54,4 +55,27 @@ public class MainActivity extends AppCompatActivity  {
 //        Toast.makeText(this, "You clicked " + mAdapter.getItem(position) + " on row number " + position, Toast.LENGTH_SHORT).show();
 //    }
 
+    public static final int CLAIMPOSTACTIVITY_ID = 1;
+
+    public void onLaunchButtonClick(View view) {
+        Intent i = new Intent(this, ClaimPostActivity.class);
+//        DO STUFF HERE TO PUT THIS IN DB AS DUMMY
+//        User me = new User("Katherine", "Hann", "Phoenix",
+//                "Donor", "khann22", "123", "6023205772",
+//                "khann22@seas.upenn.edu", "Food4U");
+//        Post p = new Post("Yes I am giving away tasty foods.", "Philadelphia", new Date(), me, "khann22@seas.upenn.edu");
+//        Bundle bundle = new Bundle();
+//        bundle.putSerializable("POST", p);
+//
+//        try {
+//            URL url = new URL("http://10.0.2.2:3000/createaccount?username=" + "khann22");
+//            AsyncTask<URL, String, String> task = new AccessWebTask();
+//            task.execute(url);
+//            String name = task.get();
+//        } catch (Exception e) {
+//            //do nothing???
+//        }
+        startActivityForResult(i, CLAIMPOSTACTIVITY_ID);
+
+    }
 }
