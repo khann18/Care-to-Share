@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#BADAF3"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#CD6DA0DB"
+        android:fontFamily="serif"
+        android:text="Compose Message"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
+
+    <TextView
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="109dp"
+        android:background="#8EC0E9"
+        android:backgroundTintMode="add" />
+
+    <EditText
+        android:id="@+id/enterMessage"
+        android:layout_width="match_parent"
+        android:layout_height="219dp">
+
+        <requestFocus />
+
+    </EditText>
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:backgroundTint="#009688"
+        android:fontFamily="serif"
+        android:text="Send message for approval"
+        android:textSize="18sp"
+        android:onClick="onSendButtonClick"/>
+</LinearLayout>
