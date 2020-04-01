@@ -46,6 +46,22 @@ var createNewUser = function(req, res) {
 
 }
 
+//returns true if the username and password match
+var checkPassword = function(req, res) {
+	var user = req.query.username;
+	var password = req.query.password;
+	user_db.getPassword(user, function(err, data) {
+		if (err) {
+			console.log(err);
+		} else {
+			console.log(data);
+			var correctPassword = data.get('password');
+			res.send(correctPassword === password);
+		}
+	});
+
+}
+
 var displayConsole = function (req, res){
 	res.render('console.ejs', {message : null, results:testArray});
 };
@@ -57,6 +73,7 @@ var routes = {
   account_creation: getCreateAccount,
   create_user: createNewUser,
   console: displayConsole,
+  check_password: checkPassword,
 };
 
 
