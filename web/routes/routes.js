@@ -40,6 +40,7 @@ var createNewUser = function(req, res) {
 			console.log(err);
 		} else {
 			console.log(data);
+			//Returns the entire User object that was created
 			res.send(newUser);
 		}
 	});

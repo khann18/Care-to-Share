@@ -20,4 +20,16 @@ public class DataSource {
             return false;
         }
     }
+
+    public static void createAccount(String firstName, String lastName) {
+        try {
+            URL url = new URL("http://10.0.2.2:3000/createaccount?firstName=" + firstName + "&lastName=" + lastName);
+            AccessWebTask task = new AccessWebTask();
+            task.execute(url);
+            String result = task.get();
+            Log.d("RESULT", result);
+        }catch (Exception e){
+
+        }
+    }
 }

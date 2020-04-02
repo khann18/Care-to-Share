@@ -18,4 +18,6 @@
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Not a valid password</string>
     <string name="login_failed">"Login failed: incorrect username or password"</string>
+    <string name="title_activity_create_account">CreateAccountActivity</string>
+    <string name="account_creation">Create a new account</string>
 </resources>

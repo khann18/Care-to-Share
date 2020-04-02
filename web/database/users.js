@@ -21,7 +21,7 @@ var userSchema = new Schema({
 	userType: String,
 	username: String,
 	password: String,
-	phoneNumber: Number,
+	phoneNumber: String,
 	email: String,
 	organization: String
     });
