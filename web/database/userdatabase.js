@@ -15,6 +15,11 @@ var createUser = function(user, route_callback) {
 	    } ); 
 }
 
+var getPassword = function(username, route_callback) {
+	User.findOne({username : username}).select('password').exec(route_callback);
+}
+
 module.exports = {
 	createUser: createUser,
+	getPassword: getPassword,
 }

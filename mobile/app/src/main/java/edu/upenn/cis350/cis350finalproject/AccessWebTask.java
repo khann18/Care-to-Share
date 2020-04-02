@@ -30,10 +30,10 @@ public class AccessWebTask extends AsyncTask<URL, String, String> {
             JSONObject jo = new JSONObject(msg);
 
             //assumes that JSON object contains a "name" field
-            String name = jo.getString("name");
+            String result = jo.getString("result");
 
             // this will be passed to onPostExecute method
-            return name;
+            return result;
         } catch (Exception e) {
             return e.toString();
         }

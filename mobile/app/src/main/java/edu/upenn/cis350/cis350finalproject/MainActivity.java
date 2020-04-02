@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 import android.view.View;
@@ -14,7 +15,11 @@ import android.widget.Toast;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.Date;
+
+import edu.upenn.cis350.cis350finalproject.data.DataSource;
 
 public class MainActivity extends AppCompatActivity  {
 //    private RecyclerView recyclerView;
@@ -57,24 +62,17 @@ public class MainActivity extends AppCompatActivity  {
 
     public static final int CLAIMPOSTACTIVITY_ID = 1;
 
-    public void onLaunchButtonClick(View view) {
+    public void onClaimPostButtonClick(View view) {
         Intent i = new Intent(this, ClaimPostActivity.class);
 //        DO STUFF HERE TO PUT THIS IN DB AS DUMMY
-//        User me = new User("Katherine", "Hann", "Phoenix",
-//                "Donor", "khann22", "123", "6023205772",
-//                "khann22@seas.upenn.edu", "Food4U");
-//        Post p = new Post("Yes I am giving away tasty foods.", "Philadelphia", new Date(), me, "khann22@seas.upenn.edu");
-//        Bundle bundle = new Bundle();
-//        bundle.putSerializable("POST", p);
-//
-//        try {
-//            URL url = new URL("http://10.0.2.2:3000/createaccount?username=" + "khann22");
-//            AsyncTask<URL, String, String> task = new AccessWebTask();
-//            task.execute(url);
-//            String name = task.get();
-//        } catch (Exception e) {
-//            //do nothing???
-//        }
+        User me = new User("Katherine", "Hann", "Phoenix",
+                "Donor", "khann22", "123", "6023205772",
+                "khann22@seas.upenn.edu", "Food4U");
+        Post p = new Post("Yes I am giving away tasty foods.", "Philadelphia", new Date(), me, "khann22@seas.upenn.edu");
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("POST", p);
+
+        DataSource.createFullUser(me);
         startActivityForResult(i, CLAIMPOSTACTIVITY_ID);
 
     }
