@@ -56,7 +56,7 @@ var checkPassword = function(req, res) {
 		} else {
 			console.log(data);
 			var correctPassword = data.get('password');
-			res.send(correctPassword === password);
+			res.send({result: correctPassword === password});
 		}
 	});
 
