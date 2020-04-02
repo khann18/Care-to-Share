@@ -63,6 +63,24 @@ var checkPassword = function(req, res) {
 
 }
 
+//returns "true" if the username is already taken
+var checkUsername = function(req, res) {
+	var username = req.query.username;
+	user_db.checkUsernameTaken(username, function(err, data) {
+		if (err) {
+			console.log(err);
+		} else {
+			if (data) {
+				res.send({result: "true"});
+			} else {
+				res.send({result: "false"})
+			}
+			
+		}
+	});
+
+}
+
 var displayConsole = function (req, res){
 	res.render('console.ejs', {message : null, results:testArray});
 };
@@ -75,6 +93,7 @@ var routes = {
   create_user: createNewUser,
   console: displayConsole,
   check_password: checkPassword,
+  check_username: checkUsername,
 };
 
 

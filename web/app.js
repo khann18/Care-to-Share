@@ -16,6 +16,7 @@ app.get('/', routes.login);
 app.get('/home', routes.home);
 app.get('/createaccount', routes.create_user);
 app.get('/loginCheck', routes.check_password);
+app.get('/usernameTaken', routes.check_username);
 app.get('/console', routes.console);
 
 

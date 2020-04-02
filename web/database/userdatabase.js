@@ -19,7 +19,13 @@ var getPassword = function(username, route_callback) {
 	User.findOne({username : username}).select('password').exec(route_callback);
 }
 
+//returns the User object or null if there is no User in the database with that username
+var checkUsernameTaken = function(username, route_callback) {
+	User.findOne({username : username}).exec(route_callback);
+}
+
 module.exports = {
 	createUser: createUser,
 	getPassword: getPassword,
+	checkUsernameTaken: checkUsernameTaken,
 }

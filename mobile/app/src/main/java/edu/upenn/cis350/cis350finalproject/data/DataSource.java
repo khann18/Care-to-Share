@@ -21,15 +21,30 @@ public class DataSource {
         }
     }
 
-    public static void createAccount(String firstName, String lastName) {
+    public static void createAccount(String firstName, String lastName, String username, String password, String email, String phoneNumber) {
         try {
-            URL url = new URL("http://10.0.2.2:3000/createaccount?firstName=" + firstName + "&lastName=" + lastName);
+            URL url = new URL("http://10.0.2.2:3000/createaccount?firstName=" + firstName +
+                    "&lastName=" + lastName + "&username=" + username + "&phoneNumber=" + phoneNumber
+            + "&email=" + email + "&password=" + password);
             AccessWebTask task = new AccessWebTask();
             task.execute(url);
             String result = task.get();
             Log.d("RESULT", result);
         }catch (Exception e){
 
+        }
+    }
+
+    public static boolean isUsernameTaken(String username) {
+        try {
+            URL url = new URL("http://10.0.2.2:3000/usernameTaken?username=" + username);
+            AccessWebTask task = new AccessWebTask();
+            task.execute(url);
+            String result = task.get();
+            Log.d("RESULT", result);
+            return (result.equals("true"));
+        }catch (Exception e){
+            return false;
         }
     }
 }
