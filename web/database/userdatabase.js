@@ -21,5 +21,5 @@ var getPassword = function(username, route_callback) {
 
 module.exports = {
 	createUser: createUser,
-	getPassword: getPassword,
+	getPassword: getPassword
 }

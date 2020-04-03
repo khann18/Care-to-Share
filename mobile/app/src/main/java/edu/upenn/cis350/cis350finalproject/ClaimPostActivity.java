@@ -7,14 +7,18 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import edu.upenn.cis350.cis350finalproject.data.DataSource;
+
 public class ClaimPostActivity extends AppCompatActivity {
+
+private Post post;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.claim_post);
         Bundle bundle = getIntent().getExtras();
-        Post post = (Post) bundle.getSerializable("POST");
+        post = (Post) bundle.getSerializable("POST");
         TextView header = (TextView) findViewById(R.id.header);
         String headerText = "Provide more information about your organization to " +
                 post.getPostedBy().getFirstName() + " from " +
@@ -24,6 +28,10 @@ public class ClaimPostActivity extends AppCompatActivity {
 
     public void onSendButtonClick(View view) {
         EditText editText = (EditText) findViewById(R.id.enterMessage);
+        String message = editText.getText().toString();
+        post.setClaimMessage(message);
+        post.setIsClaimed();
+        DataSource.setClaimMessage(post);
         finish();
     }
 }

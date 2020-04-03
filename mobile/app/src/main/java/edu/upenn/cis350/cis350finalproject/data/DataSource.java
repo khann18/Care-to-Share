@@ -5,6 +5,7 @@ import android.util.Log;
 import java.net.URL;
 
 import edu.upenn.cis350.cis350finalproject.AccessWebTask;
+import edu.upenn.cis350.cis350finalproject.Post;
 import edu.upenn.cis350.cis350finalproject.User;
 
 public class DataSource {
@@ -34,13 +35,6 @@ public class DataSource {
         }
     }
 
-    //User me = new User("Katherine", "Hann", "Phoenix",
-    //                "Donor", "khann22", "123", "6023205772",
-    //                "khann22@seas.upenn.edu", "Food4U");
-    //        Post p = new Post("Yes I am giving away tasty foods.", "Philadelphia", new Date(), me, "khann22@seas.upenn.edu");
-//    public static void createFullUser(String firstName, String lastName, String location,
-//                                      String userType, String username, String password,
-//                                      String phoneNumber, String email, String organization) {
     public static void createFullUser(User user) {
         try {
             URL url = new URL("http://10.0.2.2:3000/createaccount?firstName=" + user.getFirstName() +
@@ -52,6 +46,40 @@ public class DataSource {
                     "&phoneNumber=" + user.getPhoneNumber() +
                     "&email=" + user.getEmail() +
                     "&organization=" + user.getOrganization());
+            AccessWebTask task = new AccessWebTask();
+            task.execute(url);
+            String result = task.get();
+            Log.d("RESULT", result);
+        }catch (Exception e){
+            System.out.println("yikessssss");
+        }
+    }
+
+    public static void createPost(Post p) {
+        try {
+            URL url = new URL("http://10.0.2.2:3000/createpost?description=" + p.getDescription() +
+                    "&location=" + p.getLocation() +
+                    "&pickupTime=" + p.getPickupTime() +
+                    "&postedBy=" + p.getPostedBy().getUsername() +
+                    "&contactInfo=" + p.getContactInfo() +
+                    "&isClaimed=" + p.getIsClaimed() +
+                    "&claimMessage=" + p.getClaimMessage());
+            AccessWebTask task = new AccessWebTask();
+            task.execute(url);
+            System.out.println("we're getting here1");
+            String result = task.get();
+            System.out.println("we're getting here2");
+            Log.d("RESULT", result);
+            System.out.println("we're getting here3");
+        }catch (Exception e){
+            System.out.println("yikessssss");
+        }
+    }
+
+    public static void setClaimMessage(Post p) {
+        try {
+            URL url = new URL("http://10.0.2.2:3000/setclaimmessage?description=" +
+                    p.getDescription() + "&message=" + p.getClaimMessage());
             AccessWebTask task = new AccessWebTask();
             task.execute(url);
             String result = task.get();

@@ -65,14 +65,15 @@ public class MainActivity extends AppCompatActivity  {
     public void onClaimPostButtonClick(View view) {
         Intent i = new Intent(this, ClaimPostActivity.class);
 //        DO STUFF HERE TO PUT THIS IN DB AS DUMMY
-        User me = new User("Katherine", "Hann", "Phoenix",
-                "Donor", "khann22", "123", "6023205772",
-                "khann22@seas.upenn.edu", "Food4U");
-        Post p = new Post("Yes I am giving away tasty foods.", "Philadelphia", new Date(), me, "khann22@seas.upenn.edu");
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("POST", p);
+        User me = new User("Paula", "Hann", "Phoenix",
+                "Donor", "yikes", "on bikes", "11111111",
+                "hann@seas.upenn.edu", "Food4Us");
+        Post p = new Post("Yes I am giving away tasty foods.", "Philadelphia",
+                new Date(), me, "khann22@seas.upenn.edu", false, "");
+        i.putExtra("POST", p);
 
         DataSource.createFullUser(me);
+        DataSource.createPost(p);
         startActivityForResult(i, CLAIMPOSTACTIVITY_ID);
 
     }
