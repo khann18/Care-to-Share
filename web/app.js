@@ -12,7 +12,7 @@ var routes = require('./routes/routes.js');
 
 
 app.get('/', routes.login);
-app.get('/post', routes.get_post);
+app.get('/post', routes.create_post);
 app.get('/home', routes.home);
 app.get('/createaccount', routes.create_user);
 app.get('/console', routes.console);
