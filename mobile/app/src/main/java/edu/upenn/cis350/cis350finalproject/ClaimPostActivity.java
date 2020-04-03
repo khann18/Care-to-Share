@@ -35,3 +35,5 @@ private Post post;
         finish();
     }
 }
+
+//things Im not sure about. how to maintain objects between runs of the app
