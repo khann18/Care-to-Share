@@ -3,6 +3,36 @@
 <meta charset="UTF-8">
 <title>Admin Console</title>
 
+<head>
+<style>
+.button {
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+.SearchBar {
+    position: absolute;
+    top: 355px;
+    left: 575px;
+    height: 30px;
+    width: 50px;
+}
+
+.button1 {width: 250px;}
+.button2 {width: 50%;}
+.button3 {width: 100%;}
+</style>
+</head>
+<body>
+
 <!-- CSS (load bootstrap from a CDN) -->
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
 <style>
@@ -37,7 +67,7 @@
 	  </div>
         <ul id = "myUL">
         <%for (var result in results){%>
-          <li><a href="<%= result %>" class="btn btn-primary" role="button"><%= results[result] %></a></li>    
+          <li><a href="<%= result %>" class="button button2" role="button"><%= results[result].firstName + " " + results[result].lastName %></a></li>    
           <%}%>
         </ul>
     </div>
@@ -48,6 +78,27 @@
 
 
 <script>
+
+  async function getCSVData() {
+    fetch('http://localhost:3000/getUser', {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json'
+
+    },
+  }).then(function (res) {
+    res.json().then(function(data){
+      for (var i = 0; i < data.length; i++) {
+
+      }
+      console.log(data);
+    });
+    //document.getElementById("server").innerHTML = res.status;
+    // console.log(res);
+  }).catch(console.log("HTML ERROR"));
+}
+// getCSVData();
+
 function myFunction() {
   // Declare variables
   var input, filter, ul, li, a, i, txtValue;

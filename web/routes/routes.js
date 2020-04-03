@@ -47,8 +47,48 @@ var createNewUser = function(req, res) {
 }
 
 var displayConsole = function (req, res){
-	res.render('console.ejs', {message : null, results:testArray});
+	user_db.getUser("Test", function(err, data) {
+		if (err) {
+			console.log(err);
+			res.render('console.ejs', {message : null, results:testArray});
+
+		} else {
+			console.log("CONSOLE DATA");
+			console.log(data);
+			testArray = data;
+			res.render('console.ejs', {message : null, results:testArray});
+			// res.send(data);
+		}
+	});
+	console.log("Async Test");
 };
+
+var getUser = function(req, res) {
+	user_db.getUser("Test", function(err, data) {
+		if (err) {
+			console.log(err);
+		} else {
+			console.log(data);
+			res.send(data);
+		}
+	});
+}
+
+var checkPassword = function(req, res) {
+	var user = req.query.username;
+	var password = req.query.password;
+	user_db.getPassword(user, function(err, data) {
+		if (err) {
+			console.log(err);
+		} else {
+			console.log(data);
+			var correctPassword = data.get('password');
+			res.send(correctPassword === password);
+		}
+	});
+
+}
+
 
 var routes = {
   login: getLogin,
@@ -57,6 +97,8 @@ var routes = {
   account_creation: getCreateAccount,
   create_user: createNewUser,
   console: displayConsole,
+  get_user: getUser,
+  check_password: checkPassword
 };
 
 
