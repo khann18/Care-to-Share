@@ -26,9 +26,8 @@ var getCreateAccount = function(req, res) {
 
 var createNewPost = function(req, res) {
 	var newPost = new Post({
-		description: req.query.discription,
+		description: req.query.description,
 		location: req.query.location,
-		pickupTime: req.query.pickuptime,
 		postedBy: req.query.poster,
 		contactInfo: req.query.contact,
 		marked: req.query.marked
