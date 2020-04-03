@@ -63,7 +63,12 @@ public class MainActivity extends AppCompatActivity  {
     public static final int CLAIMPOSTACTIVITY_ID = 1;
 
     public void onClaimPostButtonClick(View view) {
-        Intent i = new Intent(this, ClaimPostActivity.class);
+//        Intent i = new Intent(this, ClaimPostActivity.class);
+
+          Intent i = new Intent(this, MessageBoardActivity.class);
+
+
+
 //        DO STUFF HERE TO PUT THIS IN DB AS DUMMY
         User me = new User("Paula", "Hann", "Phoenix",
                 "Donor", "yikes", "on bikes", "11111111",
