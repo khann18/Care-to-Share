@@ -4,10 +4,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.Toast;
@@ -83,6 +85,20 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         ListView listView = (ListView) findViewById(R.id.listView);
         lv = listView;
         sv = (SearchView) findViewById(R.id.searchbar);
+
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Context context = getApplicationContext();
+                CharSequence text = "Hello toast!";
+                int duration = Toast.LENGTH_SHORT;
+
+                Toast toast = Toast.makeText(context, text, duration);
+                toast.show();
+
+                ca.addItem("NewPost");
+                // When clicked perform some action...
+            }
+        });
 
         CustomAdapter cAdapter = new CustomAdapter(this);
         ca = cAdapter;

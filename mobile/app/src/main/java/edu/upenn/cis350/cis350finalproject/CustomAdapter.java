@@ -30,10 +30,10 @@ public class CustomAdapter extends BaseAdapter implements Filterable
 
         // rooms = res.getStringArray(R.array.images);
         this.stringList = new ArrayList<String>();
-        rooms = new String[]{"Post1", "Post2", "Post3", "Post1", "Post2", "Post3", "Post1", "Post2", "Post3", "Post1", "Post2", "Post3",
-                "Post1", "Post2", "Post3", "Post1", "Post2", "Post3", "Post1", "Post2", "Post3", "Post1", "Post2", "Post3"};
+        // rooms = new String[]{"Post1", "Post2", "Post3", "Post15", "Post2", "Post3", "Post1", "Post2", "Post3", "Post1", "Post2", "Post3",
+         //       "Post1", "Post2", "Post3", "Post1", "Post2", "Post3", "Post1", "Post2", "Post3", "Post1", "Post2", "Post3"};
         stringList.add("Post1");
-        stringList.add("Post2");
+        stringList.add("Post12");
         stringList.add("Post3");
 
         masterList.add("Post1");
@@ -60,22 +60,24 @@ public class CustomAdapter extends BaseAdapter implements Filterable
     public void addItem(String item) {
         masterList.add(item);
         stringList.add(item);
-        notifyDataSetChanged();
+        this.notifyDataSetChanged();
     }
 
 
     @Override
     public int getCount() {
-        return rooms.length;
+
+        return stringList.size();
     }
 
     @Override
     public Object getItem(int position) {
 
-        return rooms[position];
+        return stringList.get(position);
     }
 
     public void notifyDataSetChanged() {
+
         super.notifyDataSetChanged();
     }
 
@@ -164,7 +166,7 @@ public class CustomAdapter extends BaseAdapter implements Filterable
 
         LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view =  inflater.inflate(R.layout.single_row,parent,false);
-        TextView txt = (TextView) view.findViewById(R.id.txt_item);
+        TextView txt = (TextView) view.findViewById(R.id.firstLine);
         // String temp = rooms[position];
         if (position < stringList.size()) {
             String temp = stringList.get(position);

@@ -11,9 +11,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="425d378b-4ad0-4010-8900-06f40763c511" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/edu/upenn/cis350/cis350finalproject/Post.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/edu/upenn/cis350/cis350finalproject/User.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/claim_post.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.1.1/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.1.1/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.1.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.1.1/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.1.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.1.1/fileHashes/fileHashes.bin" afterDir="false" />
@@ -24,7 +21,9 @@
       <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/caches/gradle_models.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/gradle_models.ser" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/edu/upenn/cis350/cis350finalproject/ClaimPostActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/edu/upenn/cis350/cis350finalproject/ClaimPostActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/edu/upenn/cis350/cis350finalproject/CustomAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/edu/upenn/cis350/cis350finalproject/CustomAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/edu/upenn/cis350/cis350finalproject/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/edu/upenn/cis350/cis350finalproject/MainActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/single_row.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/single_row.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -53,23 +52,28 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/edu/upenn/cis350/cis350finalproject/ClaimPostActivity.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="195">
-              <caret line="18" column="30" selection-start-line="18" selection-start-column="30" selection-end-line="18" selection-end-column="30" />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/claim_post.xml">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="30">
-              <caret line="23" lean-forward="true" selection-start-line="23" selection-end-line="23" />
+              <caret line="23" selection-start-line="23" selection-end-line="23" />
             </state>
           </provider>
           <provider editor-type-id="android-designer2" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/edu/upenn/cis350/cis350finalproject/MainActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="163">
+              <caret line="115" column="42" lean-forward="true" selection-start-line="115" selection-start-column="42" selection-end-line="115" selection-end-column="42" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#2442#2656#0" expanded="true" />
+                <element signature="e#2655#2656#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
@@ -131,7 +135,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/edu/upenn/cis350/cis350finalproject/RAdapter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="825">
+            <state relative-caret-position="415">
               <caret line="67" column="64" selection-start-line="67" selection-start-column="64" selection-end-line="67" selection-end-column="64" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -141,19 +145,22 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/values/map_api.xml">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/edu/upenn/cis350/cis350finalproject/CustomAdapter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="90">
-              <caret line="6" column="12" selection-start-line="6" selection-start-column="12" selection-end-line="6" selection-end-column="12" />
+            <state relative-caret-position="299">
+              <caret line="64" lean-forward="true" selection-start-line="64" selection-end-line="64" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/single_row.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="345">
-              <caret line="23" column="18" selection-start-line="23" selection-start-column="18" selection-end-line="23" selection-end-column="18" />
+            <state relative-caret-position="575">
+              <caret line="23" selection-start-line="23" selection-end-line="23" />
             </state>
           </provider>
           <provider editor-type-id="android-designer2" />
@@ -201,6 +208,9 @@
       <find>rec</find>
       <find>search</find>
       <find>getFilter</find>
+      <find>rooms</find>
+      <find>item</find>
+      <find>addItem</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -217,16 +227,16 @@
         <option value="$PROJECT_DIR$/app/src/main/res/layout/post.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/edu/upenn/cis350/cis350finalproject/RAdapter.java" />
         <option value="$PROJECT_DIR$/app/build.gradle" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/single_row.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/edu/upenn/cis350/cis350finalproject/MainActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/edu/upenn/cis350/cis350finalproject/CustomAdapter.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/edu/upenn/cis350/cis350finalproject/ClaimPostActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/edu/upenn/cis350/cis350finalproject/Post.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/edu/upenn/cis350/cis350finalproject/User.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/claim_post.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/claim_post.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/single_row.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/edu/upenn/cis350/cis350finalproject/CustomAdapter.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/edu/upenn/cis350/cis350finalproject/MainActivity.java" />
       </list>
     </option>
   </component>
@@ -242,6 +252,23 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
+      <pane id="PackagesPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="mobile" type="58d84e3e:PackageViewProjectNode" />
+              <item name="app" type="616d4139:PackageViewModuleNode" />
+            </path>
+            <path>
+              <item name="mobile" type="58d84e3e:PackageViewProjectNode" />
+              <item name="app" type="616d4139:PackageViewModuleNode" />
+              <item name="layout" type="1f31426a:PackageElementNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -284,27 +311,51 @@
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="cis350finalproject" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="mobile" type="b2602c69:ProjectViewProjectNode" />
+              <item name="mobile" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="res" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="mobile" type="b2602c69:ProjectViewProjectNode" />
+              <item name="mobile" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="res" type="462c0819:PsiDirectoryNode" />
+              <item name="layout" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="mobile" type="b2602c69:ProjectViewProjectNode" />
+              <item name="mobile" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="mobile" type="b2602c69:ProjectViewProjectNode" />
+              <item name="mobile" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="mobile" type="b2602c69:ProjectViewProjectNode" />
+              <item name="mobile" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="cis350finalproject" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="mobile" type="58d84e3e:PackageViewProjectNode" />
-              <item name="app" type="616d4139:PackageViewModuleNode" />
-            </path>
-            <path>
-              <item name="mobile" type="58d84e3e:PackageViewProjectNode" />
-              <item name="app" type="616d4139:PackageViewModuleNode" />
-              <item name="layout" type="1f31426a:PackageElementNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
-      <pane id="Scope" />
       <pane id="AndroidView" />
     </panes>
   </component>
@@ -572,8 +623,8 @@
     <editor active="true" />
     <layout>
       <window_info id="Captures" order="0" sideWeight="0.5020325" side_tool="true" weight="0.24248926" />
-      <window_info active="true" content_ui="combo" id="Project" order="1" sideWeight="0.85162604" visible="true" weight="0.31402004" />
-      <window_info id="Structure" order="2" sideWeight="0.14837398" side_tool="true" visible="true" weight="0.31402004" />
+      <window_info active="true" content_ui="combo" id="Project" order="1" sideWeight="0.847561" visible="true" weight="0.31402004" />
+      <window_info id="Structure" order="2" sideWeight="0.15243903" side_tool="true" visible="true" weight="0.31402004" />
       <window_info id="Favorites" order="3" sideWeight="0.50139666" side_tool="true" weight="0.22460657" />
       <window_info id="Build Variants" order="4" side_tool="true" />
       <window_info id="Image Layers" order="5" />
@@ -649,12 +700,12 @@
       <provider editor-type-id="android-designer2" />
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
-      <provider editor-type-id="android-manifest" />
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="150">
           <caret line="10" column="44" selection-start-line="10" selection-start-column="44" selection-end-line="10" selection-end-column="44" />
         </state>
       </provider>
+      <provider editor-type-id="android-manifest" />
     </entry>
     <entry file="file://$PROJECT_DIR$/build.gradle">
       <provider selected="true" editor-type-id="text-editor">
@@ -670,41 +721,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/edu/upenn/cis350/cis350finalproject/CustomAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="870">
-          <caret line="58" lean-forward="true" selection-start-line="57" selection-start-column="5" selection-end-line="58" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#582#590#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/edu/upenn/cis350/cis350finalproject/MainActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="148">
-          <caret line="19" column="13" selection-start-line="19" selection-start-column="13" selection-end-line="19" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="135">
           <caret line="9" column="19" selection-start-line="9" selection-start-column="19" selection-end-line="9" selection-end-column="19" />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/single_row.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="15" column="49" selection-start-line="15" selection-start-column="49" selection-end-line="15" selection-end-column="49" />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2" />
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/edu/upenn/cis350/cis350finalproject/LoginActivity.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -713,20 +735,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/edu/upenn/cis350/cis350finalproject/RAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="825">
-          <caret line="67" column="64" selection-start-line="67" selection-start-column="64" selection-end-line="67" selection-end-column="64" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/claim_post.xml" />
     <entry file="file://$PROJECT_DIR$/app/src/main/res/values/map_api.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
           <caret line="6" column="12" selection-start-line="6" selection-start-column="12" selection-end-line="6" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/edu/upenn/cis350/cis350finalproject/ClaimPostActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="18" column="30" selection-start-line="18" selection-start-column="30" selection-end-line="18" selection-end-column="30" />
         </state>
       </provider>
     </entry>
@@ -754,22 +774,20 @@
       </provider>
       <provider editor-type-id="android-designer2" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/edu/upenn/cis350/cis350finalproject/Post.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/single_row.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="600">
-          <caret line="40" column="1" selection-start-line="40" selection-start-column="1" selection-end-line="40" selection-end-column="1" />
+        <state relative-caret-position="575">
+          <caret line="23" selection-start-line="23" selection-end-line="23" />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/edu/upenn/cis350/cis350finalproject/RAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="415">
+          <caret line="67" column="64" selection-start-line="67" selection-start-column="64" selection-end-line="67" selection-end-column="64" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#664#665#0" expanded="true" />
-            <element signature="e#698#699#0" expanded="true" />
-            <element signature="e#733#734#0" expanded="true" />
-            <element signature="e#764#765#0" expanded="true" />
-            <element signature="e#799#800#0" expanded="true" />
-            <element signature="e#832#833#0" expanded="true" />
-            <element signature="e#870#871#0" expanded="true" />
-            <element signature="e#904#905#0" expanded="true" />
-            <element signature="e#937#938#0" expanded="true" />
-            <element signature="e#968#969#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -804,25 +822,53 @@
     <entry file="file://$PROJECT_DIR$/app/src/main/res/values/colors.xml">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/claim_post.xml">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/edu/upenn/cis350/cis350finalproject/Post.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="5" column="31" selection-start-line="5" selection-start-column="31" selection-end-line="5" selection-end-column="31" />
+        <state relative-caret-position="600">
+          <caret line="40" column="1" selection-start-line="40" selection-start-column="1" selection-end-line="40" selection-end-column="1" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#664#665#0" expanded="true" />
+            <element signature="e#698#699#0" expanded="true" />
+            <element signature="e#733#734#0" expanded="true" />
+            <element signature="e#764#765#0" expanded="true" />
+            <element signature="e#799#800#0" expanded="true" />
+            <element signature="e#832#833#0" expanded="true" />
+            <element signature="e#870#871#0" expanded="true" />
+            <element signature="e#904#905#0" expanded="true" />
+            <element signature="e#937#938#0" expanded="true" />
+            <element signature="e#968#969#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/claim_post.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="30">
-          <caret line="23" lean-forward="true" selection-start-line="23" selection-end-line="23" />
+          <caret line="23" selection-start-line="23" selection-end-line="23" />
         </state>
       </provider>
       <provider editor-type-id="android-designer2" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/edu/upenn/cis350/cis350finalproject/ClaimPostActivity.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/edu/upenn/cis350/cis350finalproject/CustomAdapter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="18" column="30" selection-start-line="18" selection-start-column="30" selection-end-line="18" selection-end-column="30" />
+        <state relative-caret-position="299">
+          <caret line="64" lean-forward="true" selection-start-line="64" selection-end-line="64" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/edu/upenn/cis350/cis350finalproject/MainActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="163">
+          <caret line="115" column="42" lean-forward="true" selection-start-line="115" selection-start-column="42" selection-end-line="115" selection-end-column="42" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#2442#2656#0" expanded="true" />
+            <element signature="e#2655#2656#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
