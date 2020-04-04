@@ -67,7 +67,8 @@
 	  </div>
         <ul id = "myUL">
         <%for (var result in results){%>
-          <li><a href="<%= result %>" class="button button2" role="button"><%= results[result].firstName + " " + results[result].lastName %></a></li>    
+          <li style="list-style-type: none;">
+><a href="<%= result %>" class="button button2" role="button"><%= results[result].firstName + " " + results[result].lastName %></a></li>    
           <%}%>
         </ul>
     </div>
