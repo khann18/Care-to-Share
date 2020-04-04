@@ -13,7 +13,9 @@ var routes = require('./routes/routes.js');
 
 app.get('/', routes.login);
 app.get('/post', routes.create_post);
-app.get('/home', routes.home);
+app.get('/disapprove', routes.admin_disapprove);
+app.get('/approve', routes.admin_approve);
+app.get('/home', routes.get_admin_post);
 app.get('/createaccount', routes.create_user);
 app.get('/console', routes.console);
 

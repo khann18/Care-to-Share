@@ -1,13 +1,38 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title>Admin Home</title>
-  </head>
-  <body>
-    
+
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="/home.css" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <title>Admin Home</title>
+</head>
 
 
 
-  </body>
+<nav class="navbar navbar-light" style="background-color: #e3f2fd;">
+  <a class="navbar-brand">Navbar</a>
+  <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+</nav>
+
+
+<body>
+  <!-- <div class="row">
+    <div class="card">
+      <div class="card-body">
+        This is some text within a card body.
+      </div>
+    </div>
+  </div> -->
+<ul>
+  <% for (var k = 0; k < message.length; k++) { %>
+  <li>
+    <%= message[k].description %>
+  </li>
+  <% } %>
+</ul>
+
+
+</body>
+
 </html>

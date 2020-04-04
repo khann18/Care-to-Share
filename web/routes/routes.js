@@ -15,9 +15,6 @@ var getLogout = function(req, res) {
 	res.redirect('/');
 };
 
-var getHome = function(req, res) {
-	res.render('home.ejs');
-}
 
 var getCreateAccount = function(req, res) {
 	res.render('signup.ejs');
@@ -59,11 +56,32 @@ var getAdminPosts = function(req, res) {
 			console.log(err);
 		}else {
 			console.log(data);
-			res.send(data);
+			res.render('home.ejs', {message : data });
 		}
 	});
 }
 
+var deletePost = function(req, res) {
+	post_db.deletePost({description: req.query.description}, function(err, data){
+		if (err) {
+			console.log(err);
+		}else {
+			console.log(data);
+			res.redirect('/home');
+		}
+	});
+}
+
+var editPostMarked = function(req, res) {
+	post_db.editMarked({description: req.query.description}, function(err, data){
+		if (err) {
+			console.log(err);
+		}else {
+			console.log(data);
+			res.redirect('/home');
+		}
+	});
+}
 
 var createNewUser = function(req, res) {
 	var newUser = new User ({
@@ -93,12 +111,13 @@ var displayConsole = function (req, res){
 };
 
 var routes = {
+	admin_approve: editPostMarked,
+	admin_disapprove: deletePost,
 	create_post: createNewPost,
 	get_post: getPosts,
 	get_admin_post: getAdminPosts,
   login: getLogin,
   logout: getLogout,
-  home: getHome,
   account_creation: getCreateAccount,
   create_user: createNewUser,
   console: displayConsole,
