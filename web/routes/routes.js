@@ -1,6 +1,6 @@
 //accessing the database functions
 var user_db = require('../database/userdatabase.js');
-var post_db = require('../database/userdatabase.js');
+var post_db = require('../database/postdatabase.js');
 var User = require('../database/users.js');
 var Post = require('../database/posts.js');
 
@@ -67,6 +67,19 @@ var getUser = function(req, res) {
 	user_db.getUser("Test", function(err, data) {
 		if (err) {
 			console.log(err);
+			res.send(404);
+		} else {
+			console.log(data);
+			res.send(data);
+		}
+	});
+}
+
+var getPost = function(req, res) {
+	post_db.get_Post("Test", function(err, data) {
+		if (err) {
+			console.log(err);
+			res.send(404);
 		} else {
 			console.log(data);
 			res.send(data);
@@ -98,6 +111,7 @@ var routes = {
   create_user: createNewUser,
   console: displayConsole,
   get_user: getUser,
+  get_post: getPost,
   check_password: checkPassword
 };
 

@@ -24,6 +24,8 @@ var getUser = function(username, route_callback) {
 	User.find().exec(route_callback);
 }
 
+
+
 module.exports = {
 	createUser: createUser,
 	getPassword: getPassword,

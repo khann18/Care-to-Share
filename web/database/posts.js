@@ -2,14 +2,14 @@
 //this file only for the Post schema
 
 var mongoose = require('mongoose');
-const db = 'mongodb+srv://mkalil:MADDIE@cluster0-bm2zb.mongodb.net/350Project?retryWrites=true&w=majority';
+const db = 'mongodb+srv://ayang015:Ay309548@cluster0-bm2zb.mongodb.net/350Project?retryWrites=true&w=majority';
 mongoose
     .connect(db, { 
         useNewUrlParser: true,
         useCreateIndex: true,
         useUnifiedTopology: true
       })
-    .then(() => console.log('MongoDB connected...'))
+    .then(() => console.log('MongoDB posts connected...'))
     .catch(err => console.log(err));
 
 var Schema = mongoose.Schema;

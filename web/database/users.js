@@ -2,14 +2,14 @@
     MADDIE for your password in the below uri. Username is your email username and password is your first name all caps 
 */
 var mongoose = require('mongoose');
-const db = 'mongodb+srv://ayang015:La890729@0607@cluster0-qf07n.mongodb.net/test?retryWrites=true&w=majority';
+const db = 'mongodb+srv://ayang015:Ay309548@cluster0-bm2zb.mongodb.net/test?retryWrites=true&w=majority';
 mongoose
     .connect(db, { 
         useNewUrlParser: true,
         useCreateIndex: true,
         useUnifiedTopology: true
       })
-    .then(() => console.log('MongoDB connected...'))
+    .then(() => console.log('MongoDB Users connected...'))
     .catch(err => console.log(err));
 
 var Schema = mongoose.Schema;

@@ -26,6 +26,7 @@ app.get('/home', routes.home);
 app.get('/createaccount', routes.create_user);
 app.get('/console', routes.console);
 app.get('/getUser', routes.get_user);
+app.get('/getPost', routes.get_post);
 
 app.get('/testRoute', function(req, res) {
 	async function main(){
