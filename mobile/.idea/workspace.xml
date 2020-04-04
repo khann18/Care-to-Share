@@ -11,19 +11,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="425d378b-4ad0-4010-8900-06f40763c511" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.gradle/5.1.1/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.1.1/executionHistory/executionHistory.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/5.1.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.1.1/executionHistory/executionHistory.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/5.1.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.1.1/fileHashes/fileHashes.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/edu/upenn/cis350/cis350finalproject/AccessWebTask.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.1.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.1.1/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/5.1.1/javaCompile/classAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.1.1/javaCompile/classAnalysis.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/5.1.1/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.1.1/javaCompile/javaCompile.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/caches/gradle_models.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/gradle_models.ser" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/edu/upenn/cis350/cis350finalproject/CustomAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/edu/upenn/cis350/cis350finalproject/CustomAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/edu/upenn/cis350/cis350finalproject/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/edu/upenn/cis350/cis350finalproject/MainActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/single_row.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/single_row.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/edu/upenn/cis350/cis350finalproject/Post.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/edu/upenn/cis350/cis350finalproject/Post.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -62,11 +53,11 @@
           <provider editor-type-id="android-designer2" />
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/edu/upenn/cis350/cis350finalproject/MainActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="163">
-              <caret line="115" column="42" lean-forward="true" selection-start-line="115" selection-start-column="42" selection-end-line="115" selection-end-column="42" />
+            <state relative-caret-position="103">
+              <caret line="111" column="34" lean-forward="true" selection-start-line="111" selection-start-column="34" selection-end-line="111" selection-end-column="34" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#2442#2656#0" expanded="true" />
@@ -84,20 +75,36 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/edu/upenn/cis350/cis350finalproject/Post.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="600">
-              <caret line="40" column="1" selection-start-line="40" selection-start-column="1" selection-end-line="40" selection-end-column="1" />
+            <state relative-caret-position="180">
+              <caret line="12" column="32" lean-forward="true" selection-start-line="12" selection-start-column="32" selection-end-line="12" selection-end-column="32" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#664#665#0" expanded="true" />
-                <element signature="e#698#699#0" expanded="true" />
-                <element signature="e#733#734#0" expanded="true" />
-                <element signature="e#764#765#0" expanded="true" />
-                <element signature="e#799#800#0" expanded="true" />
-                <element signature="e#832#833#0" expanded="true" />
-                <element signature="e#870#871#0" expanded="true" />
-                <element signature="e#904#905#0" expanded="true" />
-                <element signature="e#937#938#0" expanded="true" />
-                <element signature="e#968#969#0" expanded="true" />
+                <element signature="e#863#864#0" expanded="true" />
+                <element signature="e#897#898#0" expanded="true" />
+                <element signature="e#932#933#0" expanded="true" />
+                <element signature="e#963#964#0" expanded="true" />
+                <element signature="e#998#999#0" expanded="true" />
+                <element signature="e#1031#1032#0" expanded="true" />
+                <element signature="e#1069#1070#0" expanded="true" />
+                <element signature="e#1103#1104#0" expanded="true" />
+                <element signature="e#1136#1137#0" expanded="true" />
+                <element signature="e#1167#1168#0" expanded="true" />
+                <element signature="e#1204#1205#0" expanded="true" />
+                <element signature="e#1236#1237#0" expanded="true" />
+                <element signature="e#1386#1387#0" expanded="true" />
+                <element signature="e#1421#1422#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/edu/upenn/cis350/cis350finalproject/AccessWebTask.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="175">
+              <caret line="35" column="26" lean-forward="true" selection-start-line="35" selection-start-column="26" selection-end-line="35" selection-end-column="26" />
+              <folding>
+                <element signature="imports" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -167,16 +174,6 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/menu/menu1.xml">
-          <provider editor-type-id="text-editor">
-            <state relative-caret-position="225">
-              <caret line="15" column="33" selection-start-line="15" selection-start-column="33" selection-end-line="15" selection-end-column="33" />
-            </state>
-          </provider>
-          <provider selected="true" editor-type-id="android-designer2" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/toolbar.xml">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="120">
@@ -193,9 +190,9 @@
       <list>
         <option value="layoutResourceFile" />
         <option value="resourceFile" />
-        <option value="Class" />
         <option value="valueResourceFile" />
         <option value="layoutResourceFile_vertical" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -209,8 +206,8 @@
       <find>search</find>
       <find>getFilter</find>
       <find>rooms</find>
-      <find>item</find>
       <find>addItem</find>
+      <find>item</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -230,13 +227,14 @@
         <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/edu/upenn/cis350/cis350finalproject/ClaimPostActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/edu/upenn/cis350/cis350finalproject/Post.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/edu/upenn/cis350/cis350finalproject/User.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/claim_post.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/claim_post.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/single_row.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/edu/upenn/cis350/cis350finalproject/CustomAdapter.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/edu/upenn/cis350/cis350finalproject/MainActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/edu/upenn/cis350/cis350finalproject/Post.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/edu/upenn/cis350/cis350finalproject/AccessWebTask.java" />
       </list>
     </option>
   </component>
@@ -822,26 +820,6 @@
     <entry file="file://$PROJECT_DIR$/app/src/main/res/values/colors.xml">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/edu/upenn/cis350/cis350finalproject/Post.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="600">
-          <caret line="40" column="1" selection-start-line="40" selection-start-column="1" selection-end-line="40" selection-end-column="1" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#664#665#0" expanded="true" />
-            <element signature="e#698#699#0" expanded="true" />
-            <element signature="e#733#734#0" expanded="true" />
-            <element signature="e#764#765#0" expanded="true" />
-            <element signature="e#799#800#0" expanded="true" />
-            <element signature="e#832#833#0" expanded="true" />
-            <element signature="e#870#871#0" expanded="true" />
-            <element signature="e#904#905#0" expanded="true" />
-            <element signature="e#937#938#0" expanded="true" />
-            <element signature="e#968#969#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/claim_post.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="30">
@@ -862,12 +840,46 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/edu/upenn/cis350/cis350finalproject/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="163">
-          <caret line="115" column="42" lean-forward="true" selection-start-line="115" selection-start-column="42" selection-end-line="115" selection-end-column="42" />
+        <state relative-caret-position="103">
+          <caret line="111" column="34" lean-forward="true" selection-start-line="111" selection-start-column="34" selection-end-line="111" selection-end-column="34" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#2442#2656#0" expanded="true" />
             <element signature="e#2655#2656#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/edu/upenn/cis350/cis350finalproject/Post.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="12" column="32" lean-forward="true" selection-start-line="12" selection-start-column="32" selection-end-line="12" selection-end-column="32" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#863#864#0" expanded="true" />
+            <element signature="e#897#898#0" expanded="true" />
+            <element signature="e#932#933#0" expanded="true" />
+            <element signature="e#963#964#0" expanded="true" />
+            <element signature="e#998#999#0" expanded="true" />
+            <element signature="e#1031#1032#0" expanded="true" />
+            <element signature="e#1069#1070#0" expanded="true" />
+            <element signature="e#1103#1104#0" expanded="true" />
+            <element signature="e#1136#1137#0" expanded="true" />
+            <element signature="e#1167#1168#0" expanded="true" />
+            <element signature="e#1204#1205#0" expanded="true" />
+            <element signature="e#1236#1237#0" expanded="true" />
+            <element signature="e#1386#1387#0" expanded="true" />
+            <element signature="e#1421#1422#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/edu/upenn/cis350/cis350finalproject/AccessWebTask.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="175">
+          <caret line="35" column="26" lean-forward="true" selection-start-line="35" selection-start-column="26" selection-end-line="35" selection-end-column="26" />
+          <folding>
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
