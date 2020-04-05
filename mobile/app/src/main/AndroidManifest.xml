@@ -18,6 +18,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         android:usesCleartextTraffic="true">
+
+        <activity android:name=".MainActivity">
         <activity
             android:name=".ui.login.CreateAccountActivity"
             android:label="@string/title_activity_create_account"
@@ -31,7 +33,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity"></activity>
         <activity android:name=".ClaimPostActivity" />
         <activity android:name=".CreatePostActivity" />
         <activity android:name=".EditProfileActivity" />

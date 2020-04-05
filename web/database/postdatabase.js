@@ -1,5 +1,10 @@
 var Post = require('../database/posts.js');
 
+var getPost = function(username, route_callback) {
+	console.log("Finding Posts")
+	Post.find().exec(route_callback);
+}
+
 var createPost = function(post, route_callback) {
 	// save the user to the database
 	post.save( (err) => {

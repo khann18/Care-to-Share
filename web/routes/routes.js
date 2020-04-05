@@ -225,8 +225,49 @@ var deleteaccount = function(req, res) {
 }
 
 var displayConsole = function (req, res){
-	res.render('console.ejs', {message : null, results:testArray});
+	user_db.getUser("Test", function(err, data) {
+		if (err) {
+			console.log(err);
+			res.render('console.ejs', {message : null, results:testArray});
+
+		} else {
+			console.log("CONSOLE DATA");
+			console.log(data);
+			testArray = data;
+			res.render('console.ejs', {message : null, results:testArray});
+			// res.send(data);
+		}
+	});
+	console.log("Async Test");
 };
+
+var getUser = function(req, res) {
+	user_db.getUser("Test", function(err, data) {
+		if (err) {
+			console.log(err);
+			res.send(404);
+		} else {
+			console.log(data);
+			res.send(data);
+		}
+	});
+}
+
+var checkPassword = function(req, res) {
+	var user = req.query.username;
+	var password = req.query.password;
+	user_db.getPassword(user, function(err, data) {
+		if (err) {
+			console.log(err);
+		} else {
+			console.log(data);
+			var correctPassword = data.get('password');
+			res.send(correctPassword === password);
+		}
+	});
+
+}
+
 
 var routes = {
 	admin_approve: editPostMarked,
@@ -234,17 +275,18 @@ var routes = {
 	create_post: createNewPost,
 	get_post: getPosts,
 	get_admin_post: getAdminPosts,
-  	login: getLogin,
-  	logout: getLogout,
-  	account_creation: getCreateAccount,
-  	create_user: createNewUser,
+  get_users: getUser,
+  login: getLogin,
+  logout: getLogout,
+  account_creation: getCreateAccount,
+  create_user: createNewUser,
  	console: displayConsole,
-  	check_password: checkPassword,
-  	set_claim_message: setPostClaimMessage,
-  	check_username: checkUsername,
-  	get_user: userInfo,
-  	update_account: updateAccount,
-  	deleteaccount: deleteaccount,
+  check_password: checkPassword,
+  set_claim_message: setPostClaimMessage,
+  check_username: checkUsername,
+  get_user: userInfo,
+  update_account: updateAccount,
+  deleteaccount: deleteaccount,
 };
 //exporting the routes
 module.exports = routes;

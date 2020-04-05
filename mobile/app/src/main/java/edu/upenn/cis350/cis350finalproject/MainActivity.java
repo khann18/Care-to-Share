@@ -4,12 +4,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -63,41 +65,39 @@ public class MainActivity extends AppCompatActivity  {
     @Override
     public boolean onQueryTextSubmit(String query)
     {
+        DataSource.getTest();
         return false;
     }
 
-//    public boolean onQueryTextChange(String newText) {
-//
-//        if (TextUtils.isEmpty(newText)) {
-//            ca.getFilter().filter("");
-//        } else {
-//            ca.getFilter().filter(newText.toString());
-//        }
-//        return true;
-//    }
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        // recyclerView = (RecyclerView) findViewById(R.id.recycler);
         setContentView(R.layout.activity_main);
 
         //get username passed to intent
         final String username = getIntent().getStringExtra("username");
 
-        // data to populate the RecyclerView with
-//        ArrayList<String> animalNames = new ArrayList<>();
-//        animalNames.add("Horse");
-//        animalNames.add("Cow");
-//        animalNames.add("Camel");
-//        animalNames.add("Sheep");
-//        animalNames.add("Goat");
 
         ListView listView = (ListView) findViewById(R.id.listView);
         lv = listView;
         sv = (SearchView) findViewById(R.id.searchbar);
+
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Context context = getApplicationContext();
+                CharSequence text = "Hello toast!";
+                int duration = Toast.LENGTH_SHORT;
+
+                Toast toast = Toast.makeText(context, text, duration);
+                toast.show();
+
+                ca.addItem("NewPost");
+                // When clicked perform some action...
+            }
+        });
 
         CustomAdapter cAdapter = new CustomAdapter(this);
         ca = cAdapter;
@@ -105,15 +105,6 @@ public class MainActivity extends AppCompatActivity  {
 
         lv.setTextFilterEnabled(true);
         setupSearchView();
-
-
-
-        // set up the RecyclerView
-//        RecyclerView recyclerView = findViewById(R.id.recycler);
-//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-//        mAdapter = new RAdapter(this, animalNames);
-//        mAdapter.setClickListener(this);
-//        recyclerView.setAdapter(mAdapter);
 
         ImageButton editProfile = findViewById(R.id.edit_profile_button);
         editProfile.setOnClickListener(new View.OnClickListener() {
@@ -135,10 +126,6 @@ public class MainActivity extends AppCompatActivity  {
         });
     }
 
-//    @Override
-//    public void onItemClick(View view, int position) {
-//        Toast.makeText(this, "You clicked " + mAdapter.getItem(position) + " on row number " + position, Toast.LENGTH_SHORT).show();
-//    }
 
     public static final int CLAIMPOSTACTIVITY_ID = 1;
 

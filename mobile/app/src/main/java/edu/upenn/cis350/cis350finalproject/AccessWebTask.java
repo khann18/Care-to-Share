@@ -12,6 +12,7 @@ public class AccessWebTask extends AsyncTask<URL, String, String> {
     /*This method is called in background when this object's "execute" method is invoked.
     The arguments passed to "execute" are passed to this method.*/
     protected String doInBackground(URL... urls) {
+
         try {
             //get the first URL from the array
             URL url = urls[0];
@@ -37,6 +38,6 @@ public class AccessWebTask extends AsyncTask<URL, String, String> {
         } catch (Exception e) {
             return e.toString();
         }
-
     }
+
 }
