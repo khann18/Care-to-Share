@@ -37,12 +37,6 @@ public class AccessWebTask extends AsyncTask<URL, String, String> {
         } catch (Exception e) {
             return e.toString();
         }
-    }
-
-    /*This method is called in foreground after doInBackground finishes.
-    It can access and update Views in user interface.*/
-    protected void onPostExecute(String msg) {
-        // not implemented but you can use this if you’d like
 
     }
 }

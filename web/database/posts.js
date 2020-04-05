@@ -1,10 +1,9 @@
- 
-//this file only for the Post schema
+ //this file only for the Post schema
 
 var mongoose = require('mongoose');
 const db = 'mongodb+srv://khann22:KATHERINE@cluster0-bm2zb.mongodb.net/350Project?retryWrites=true&w=majority';
 mongoose
-    .connect(db, { 
+    .connect(db, {
         useNewUrlParser: true,
         useCreateIndex: true,
         useUnifiedTopology: true
@@ -21,7 +20,8 @@ var postSchema = new Schema({
     postedBy: String, //username of the poster
     contactInfo: String, //could be email or phone number
     isClaimed: Boolean,
-    claimMessage: String
+    claimMessage: String,
+    marked: String
     });
 
 
@@ -29,3 +29,7 @@ var postSchema = new Schema({
 // export postSchema as a class called Post
 module.exports = mongoose.model('Post', postSchema);
 
+postSchema.methods.standardizeName = function() {
+    this.name = this.name.toLowerCase();
+    return this.name;
+}
