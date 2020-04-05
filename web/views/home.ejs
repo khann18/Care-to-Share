@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+
+
+<head>
+  <title>Admin Home</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="./css/home.css" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <script src="https://kit.fontawesome.com/566c51828b.js" crossorigin="anonymous"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+</head>
+
+
+
+<nav class="navbar navbar-light" style="background-color: #e3f2fd;">
+  <a class="navbar-brand">Navbar</a>
+
+</nav>
+
+
+<script>
+$(document).ready(function(){
+  $('.toast').toast('show');
+});
+</script>
+
+
+<body>
+  <div>
+    <% for (var k = 0; k < message.length; k++) { %>
+
+        <div class="toast" data-autohide="false">
+          <div class="toast-header">
+            <strong class="mr-auto text-primary"> @<%= message[k].postedBy %></strong>
+            <small class="text-muted"><%= message[k].location %></small>
+          </div>
+          <div class="toast-body">
+            <%= message[k].description %>
+            <form action="/disapprove" method="GET">
+                  <input type="hidden" name="id" value=<%=message[k]._id %> />
+                  <button type="submit" class="ml-2 mb-1 close" data-dismiss="toast"><i class="fas fa-times" style="size:1px;"></i></button>
+            </form>
+            <form action="/approve" method="GET">
+                  <input type="hidden" name="id" value=<%=message[k]._id %> />
+                  <button type="submit" class="ml-2 mb-1 close" data-dismiss="toast"><i style="size:1px;" class="fas fa-check"></i></button>
+            </form>
+          </div>
+        </div>
+
+    <% } %>
+
+</div>
+
+</body>
+
+</html>

@@ -1,6 +1,6 @@
 //accessing the database functions
 var user_db = require('../database/userdatabase.js');
-var post_db = require('../database/userdatabase.js');
+var post_db = require('../database/postdatabase.js');
 var User = require('../database/users.js');
 var Post = require('../database/posts.js');
 
@@ -15,13 +15,73 @@ var getLogout = function(req, res) {
 	res.redirect('/');
 };
 
-var getHome = function(req, res) {
-	res.render('home.ejs'); 
-}
 
 var getCreateAccount = function(req, res) {
 	res.render('signup.ejs');
 };
+
+
+var createNewPost = function(req, res) {
+	var newPost = new Post({
+		description: req.query.description,
+		location: req.query.location,
+		postedBy: req.query.poster,
+		contactInfo: req.query.contact,
+		marked: req.query.marked
+	});
+
+	post_db.createPost(newPost, function(err, data){
+		if (err) {
+			console.log(err);
+		} else {
+			console.log(data);
+		}
+	});
+}
+
+var getPosts = function(req, res) {
+	post_db.getPosts({marked: 'user'}, function(err, data){
+		if (err) {
+			console.log(err);
+		}else {
+			console.log(data);
+			res.send(data);
+		}
+	});
+}
+
+var getAdminPosts = function(req, res) {
+	post_db.getPosts({marked: 'admin'}, function(err, data){
+		if (err) {
+			console.log(err);
+		}else {
+			console.log(data);
+			res.render('home.ejs', {message : data });
+		}
+	});
+}
+
+var deletePost = function(req, res) {
+	post_db.deletePost({_id: req.query.id}, function(err, data){
+		if (err) {
+			console.log(err);
+		}else {
+			console.log(data);
+			res.redirect('/home');
+		}
+	});
+}
+
+var editPostMarked = function(req, res) {
+	post_db.editMarked({_id: req.query.id}, function(err, data){
+		if (err) {
+			console.log(err);
+		}else {
+			console.log(data);
+			res.redirect('/home');
+		}
+	});
+}
 
 var createNewUser = function(req, res) {
 	var newUser = new User ({
@@ -147,9 +207,13 @@ var displayConsole = function (req, res){
 };
 
 var routes = {
+	admin_approve: editPostMarked,
+	admin_disapprove: deletePost,
+	create_post: createNewPost,
+	get_post: getPosts,
+	get_admin_post: getAdminPosts,
   login: getLogin,
   logout: getLogout,
-  home: getHome,
   account_creation: getCreateAccount,
   create_user: createNewUser,
   console: displayConsole,
@@ -159,16 +223,6 @@ var routes = {
   update_account: updateAccount,
   deleteaccount: deleteaccount,
 };
-
-
-
-// var displayLogin = function (req, res){
-// 	res.render('login.ejs', {message : null, results:[]});
-// };
-
-
-
-
 
 //exporting the routes
 module.exports = routes;

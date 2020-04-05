@@ -3,12 +3,54 @@ package edu.upenn.cis350.cis350finalproject;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
+import android.content.Intent;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+
+import edu.upenn.cis350.cis350finalproject.MainActivity;
+import edu.upenn.cis350.cis350finalproject.R;
+import edu.upenn.cis350.cis350finalproject.data.DataSource;
 
 public class CreatePostActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.create_post);
+
+
+        final Button submitButton = findViewById(R.id.submit_button);
+        submitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String description = ((EditText) findViewById(R.id.description)).getText().toString();
+                String contact = ((EditText) findViewById(R.id.contact)).getText().toString();
+                String location = ((EditText) findViewById(R.id.location)).getText().toString();
+
+                if (description.isEmpty() || contact.isEmpty() || location.isEmpty()) {
+                    Toast.makeText(getApplicationContext(), "Please fill out all of the fields", Toast.LENGTH_SHORT).show();
+                } else {
+
+                    String marked = "user";
+                    String poster = getIntent().getStringExtra("username");
+                    String [] bannedKeyWords = {"damn", "fuck", "drug", "drugs", "hell"};
+
+                    for (String b: bannedKeyWords) {
+                        if (description.contains(b)){
+                            marked = "admin";
+                        }
+                    }
+
+                    DataSource.createPost(description, contact, location, marked, poster);
+                }
+
+
+            }
+        });
+
+
+
     }
 }
