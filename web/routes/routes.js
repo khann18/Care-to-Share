@@ -62,7 +62,7 @@ var getAdminPosts = function(req, res) {
 }
 
 var deletePost = function(req, res) {
-	post_db.deletePost({description: req.query.description}, function(err, data){
+	post_db.deletePost({_id: req.query.id}, function(err, data){
 		if (err) {
 			console.log(err);
 		}else {
@@ -73,7 +73,7 @@ var deletePost = function(req, res) {
 }
 
 var editPostMarked = function(req, res) {
-	post_db.editMarked({description: req.query.description}, function(err, data){
+	post_db.editMarked({_id: req.query.id}, function(err, data){
 		if (err) {
 			console.log(err);
 		}else {

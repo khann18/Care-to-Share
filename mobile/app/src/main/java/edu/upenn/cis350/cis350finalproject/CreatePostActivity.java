@@ -44,11 +44,6 @@ public class CreatePostActivity extends AppCompatActivity {
                     }
 
                     DataSource.createPost(description, contact, location, marked, poster);
-
-                    Intent i = new Intent(getApplicationContext(), MainActivity.class);
-                    //pass username to the home (main) activity
-                    i.putExtra("username", poster);
-                    startActivity(i);
                 }
 
 

@@ -24,13 +24,31 @@
       </div>
     </div>
   </div> -->
-<ul>
-  <% for (var k = 0; k < message.length; k++) { %>
-  <li>
-    <%= message[k].description %>
-  </li>
-  <% } %>
-</ul>
+  <ul>
+    <% for (var k = 0; k < message.length; k++) { %>
+    <li>
+      <%= message[k].description %>
+
+      <form action="/approve" method="GET">
+        <div class="card">
+          <div class="card-header">
+            <input type="hidden" name="id" value=<%=message[k]._id %> />
+            <input id="Button1" class="btn my-2 my-sm-0" type="submit" value="Approve">
+          </div>
+        </div>
+      </form>
+
+      <form action="/disapprove" method="GET">
+        <div class="card">
+          <div class="card-header">
+            <input type="hidden" name="id" value=<%=message[k]._id %> />
+            <input id="Button2" class="btn my-2 my-sm-0" type="submit" value="Dissaprove">
+          </div>
+        </div>
+      </form>
+    </li>
+    <% } %>
+  </ul>
 
 
 </body>
