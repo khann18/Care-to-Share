@@ -9,13 +9,18 @@ public class Post implements Serializable {
     private Date pickupTime;
     private User postedBy; //username
     private String contactInfo; //email or phone number
+    private boolean isClaimed;
+    private String claimMessage;
 
-    public Post (String description, String location, Date pickupTime, User postedBy, String contactInfo) {
+    public Post (String description, String location, Date pickupTime, User postedBy,
+                 String contactInfo, boolean isClaimed, String claimMessage) {
         this.description = description;
         this.location = location;
         this.pickupTime = pickupTime;
         this.postedBy = postedBy;
         this.contactInfo = contactInfo;
+        this.isClaimed = isClaimed;
+        this.claimMessage = claimMessage;
     }
 
     public String getDescription() {
@@ -38,4 +43,21 @@ public class Post implements Serializable {
         return postedBy;
     }
 
+    public boolean getIsClaimed() {
+        return isClaimed;
+    }
+
+    public void setIsClaimed() {
+        isClaimed = true;
+        //Maybe take out of db at this time?
+    }
+
+    public String getClaimMessage() {
+        return claimMessage;
+    }
+
+    public void setClaimMessage(String msg) {
+        claimMessage = msg;
+
+    }
 }

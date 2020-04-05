@@ -26,7 +26,10 @@ var createNewPost = function(req, res) {
 		description: req.query.description,
 		location: req.query.location,
 		postedBy: req.query.poster,
+		pickupTime: req.query.pickupTime,
 		contactInfo: req.query.contact,
+		isClaimed: req.query.isClaimed,
+		claimMessage: req.query.claimMessage,
 		marked: req.query.marked
 	});
 
@@ -107,6 +110,7 @@ var createNewUser = function(req, res) {
 
 }
 
+
 //returns true if the username and password match
 var checkPassword = function(req, res) {
 	var user = req.query.username;
@@ -122,8 +126,6 @@ var checkPassword = function(req, res) {
 			} else {
 				res.send({result: "false"});
 			}
-
-			
 		}
 	});
 
@@ -141,10 +143,32 @@ var checkUsername = function(req, res) {
 			} else {
 				res.send({result: "false"})
 			}
-			
 		}
 	});
 
+}
+
+var setPostClaimMessage = function(req, res) {
+	var description = req.query.description;
+	var message = req.query.message;
+
+	post_db.setClaimMessage(description, function(err, data) {
+		if (err) {
+			console.log(err);
+		} else {
+			data.claimMessage = message;
+			data.isClaimed = true;
+			console.log(data);
+			data.save( (err) => {
+				if (err) {
+					console.log(err);
+				} else {
+				 	res.send({result: message});
+			    }
+			});
+
+		}
+	});
 }
 
 var updateAccount = function(req, res) {
@@ -200,8 +224,6 @@ var deleteaccount = function(req, res) {
 	});
 }
 
-
-
 var displayConsole = function (req, res){
 	res.render('console.ejs', {message : null, results:testArray});
 };
@@ -212,17 +234,17 @@ var routes = {
 	create_post: createNewPost,
 	get_post: getPosts,
 	get_admin_post: getAdminPosts,
-  login: getLogin,
-  logout: getLogout,
-  account_creation: getCreateAccount,
-  create_user: createNewUser,
-  console: displayConsole,
-  check_password: checkPassword,
-  check_username: checkUsername,
-  get_user: userInfo,
-  update_account: updateAccount,
-  deleteaccount: deleteaccount,
+  	login: getLogin,
+  	logout: getLogout,
+  	account_creation: getCreateAccount,
+  	create_user: createNewUser,
+ 	console: displayConsole,
+  	check_password: checkPassword,
+  	set_claim_message: setPostClaimMessage,
+  	check_username: checkUsername,
+  	get_user: userInfo,
+  	update_account: updateAccount,
+  	deleteaccount: deleteaccount,
 };
-
 //exporting the routes
 module.exports = routes;

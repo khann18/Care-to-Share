@@ -2,7 +2,7 @@
  	MADDIE for your password in the below uri. Username is your email username and password is your first name all caps 
 */
 var mongoose = require('mongoose');
-const db = 'mongodb+srv://mkalil:MADDIE@cluster0-bm2zb.mongodb.net/350Project?retryWrites=true&w=majority';
+const db = 'mongodb+srv://khann22:KATHERINE@cluster0-bm2zb.mongodb.net/350Project?retryWrites=true&w=majority';
 mongoose
     .connect(db, { 
         useNewUrlParser: true,

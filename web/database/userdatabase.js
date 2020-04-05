@@ -55,13 +55,16 @@ var deleteUser = function(username, route_callback) {
 	User.deleteOne({username : username}).exec(route_callback);
 }
 
+var getPassword = function(username, route_callback) {
+	User.findOne({username : username}).select('password').exec(route_callback);
+}
+
 module.exports = {
 	createUser: createUser,
 	getPassword: getPassword,
 	checkUsernameTaken: checkUsernameTaken,
 	saveUser: saveUser,
 	userInfo: userInfo,
-	deleteUser: deleteUser,
-}
+	deleteUser: deleteUser
 }
 
