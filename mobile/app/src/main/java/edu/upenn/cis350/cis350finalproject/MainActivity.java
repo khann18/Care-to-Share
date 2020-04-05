@@ -63,9 +63,9 @@ public class MainActivity extends AppCompatActivity  {
     public static final int CLAIMPOSTACTIVITY_ID = 1;
 
     public void onClaimPostButtonClick(View view) {
-//        Intent i = new Intent(this, ClaimPostActivity.class);
+        Intent i = new Intent(this, ClaimPostActivity.class);
 
-          Intent i = new Intent(this, MessageBoardActivity.class);
+//          Intent i = new Intent(this, MessageBoardActivity.class);
 
 
 
