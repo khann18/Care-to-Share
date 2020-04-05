@@ -17,6 +17,11 @@ app.get('/disapprove', routes.admin_disapprove);
 app.get('/approve', routes.admin_approve);
 app.get('/home', routes.get_admin_post);
 app.get('/createaccount', routes.create_user);
+app.get('/loginCheck', routes.check_password);
+app.get('/usernameTaken', routes.check_username);
+app.get('/updateaccount', routes.update_account);
+app.get('/getUser', routes.get_user);
+app.get('/deleteaccount', routes.deleteaccount);
 app.get('/console', routes.console);
 
 
