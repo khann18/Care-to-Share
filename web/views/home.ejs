@@ -1,55 +1,60 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 
+
+
 <head>
-  <meta charset="utf-8">
-  <link rel="stylesheet" href="/home.css" />
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
   <title>Admin Home</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="./css/home.css" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <script src="https://kit.fontawesome.com/566c51828b.js" crossorigin="anonymous"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 </head>
 
 
 
 <nav class="navbar navbar-light" style="background-color: #e3f2fd;">
   <a class="navbar-brand">Navbar</a>
-  <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+
 </nav>
 
 
+<script>
+$(document).ready(function(){
+  $('.toast').toast('show');
+});
+</script>
+
+
 <body>
-  <!-- <div class="row">
-    <div class="card">
-      <div class="card-body">
-        This is some text within a card body.
-      </div>
-    </div>
-  </div> -->
-  <ul>
+  <div>
     <% for (var k = 0; k < message.length; k++) { %>
-    <li>
-      <%= message[k].description %>
 
-      <form action="/approve" method="GET">
-        <div class="card">
-          <div class="card-header">
-            <input type="hidden" name="id" value=<%=message[k]._id %> />
-            <input id="Button1" class="btn my-2 my-sm-0" type="submit" value="Approve">
+        <div class="toast" data-autohide="false">
+          <div class="toast-header">
+            <strong class="mr-auto text-primary"> @<%= message[k].postedBy %></strong>
+            <small class="text-muted"><%= message[k].location %></small>
+          </div>
+          <div class="toast-body">
+            <%= message[k].description %>
+            <form action="/disapprove" method="GET">
+                  <input type="hidden" name="id" value=<%=message[k]._id %> />
+                  <button type="submit" class="ml-2 mb-1 close" data-dismiss="toast"><i class="fas fa-times" style="size:1px;"></i></button>
+            </form>
+            <form action="/approve" method="GET">
+                  <input type="hidden" name="id" value=<%=message[k]._id %> />
+                  <button type="submit" class="ml-2 mb-1 close" data-dismiss="toast"><i style="size:1px;" class="fas fa-check"></i></button>
+            </form>
           </div>
         </div>
-      </form>
 
-      <form action="/disapprove" method="GET">
-        <div class="card">
-          <div class="card-header">
-            <input type="hidden" name="id" value=<%=message[k]._id %> />
-            <input id="Button2" class="btn my-2 my-sm-0" type="submit" value="Dissaprove">
-          </div>
-        </div>
-      </form>
-    </li>
     <% } %>
-  </ul>
 
+</div>
 
 </body>
 
