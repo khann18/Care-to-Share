@@ -21,8 +21,10 @@ async function listDatabases(client){
  
 
 app.get('/', routes.login);
-
-app.get('/home', routes.home);
+app.get('/post', routes.create_post);
+app.get('/disapprove', routes.admin_disapprove);
+app.get('/approve', routes.admin_approve);
+app.get('/home', routes.get_admin_post);
 app.get('/createaccount', routes.create_user);
 app.get('/console', routes.console);
 app.get('/getUser', routes.get_user);
@@ -67,4 +69,3 @@ main().catch(console.error);
 app.listen(3000, function () {
   console.log('listening on port 3000!');
 });
-

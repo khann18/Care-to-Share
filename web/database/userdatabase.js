@@ -1,9 +1,8 @@
 var User = require('../database/users.js');
 
 var createUser = function(user, route_callback) {
-
 	// save the user to the database
-	user.save( (err) => { 
+	user.save( (err) => {
 		if (err) {
 		    res.type('html').status(200);
 		    res.write('uh oh: ' + err);
@@ -12,7 +11,7 @@ var createUser = function(user, route_callback) {
 		else {
 		   route_callback(null, "success creating user");
 		}
-	    } ); 
+	    } );
 }
 
 var getPassword = function(username, route_callback) {
@@ -31,3 +30,4 @@ module.exports = {
 	getPassword: getPassword,
 	getUser: getUser,
 }
+
