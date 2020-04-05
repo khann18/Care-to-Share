@@ -14,10 +14,6 @@ var createUser = function(user, route_callback) {
 	    } );
 }
 
-var getPassword = function(username, route_callback) {
-	User.find({username : username}).select('password').exec(route_callback);
-}
-
 var getUser = function(username, route_callback) {
 	console.log("Finding Users")
 	User.find().exec(route_callback);
