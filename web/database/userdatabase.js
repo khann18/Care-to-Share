@@ -77,4 +77,3 @@ module.exports = {
 	userInfo: userInfo,
 	deleteUser: deleteUser
 }
-
