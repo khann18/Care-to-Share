@@ -4,9 +4,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -14,6 +17,8 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 
 import java.util.ArrayList;
+
+import edu.upenn.cis350.cis350finalproject.ui.login.LoginActivity;
 
 public class MainActivity extends AppCompatActivity  {
 //    private RecyclerView recyclerView;
@@ -31,6 +36,9 @@ public class MainActivity extends AppCompatActivity  {
         // recyclerView = (RecyclerView) findViewById(R.id.recycler);
         setContentView(R.layout.activity_main);
 
+        //get username passed to intent
+        final String username = getIntent().getStringExtra("username");
+
         // data to populate the RecyclerView with
         ArrayList<String> animalNames = new ArrayList<>();
         animalNames.add("Horse");
@@ -47,6 +55,25 @@ public class MainActivity extends AppCompatActivity  {
 //        mAdapter = new RAdapter(this, animalNames);
 //        mAdapter.setClickListener(this);
 //        recyclerView.setAdapter(mAdapter);
+
+        ImageButton editProfile = findViewById(R.id.edit_profile_button);
+        editProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getApplicationContext(), EditProfileActivity.class);
+                i.putExtra("username", username);
+                startActivity(i);
+            }
+        });
+
+        Button logout = findViewById(R.id.logout_button);
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getApplicationContext(), LoginActivity.class);
+                startActivity(i);
+            }
+        });
     }
 
 //    @Override

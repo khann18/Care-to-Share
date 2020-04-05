@@ -8,7 +8,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Scanner;
 
-public class AccessWebTask extends AsyncTask<URL, String, String> {
+public class APITask extends AsyncTask<URL, String, String> {
     protected String doInBackground(URL[] urls) {
         try {
             URL url = urls[0];
