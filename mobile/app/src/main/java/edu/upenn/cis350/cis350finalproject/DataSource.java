@@ -1,5 +1,4 @@
-package edu.upenn.cis350.cis350finalproject.data;
-
+package edu.upenn.cis350.cis350finalproject;
 import android.util.Log;
 
 import java.net.URL;
@@ -7,8 +6,6 @@ import java.net.URL;
 import edu.upenn.cis350.cis350finalproject.AccessWebTask;
 import edu.upenn.cis350.cis350finalproject.Post;
 import edu.upenn.cis350.cis350finalproject.User;
-import org.json.JSONObject;
-
 
 public class DataSource {
 
@@ -25,11 +22,9 @@ public class DataSource {
         }
     }
 
-    public static void createAccount(String firstName, String lastName, String username, String password, String email, String phoneNumber) {
+    public static void createAccount(String firstName, String lastName) {
         try {
-            URL url = new URL("http://10.0.2.2:3000/createaccount?firstName=" + firstName +
-                    "&lastName=" + lastName + "&username=" + username + "&phoneNumber=" + phoneNumber
-                    + "&email=" + email + "&password=" + password);
+            URL url = new URL("http://10.0.2.2:3000/createaccount?firstName=" + firstName + "&lastName=" + lastName);
             AccessWebTask task = new AccessWebTask();
             task.execute(url);
             String result = task.get();
@@ -58,20 +53,6 @@ public class DataSource {
             System.out.println("yikessssss");
         }
     }
-
-    public static boolean isUsernameTaken(String username) {
-        try {
-            URL url = new URL("http://10.0.2.2:3000/usernameTaken?username=" + username);
-            AccessWebTask task = new AccessWebTask();
-            task.execute(url);
-            String result = task.get();
-            Log.d("RESULT", result);
-            return (result.equals("true"));
-        }catch (Exception e){
-            return false;
-        }
-    }
-            
 
     public static void createPost(Post p) {
         try {
@@ -106,63 +87,16 @@ public class DataSource {
             System.out.println("yikessssss");
         }
     }
-}
 
-    public static void updateAccount(String firstName, String lastName, String username, String password, String email, String phoneNumber, String accountType, String location, String organization) {
+    public static void getTest() {
         try {
-            Log.d("MADE IT HERE", "yuh");
-            URL url = new URL("http://10.0.2.2:3000/updateaccount?firstName=" + firstName +
-                    "&lastName=" + lastName + "&username=" + username + "&phoneNumber=" + phoneNumber
-                    + "&email=" + email + "&password=" + password + "&userType=" + accountType
-            + "&organization=" + organization + "&location=" + location);
-            Log.d("THE URL", url.toString());
+            URL url = new URL("http://10.0.2.2:3000/getUser");
             AccessWebTask task = new AccessWebTask();
             task.execute(url);
             String result = task.get();
             Log.d("RESULT", result);
         }catch (Exception e){
-
-        
-    }}
-    public static void createPost(String description, String contact, String location, String marked, String poster) {
-        try {
-            URL url = new URL("http://10.0.2.2:3000/post?description=" + description +
-                    "&location=" + location + "&poster=" + poster + "&contact=" + contact + "&marked=" + marked);
-            AccessWebTask task = new AccessWebTask();
-            task.execute(url);
-            String result = task.get();
-            Log.d("RESULT", result);
-        }catch (Exception e){
-
-        }
-    }
-
-    public static JSONObject getAccountInfo(String username) {
-        try {
-            URL url = new URL("http://10.0.2.2:3000/getUser?username=" + username);
-            APITask task = new APITask();
-            task.execute(url);
-            String result = task.get();
-            JSONObject j = new JSONObject(result);
-            Log.d("RESULT", result);
-            return j;
-
-        }catch (Exception e){
-            return null;
-        }
-    }
-
-    public static void deleteAccount(String username) {
-        try {
-            URL url = new URL("http://10.0.2.2:3000/deleteaccount?username=" + username);
-            APITask task = new APITask();
-            task.execute(url);
-            String result = task.get();
-            JSONObject j = new JSONObject(result);
-            Log.d("RESULT", result);
-
-        }catch (Exception e){
-
+            System.out.println("yikessssss");
         }
     }
 }
