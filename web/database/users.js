@@ -2,7 +2,7 @@
     MADDIE for your password in the below uri. Username is your email username and password is your first name all caps 
 */
 var mongoose = require('mongoose');
-const db = 'mongodb+srv://ayang015:Ay309548@cluster0-bm2zb.mongodb.net/test?retryWrites=true&w=majority';
+const db = 'mongodb+srv://khann22:KATHERINE@cluster0-bm2zb.mongodb.net/350Project?retryWrites=true&w=majority';
 mongoose
     .connect(db, { 
         useNewUrlParser: true,
@@ -15,15 +15,16 @@ mongoose
 var Schema = mongoose.Schema;
 
 var userSchema = new Schema({
-    firstName: String,
-    lastName: String,
-    location: String,
-    userType: String,
-    username: String,
-    password: String,
-    phoneNumber: Number,
-    email: String,
-    organization: String
+
+	firstName: String,
+	lastName: String,
+	location: String,
+	userType: String,
+	username: String,
+	password: String,
+	phoneNumber: String,
+	email: String,
+	organization: String
     });
 
 // export personSchema as a class called User

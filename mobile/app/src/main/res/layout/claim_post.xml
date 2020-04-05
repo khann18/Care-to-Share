@@ -2,30 +2,45 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#BADAF3"
+    android:background="#EDA8D9F7"
     android:orientation="vertical">
 
     <TextView
         android:id="@+id/textView4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#CD6DA0DB"
+        android:layout_alignParentBottom="true"
+        android:background="#EDA8D9F7"
         android:fontFamily="serif"
+        android:gravity="center"
+        android:padding="16dp"
         android:text="Compose Message"
         android:textAlignment="center"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
+        android:textAllCaps="true"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textColor="#B5000000"
+        android:textSize="38sp" />
 
     <TextView
         android:id="@+id/header"
-        android:layout_width="match_parent"
-        android:layout_height="109dp"
-        android:background="#8EC0E9"
-        android:backgroundTintMode="add" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#ED59B2F1"
+        android:backgroundTintMode="add"
+        android:fontFamily="serif"
+        android:gravity="center_horizontal"
+        android:textAlignment="center"
+        android:textSize="24sp" />
 
     <EditText
         android:id="@+id/enterMessage"
         android:layout_width="match_parent"
-        android:layout_height="219dp">
+        android:layout_height="wrap_content"
+        android:fontFamily="serif"
+        android:minHeight="300dp"
+        android:textAlignment="viewStart"
+        android:textIsSelectable="true"
+        android:textSize="18sp">
 
         <requestFocus />
 
@@ -33,12 +48,19 @@
 
     <Button
         android:id="@+id/button2"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:backgroundTint="#009688"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom|center_horizontal"
+        android:backgroundTint="#7CB97C"
         android:fontFamily="serif"
+        android:gravity="center"
+        android:onClick="onSendButtonClick"
+        android:padding="16dp"
         android:text="Send message for approval"
-        android:textSize="18sp"
-        android:onClick="onSendButtonClick"/>
+        android:textAlignment="center"
+        android:textAllCaps="true"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textSize="20sp"
+        android:textStyle="bold" />
 </LinearLayout>

@@ -35,11 +35,16 @@ var updatePostMark = function(post, route_callback) {
 	Post.updateOne(post, { $set: { "marked" : 'user' } }).exec(route_callback);
 }
 
+var setClaimMessage = function(description, route_callback) {
+    Post.findOne({description : description}).exec(route_callback);
+}
 
 module.exports = {
 	editMarked: updatePostMark,
 	deletePost: removePost,
 	createPost: createPost,
 	getPosts: getPosts,
-	getAdminPosts: getAdminPosts
+    getAdminPosts: getAdminPosts,
+    setClaimMessage: setClaimMessage
 }
+

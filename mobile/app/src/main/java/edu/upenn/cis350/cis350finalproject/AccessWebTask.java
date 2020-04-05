@@ -12,6 +12,7 @@ public class AccessWebTask extends AsyncTask<URL, String, String> {
     /*This method is called in background when this object's "execute" method is invoked.
     The arguments passed to "execute" are passed to this method.*/
     protected String doInBackground(URL... urls) {
+
         try {
             //get the first URL from the array
             URL url = urls[0];
@@ -33,27 +34,10 @@ public class AccessWebTask extends AsyncTask<URL, String, String> {
             String result = jo.getString("result");
 
             // this will be passed to onPostExecute method
-
-    protected String doInBackground(URL[] urls) {
-        try {
-            URL url = urls[0];
-            HttpURLConnection conn = (HttpURLConnection)url.openConnection();
-            conn.setRequestMethod("GET");
-            conn.connect();
-            Scanner in = new Scanner(url.openStream());
-            String msg = in.nextLine();
-            JSONObject jo = new JSONObject(msg);
-            String result = jo.getString("result");
             return result;
         } catch (Exception e) {
             return e.toString();
         }
     }
 
-    /*This method is called in foreground after doInBackground finishes.
-    It can access and update Views in user interface.*/
-    protected void onPostExecute(String msg) {
-        // not implemented but you can use this if you’d like
-
-    }
 }

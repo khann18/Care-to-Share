@@ -1,6 +1,7 @@
 package edu.upenn.cis350.cis350finalproject;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class User implements Serializable {
     private String firstName;
@@ -12,6 +13,9 @@ public class User implements Serializable {
     private String phoneNumber; //this is easiest as a String, Please change the DB
     private String email;
     private String organization;
+    private ArrayList<Post> posts; //This will be the things they have posted for a donor
+                                    //It will be the posts they have claimed for an obtainer
+                                    //It will be the posts they have agreed to deliver for deliverer
     //I would think we also need a username
 
     //Constructor
@@ -27,6 +31,7 @@ public class User implements Serializable {
         this.phoneNumber = phoneNumber;
         this.email = email;
         this.organization = organization;
+        this.posts = new ArrayList<Post>();
     }
     //Getters
 
@@ -64,6 +69,14 @@ public class User implements Serializable {
 
     public String getOrganization() {
         return organization;
+    }
+
+    public void addPost(Post p) {
+        posts.add(p);
+    }
+
+    public ArrayList<Post> getPosts() {
+        return posts;
     }
 }
 
