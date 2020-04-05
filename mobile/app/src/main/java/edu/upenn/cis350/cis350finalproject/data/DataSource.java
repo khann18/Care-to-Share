@@ -25,11 +25,13 @@ public class DataSource {
         }
     }
 
-    public static void createAccount(String firstName, String lastName, String username, String password, String email, String phoneNumber) {
+    public static void createAccount(String firstName, String lastName, String username, String password, String email, String phoneNumber,
+                                     String accountType, String location, String organization) {
         try {
             URL url = new URL("http://10.0.2.2:3000/createaccount?firstName=" + firstName +
                     "&lastName=" + lastName + "&username=" + username + "&phoneNumber=" + phoneNumber
-                    + "&email=" + email + "&password=" + password);
+                    + "&email=" + email + "&password=" + password + "&accountType=" + accountType
+                    + "&location=" + location + "&organization=" + organization);
             AccessWebTask task = new AccessWebTask();
             task.execute(url);
             String result = task.get();
@@ -106,7 +108,7 @@ public class DataSource {
             System.out.println("yikessssss");
         }
     }
-}
+
 
     public static void updateAccount(String firstName, String lastName, String username, String password, String email, String phoneNumber, String accountType, String location, String organization) {
         try {
@@ -140,7 +142,7 @@ public class DataSource {
     public static JSONObject getAccountInfo(String username) {
         try {
             URL url = new URL("http://10.0.2.2:3000/getUser?username=" + username);
-            APITask task = new APITask();
+            AccessWebTask task = new AccessWebTask();
             task.execute(url);
             String result = task.get();
             JSONObject j = new JSONObject(result);
@@ -155,7 +157,7 @@ public class DataSource {
     public static void deleteAccount(String username) {
         try {
             URL url = new URL("http://10.0.2.2:3000/deleteaccount?username=" + username);
-            APITask task = new APITask();
+            AccessWebTask task = new AccessWebTask();
             task.execute(url);
             String result = task.get();
             JSONObject j = new JSONObject(result);

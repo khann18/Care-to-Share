@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -30,7 +31,7 @@ import edu.upenn.cis350.cis350finalproject.data.DataSource;
 
 import edu.upenn.cis350.cis350finalproject.ui.login.LoginActivity;
 
-public class MainActivity extends AppCompatActivity  {
+public class MainActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
 
 //    private RecyclerView recyclerView;
 //    private RAdapter mAdapter;
@@ -43,10 +44,11 @@ public class MainActivity extends AppCompatActivity  {
     CustomAdapter ca;
 
 
+    @SuppressLint("NewApi")
     private void setupSearchView()
     {
         sv.setIconifiedByDefault(false);
-        sv.setOnQueryTextListener(this);
+        sv.setOnQueryTextListener((SearchView.OnQueryTextListener) this);
         sv.setSubmitButtonEnabled(true);
         sv.setQueryHint("Search Here");
     }
@@ -65,12 +67,13 @@ public class MainActivity extends AppCompatActivity  {
     @Override
     public boolean onQueryTextSubmit(String query)
     {
-        DataSource.getTest();
+        // DataSource.getTest();
         return false;
     }
 
 
 
+    @SuppressLint("NewApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 

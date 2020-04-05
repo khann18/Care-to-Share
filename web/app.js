@@ -31,7 +31,7 @@ app.get('/setclaimmessage', routes.set_claim_message);
 app.get('/loginCheck', routes.check_password);
 app.get('/usernameTaken', routes.check_username);
 app.get('/updateaccount', routes.update_account);
-app.get('/getUser', routes.get_user);
+app.get('/getUsers', routes.get_users);
 app.get('/deleteaccount', routes.deleteaccount);
 app.get('/console', routes.console);
 app.get('/getUser', routes.get_user);
