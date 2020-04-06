@@ -1,5 +1,6 @@
 package edu.upenn.cis350.cis350finalproject;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -44,12 +45,44 @@ public class CreatePostActivity extends AppCompatActivity {
                     }
 
                     DataSource.createPost(description, contact, location, marked, poster);
+
+                    if (marked.equals("admin")){
+                        Toast.makeText(getApplicationContext(), "Post needs admin approval", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Successfully created post", Toast.LENGTH_SHORT).show();
+                    }
+
+                    new AsyncTask<String, String, String>() {
+
+                        protected String doInBackground(String... inputs) {
+                            try {
+                                Thread.sleep(2000);
+                            } catch (Exception e) {
+
+                            }
+                            return null;
+                        }
+
+                        protected void onPostExecute(String input) {
+                            Intent i = new Intent(getApplicationContext(), MainActivity.class);
+                            startActivity(i);
+                        }
+
+                    }.execute();
                 }
 
 
             }
         });
 
+        Button discard = findViewById(R.id.discard_button);
+        discard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(i);
+            }
+        });
 
 
     }

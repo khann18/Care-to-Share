@@ -119,6 +119,16 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
             }
         });
 
+        ImageButton createPost = findViewById(R.id.create_post);
+        createPost.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getApplicationContext(), CreatePostActivity.class);
+                i.putExtra("username", username);
+                startActivity(i);
+            }
+        });
+
         Button logout = findViewById(R.id.logout_button);
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
