@@ -253,20 +253,6 @@ var getUser = function(req, res) {
 	});
 }
 
-var checkPassword = function(req, res) {
-	var user = req.query.username;
-	var password = req.query.password;
-	user_db.getPassword(user, function(err, data) {
-		if (err) {
-			console.log(err);
-		} else {
-			console.log(data);
-			var correctPassword = data.get('password');
-			res.send(correctPassword === password);
-		}
-	});
-
-}
 
 
 var routes = {
