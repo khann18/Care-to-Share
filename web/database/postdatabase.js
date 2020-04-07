@@ -31,6 +31,10 @@ var removePost = function(post, route_callback) {
 	Post.remove(post).exec(route_callback);
 }
 
+var findPostById = function(postId, route_callback) {
+	Post.findById(postId).exec(route_callback);
+}
+
 var updatePostMark = function(post, route_callback) {
 	Post.updateOne(post, { $set: { "marked" : 'user' } }).exec(route_callback);
 }
@@ -45,6 +49,7 @@ module.exports = {
 	createPost: createPost,
 	getPosts: getPosts,
     getAdminPosts: getAdminPosts,
-    setClaimMessage: setClaimMessage
+	setClaimMessage: setClaimMessage,
+	findPostById: findPostById
 }
 

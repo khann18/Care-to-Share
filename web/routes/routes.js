@@ -1,8 +1,12 @@
 //accessing the database functions
 var user_db = require('../database/userdatabase.js');
 var post_db = require('../database/postdatabase.js');
+var claim_db = require('../database/claimdatabase.js');
+
 var User = require('../database/users.js');
 var Post = require('../database/posts.js');
+var Claim = require('../database/claims.js');
+
 
 var testArray = ["Alex", "Taki", "Vatsin", "Katherine"]
 
@@ -29,7 +33,6 @@ var createNewPost = function(req, res) {
 		pickupTime: req.query.pickupTime,
 		contactInfo: req.query.contact,
 		isClaimed: req.query.isClaimed,
-		claimMessage: req.query.claimMessage,
 		marked: req.query.marked
 	});
 
@@ -42,8 +45,36 @@ var createNewPost = function(req, res) {
 	});
 }
 
+var createNewClaim = function(req, res) {
+	var newClaim = new Claim({
+		donorUsername: req.query.donorUsername,
+		obtainerUsername: req.query.obtainerUsername,
+		postId: req.query.postId,
+		claimMessage: req.query.claimMessage
+	});
+
+	claim_db.createClaim(newClaim, function(err, data){
+		if (err) {
+			console.log(err);
+		} else {
+			console.log(data);
+		}
+	});
+}
+
 var getPosts = function(req, res) {
 	post_db.getPosts({marked: 'user'}, function(err, data){
+		if (err) {
+			console.log(err);
+		}else {
+			console.log(data);
+			res.send(data);
+		}
+	});
+}
+
+var getClaimsByDonor = function(req, res) {
+	claim_db.getClaimsByDonor(req.query.donorUsername, function(err, data){
 		if (err) {
 			console.log(err);
 		}else {
@@ -71,6 +102,16 @@ var deletePost = function(req, res) {
 		}else {
 			console.log(data);
 			res.redirect('/home');
+		}
+	});
+}
+
+var deleteAllClaimsAfterAccepting = function(req, res) {
+	claim_db.deleteAllClaimsAfterAccepting(req.query.postId, function(err, data){
+		if (err) {
+			console.log(err);
+		}else {
+			console.log(data);
 		}
 	});
 }
@@ -148,28 +189,28 @@ var checkUsername = function(req, res) {
 
 }
 
-var setPostClaimMessage = function(req, res) {
-	var description = req.query.description;
-	var message = req.query.message;
+// var setPostClaimMessage = function(req, res) {
+// 	var description = req.query.description;
+// 	var message = req.query.message;
 
-	post_db.setClaimMessage(description, function(err, data) {
-		if (err) {
-			console.log(err);
-		} else {
-			data.claimMessage = message;
-			data.isClaimed = true;
-			console.log(data);
-			data.save( (err) => {
-				if (err) {
-					console.log(err);
-				} else {
-				 	res.send({result: message});
-			    }
-			});
+// 	post_db.setClaimMessage(description, function(err, data) {
+// 		if (err) {
+// 			console.log(err);
+// 		} else {
+// 			data.claimMessage = message;
+// 			data.isClaimed = true;
+// 			console.log(data);
+// 			data.save( (err) => {
+// 				if (err) {
+// 					console.log(err);
+// 				} else {
+// 				 	res.send({result: message});
+// 			    }
+// 			});
 
-		}
-	});
-}
+// 		}
+// 	});
+// }
 
 var updateAccount = function(req, res) {
 	var newUser = new User ({
@@ -199,6 +240,23 @@ var updateAccount = function(req, res) {
 var userInfo = function(req, res) {
 	var username = req.query.username;
 	user_db.userInfo(username, function(err, data) {
+		if (err) {
+			console.log(err);
+		} else {
+			if (data) {
+				res.send({result: data});
+			} else {
+				res.send({result: null});
+			}
+			
+		}
+	});
+
+}
+
+var findPostById = function(req, res) {
+	var postId = req.query.postId;
+	post_db.findPostById(postId, function(err, data) {
 		if (err) {
 			console.log(err);
 		} else {
@@ -261,18 +319,22 @@ var routes = {
 	create_post: createNewPost,
 	get_post: getPosts,
 	get_admin_post: getAdminPosts,
-  get_users: getUser,
-  login: getLogin,
-  logout: getLogout,
-  account_creation: getCreateAccount,
-  create_user: createNewUser,
- 	console: displayConsole,
-  check_password: checkPassword,
-  set_claim_message: setPostClaimMessage,
-  check_username: checkUsername,
-  get_user: userInfo,
-  update_account: updateAccount,
-  deleteaccount: deleteaccount,
+  	get_users: getUser,
+  	login: getLogin,
+  	logout: getLogout,
+  	account_creation: getCreateAccount,
+	create_user: createNewUser,
+	create_claim: createNewClaim,
+	console: displayConsole,
+  	check_password: checkPassword,
+//   set_claim_message: setPostClaimMessage,
+  	check_username: checkUsername,
+  	get_user: userInfo,
+  	update_account: updateAccount,
+	  deleteaccount: deleteaccount,
+	  delete_all_claims_after_accepting: deleteAllClaimsAfterAccepting,
+	get_claims_by_donor: getClaimsByDonor,
+	find_post_by_id: findPostById
 };
 //exporting the routes
 module.exports = routes;

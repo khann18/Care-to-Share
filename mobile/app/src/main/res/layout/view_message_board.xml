@@ -33,6 +33,18 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:textSize="30sp" />
 
+            <Button
+                android:id="@+id/select_post"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#72CF75"
+                android:fontFamily="serif"
+                android:padding="9dp"
+                android:text="Select this post..."
+                android:textStyle="bold"
+                android:onClick="onSelectButtonClick"/>
+
+
             <RadioGroup
                 android:id="@+id/radiogroup"
                 android:layout_width="wrap_content"

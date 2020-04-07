@@ -167,4 +167,47 @@ public class DataSource {
 
         }
     }
+
+    public static JSONObject findPostById(String postId) {
+        try {
+            URL url = new URL("http://10.0.2.2:3000/findPostById?postId=" + postId);
+            AccessWebTask task = new AccessWebTask();
+            task.execute(url);
+            String result = task.get();
+            JSONObject j = new JSONObject(result);
+            Log.d("RESULT", result);
+            return j;
+
+        }catch (Exception e){
+            return null;
+        }
+    }
+
+    public static void createClaim(String obtainerUsername, String donorUsername, String postId, String claimMessage) {
+        try {
+            URL url = new URL("http://10.0.2.2:3000/createClaim?obtainerUsername=" + obtainerUsername +
+                    "&donorUsername=" + donorUsername + "&postId=" + postId + "&claimMessage=" + claimMessage);
+            AccessWebTask task = new AccessWebTask();
+            task.execute(url);
+            String result = task.get();
+            Log.d("RESULT", result);
+        }catch (Exception e){
+
+        }
+    }
+
+    public static JSONObject getPosts() {
+        try {
+            URL url = new URL("http://10.0.2.2:3000/getPost");
+            AccessWebTask task = new AccessWebTask();
+            task.execute(url);
+            String result = task.get();
+            JSONObject j = new JSONObject(result);
+            Log.d("RESULT", result);
+            return j;
+
+        }catch (Exception e){
+            return null;
+        }
+    }
 }

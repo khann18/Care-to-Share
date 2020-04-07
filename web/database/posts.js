@@ -21,7 +21,6 @@ var postSchema = new Schema({
     postedBy: String, //username of the poster
     contactInfo: String, //could be email or phone number
     isClaimed: Boolean,
-    claimMessage: String,
     marked: String
     });
 

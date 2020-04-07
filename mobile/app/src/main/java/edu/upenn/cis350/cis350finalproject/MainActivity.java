@@ -149,16 +149,9 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
 
 
 
-//        DO STUFF HERE TO PUT THIS IN DB AS DUMMY
-        User me = new User("Paula", "Hann", "Phoenix",
-                "Donor", "yikes", "on bikes", "11111111",
-                "hann@seas.upenn.edu", "Food4Us");
-        Post p = new Post("Yes I am giving away tasty foods.", "Philadelphia",
-                new Date(), me, "khann22@seas.upenn.edu", false, "");
-        i.putExtra("POST", p);
+        i.putExtra("POSTID", "5e8b41a305c10c9b5cd19ec0");
+        i.putExtra("USER", "yikes");
 
-        DataSource.createFullUser(me);
-        DataSource.createPost(p);
         startActivityForResult(i, CLAIMPOSTACTIVITY_ID);
 
     }
