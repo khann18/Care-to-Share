@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     SearchView sv;
     ListView lv;
     CustomAdapter ca;
+    String username;
 
 
     @SuppressLint("NewApi")
@@ -81,7 +82,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         setContentView(R.layout.activity_main);
 
         //get username passed to intent
-        final String username = getIntent().getStringExtra("username");
+        username = getIntent().getStringExtra("username");
 
 
         ListView listView = (ListView) findViewById(R.id.listView);
@@ -105,6 +106,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         CustomAdapter cAdapter = new CustomAdapter(this);
         ca = cAdapter;
         listView.setAdapter(ca);
+
 
         lv.setTextFilterEnabled(true);
         setupSearchView();
@@ -140,17 +142,17 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     }
 
 
-    public static final int CLAIMPOSTACTIVITY_ID = 1;
+  public static final int CLAIMPOSTACTIVITY_ID = 1;
 
     public void onClaimPostButtonClick(View view) {
-        Intent i = new Intent(this, ClaimPostActivity.class);
+//        Intent i = new Intent(this, ClaimPostActivity.class);
 
-//          Intent i = new Intent(this, MessageBoardActivity.class);
+          Intent i = new Intent(this, MessageBoardActivity.class);
 
 
 
         i.putExtra("POSTID", "5e8b41a305c10c9b5cd19ec0");
-        i.putExtra("USER", "yikes");
+        i.putExtra("USER", username);
 
         startActivityForResult(i, CLAIMPOSTACTIVITY_ID);
 

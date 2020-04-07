@@ -2,6 +2,7 @@ package edu.upenn.cis350.cis350finalproject;
 
 import android.os.AsyncTask;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.net.HttpURLConnection;
@@ -17,11 +18,10 @@ public class APITask extends AsyncTask<URL, String, String> {
             conn.connect();
             Scanner in = new Scanner(url.openStream());
             String msg = in.nextLine();
-            JSONObject jo = new JSONObject(msg);
-            String result = jo.getString("result");
-            return result;
+            JSONArray jo = new JSONArray(msg);
+            return jo.toString();
         } catch (Exception e) {
-            return e.toString();
+            return null;
         }
 
 

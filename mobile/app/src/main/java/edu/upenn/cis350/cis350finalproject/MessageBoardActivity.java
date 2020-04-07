@@ -1,5 +1,7 @@
 package edu.upenn.cis350.cis350finalproject;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.LogPrinter;
@@ -9,6 +11,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -16,9 +19,6 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class MessageBoardActivity extends AppCompatActivity implements View.OnClickListener {
-
-    private Button loadBtn;
-    private String TAG = "TestActivity";
     private RadioGroup radioGroup;
     private String donorUsername;
     private JSONArray arr;
@@ -29,48 +29,66 @@ public class MessageBoardActivity extends AppCompatActivity implements View.OnCl
         setContentView(R.layout.view_message_board);
         Bundle bundle = getIntent().getExtras();
         donorUsername = bundle.getString("USER");
-        loadBtn = findViewById(R.id.load_more);
+        View selectButton = findViewById(R.id.select_post);
+        selectButton.setVisibility(View.GONE);
         radioGroup = findViewById(R.id.radiogroup);
-        arr = DataSource.getPosts();
-        addRadioButtons(10);
+        arr = DataSource.getClaimsByDonor(donorUsername);
 
 
-        loadBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int number = 5;
-                addRadioButtons(number);
-            }
-        });
+        addRadioButtons();
+
+
     }
 
-    public void addRadioButtons(int number) {
+    public void addRadioButtons() {
         radioGroup.setOrientation(LinearLayout.VERTICAL);
-
-        for (int i = 0; i < arr.length() && i < number; i++) {
+        for (int i = 0; i < arr.length(); i++) {
             try {
                 JSONObject json = (JSONObject) arr.get(i);
-                String description = json.getString("description");
+
+
+                String description = json.getString("claimMessage");
                 String id = json.getString("_id");
+                String obtainerUsername = json.getString("obtainerUsername");
+                JSONObject user = DataSource.getAccountInfo(obtainerUsername);
+                String firstName = user.getString("firstName");
+                String org = user.getString("organization");
+
                 RadioButton rdbtn = new RadioButton(this);
-//                rdbtn.setId(id);
-                rdbtn.setText("Radio " + rdbtn.getId());
+                rdbtn.setId(View.generateViewId());
+                rdbtn.setPadding(30, 40, 20, 30);
+                rdbtn.setText(firstName + " from " + org + " says:\n" + description);
+                rdbtn.setTag(id);
                 rdbtn.setOnClickListener(this);
+
                 radioGroup.addView(rdbtn);
+
             } catch (Exception e) {
-                break;
+                System.out.println("oops");
             }
 
         }
+
     }
+
+    public static final int MessageResponseActivity_ID = 1;
+
 
     @Override
     public void onClick(View v) {
-        Log.d(TAG, " Name " + ((RadioButton) v).getText() + " Id is " + v.getId());
+        View selectButton = findViewById(R.id.select_post);
+        selectButton.setVisibility(View.VISIBLE);
     }
 
     public void onSelectButtonClick(View v) {
         Button selected = findViewById(radioGroup.getCheckedRadioButtonId());
         String message = (String) selected.getText();
+        String claimId = selected.getTag().toString();
+        Intent i = new Intent(this, MessageResponseActivity.class);
+
+        i.putExtra("CLAIMID", claimId);
+        i.putExtra("DESCRIPTION", message);
+        startActivityForResult(i, MessageResponseActivity_ID);
+
     }
 }

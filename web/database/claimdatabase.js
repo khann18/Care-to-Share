@@ -15,7 +15,8 @@ var createClaim = function(claim, route_callback) {
 }
 
 var getClaimsByDonor = function(username, route_callback) {
-	console.log("Finding Claims")
+	console.log("Finding Claims for")
+	console.log(username);
 	Claim.find({donorUsername : username}).exec(route_callback);
 }
 

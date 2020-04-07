@@ -145,4 +145,34 @@ public class DataSource {
             return null;
         }
     }
+
+    public static JSONArray getClaimsByDonor(String donorUsername) {
+        try {
+            URL url = new URL("http://10.0.2.2:3000/getClaimsByDonor?donorUsername=" + donorUsername);
+            APITask task = new APITask();
+            task.execute(url);
+            String result = task.get();
+            JSONArray j = new JSONArray(result);
+            Log.d("RESULT", result);
+            return j;
+
+        }catch (Exception e){
+            return null;
+        }
+    }
+
+    public static JSONObject getAccountInfo(String username) {
+        try {
+            URL url = new URL("http://10.0.2.2:3000/getUser?username=" + username);
+            AccessWebTask task = new AccessWebTask();
+            task.execute(url);
+            String result = task.get();
+            JSONObject j = new JSONObject(result);
+            Log.d("RESULT", result);
+            return j;
+
+        }catch (Exception e){
+            return null;
+        }
+    }
 }
