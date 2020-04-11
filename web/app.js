@@ -40,6 +40,10 @@ app.get('/getClaimsByDonor', routes.get_claims_by_donor);
 app.get('/deleteAllClaimsAfterAccepting', routes.delete_all_claims_after_accepting);
 app.get('/createClaim', routes.create_claim);
 app.get('/findPostById', routes.find_post_by_id);
+app.get('/getClaimById', routes.get_claim_by_id);
+app.get('/updateClaimStatus', routes.update_claim_status);
+app.get('/updateClaimsForAcceptedPost', routes.update_claims_for_accepted_post);
+
 
 app.get('/testRoute', function(req, res) {
 	async function main(){

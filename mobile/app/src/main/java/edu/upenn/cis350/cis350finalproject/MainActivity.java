@@ -152,7 +152,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
 
 
         i.putExtra("POSTID", "5e8b41a305c10c9b5cd19ec0");
-        i.putExtra("USER", username);
+        i.putExtra("username", username);
 
         startActivityForResult(i, CLAIMPOSTACTIVITY_ID);
 

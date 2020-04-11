@@ -18,7 +18,8 @@ var claimSchema = new Schema({
 	obtainerUsername: String, //username of person claiming
 	donorUsername: String, //username of original poster
 	postId: String,  //mongo generated postID
-	claimMessage: String //claim message description
+    claimMessage: String, //claim message description
+    claimStatus: String
 });
 
 // export personSchema as a class called User

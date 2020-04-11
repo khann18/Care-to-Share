@@ -2,42 +2,53 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#EDA8D9F7"
+    android:layout_marginTop="10dp"
+    android:padding="10dp"
     android:orientation="vertical">
 
+<!--    <TextView-->
+<!--        android:id="@+id/textView4"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_gravity="center"-->
+<!--        android:background="#66B0E0"-->
+<!--        android:backgroundTint="#73BFDA"-->
+<!--        android:fontFamily="serif"-->
+<!--        android:gravity="center_horizontal"-->
+<!--        android:padding="16dp"-->
+<!--        android:text="Compose Message"-->
+<!--        android:textAlignment="center"-->
+<!--        android:textAppearance="@style/TextAppearance.AppCompat.Large"-->
+<!--        android:textSize="30sp" />-->
+
     <TextView
-        android:id="@+id/textView4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:background="#EDA8D9F7"
-        android:fontFamily="serif"
-        android:gravity="center"
-        android:padding="16dp"
-        android:text="Compose Message"
+        android:text="Compose Message:"
         android:textAlignment="center"
         android:textAllCaps="true"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-        android:textColor="#B5000000"
-        android:textSize="38sp" />
+        android:textColor="@color/colorPrimary"
+        android:textSize="30dp" />
 
     <TextView
         android:id="@+id/header"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#ED59B2F1"
+        android:layout_marginTop="9dp"
+        android:background="#EDA8D9F7"
         android:backgroundTintMode="add"
         android:fontFamily="serif"
-        android:gravity="center_horizontal"
-        android:textAlignment="center"
-        android:textSize="24sp" />
+        android:includeFontPadding="true"
+        android:padding="15dp"
+        android:textAlignment="viewStart"
+        android:textSize="20sp" />
 
     <EditText
         android:id="@+id/enterMessage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="serif"
-        android:minHeight="300dp"
+        android:minHeight="100dp"
         android:textAlignment="viewStart"
         android:textIsSelectable="true"
         android:textSize="18sp">
@@ -52,7 +63,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_gravity="bottom|center_horizontal"
-        android:backgroundTint="#7CB97C"
+        android:backgroundTint="#009082"
         android:fontFamily="serif"
         android:gravity="center"
         android:onClick="onSendButtonClick"
@@ -63,4 +74,5 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textSize="20sp"
         android:textStyle="bold" />
+<!--   original green button color "#7CB97C-->
 </LinearLayout>

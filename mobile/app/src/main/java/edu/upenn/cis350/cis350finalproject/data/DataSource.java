@@ -210,4 +210,45 @@ public class DataSource {
             return null;
         }
     }
+
+    public static JSONObject getClaimById(String id) {
+        try {
+            URL url = new URL("http://10.0.2.2:3000/getClaimById?claimId=" + id);
+            AccessWebTask task = new AccessWebTask();
+            task.execute(url);
+            String result = task.get();
+            JSONObject j = new JSONObject(result);
+            Log.d("RESULT", result);
+            return j;
+
+        }catch (Exception e){
+            return null;
+        }
+    }
+
+    public static void updateClaimStatus(String claimId, String status) {
+        try {
+            URL url = new URL("http://10.0.2.2:3000/updateClaimStatus?claimId=" +
+                    claimId + "&claimStatus=" + status);
+            AccessWebTask task = new AccessWebTask();
+            task.execute(url);
+            String result = task.get();
+            Log.d("RESULT", result);
+        }catch (Exception e) {
+            System.out.println("yikessssss");
+        }
+    }
+
+    public static void updateClaimsForAcceptedPost(String postId) {
+        try {
+            URL url = new URL("http://10.0.2.2:3000/updateClaimsForAcceptedPost?postId=" +
+                    postId);
+            AccessWebTask task = new AccessWebTask();
+            task.execute(url);
+            String result = task.get();
+            Log.d("RESULT", result);
+        }catch (Exception e) {
+            System.out.println("yikessssss");
+        }
+    }
 }

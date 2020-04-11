@@ -212,6 +212,48 @@ var checkUsername = function(req, res) {
 // 	});
 // }
 
+var updateClaimStatus = function(req, res) {
+
+	claim_db.updateClaimStatus(req.query.claimId, function(err, data) {
+		if (err) {
+			console.log(err);
+		} else {
+			data.claimStatus = req.query.claimStatus;
+			console.log(data);
+			data.save( (err) => {
+				if (err) {
+					console.log(err);
+				} else {
+				 	res.send({result : req.query.claimStatus});
+			    }
+			});
+
+		}
+	});
+}
+
+var updateClaimsForAcceptedPost = function(req, res) {
+	var postId = req.query.postId
+	console.log(postId)
+	claim_db.updateClaimsForAcceptedPost(postId, function(err, data) {
+		if (err) {
+			console.log(err);
+		} else {
+			// data.claimStatus = 'rejected';
+			console.log(data);
+			// data.save( (err) => {
+			// 	if (err) {
+			// 		console.log(err);
+			// 	} else {
+				// res.write('I hope this works :');
+				 	res.send(data);
+			//     }
+			// });
+
+		}
+	});
+}
+
 var updateAccount = function(req, res) {
 	var newUser = new User ({
 		firstName: req.query.firstName,
@@ -257,6 +299,23 @@ var userInfo = function(req, res) {
 var findPostById = function(req, res) {
 	var postId = req.query.postId;
 	post_db.findPostById(postId, function(err, data) {
+		if (err) {
+			console.log(err);
+		} else {
+			if (data) {
+				res.send({result: data});
+			} else {
+				res.send({result: null});
+			}
+			
+		}
+	});
+
+}
+
+var getClaimById = function(req, res) {
+	var claimId = req.query.claimId;
+	claim_db.getClaimById(claimId, function(err, data) {
 		if (err) {
 			console.log(err);
 		} else {
@@ -334,7 +393,10 @@ var routes = {
 	  deleteaccount: deleteaccount,
 	  delete_all_claims_after_accepting: deleteAllClaimsAfterAccepting,
 	get_claims_by_donor: getClaimsByDonor,
-	find_post_by_id: findPostById
+	find_post_by_id: findPostById,
+	get_claim_by_id: getClaimById,
+	update_claim_status: updateClaimStatus,
+	update_claims_for_accepted_post: updateClaimsForAcceptedPost
 };
 //exporting the routes
 module.exports = routes;

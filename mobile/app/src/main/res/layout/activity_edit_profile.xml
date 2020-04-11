@@ -13,13 +13,15 @@
         android:paddingLeft="24dp"
         android:paddingRight="24dp">
 
+
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:text="Your Profile"
+            android:textAlignment="center"
             android:textAllCaps="true"
-            android:textSize="30dp"
             android:textColor="@color/colorPrimary"
-            android:text="Your Profile"/>
+            android:textSize="30dp" />
 
         <!--  Name Label -->
         <LinearLayout

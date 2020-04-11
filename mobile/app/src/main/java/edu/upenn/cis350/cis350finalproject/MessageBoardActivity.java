@@ -2,15 +2,19 @@ package edu.upenn.cis350.cis350finalproject;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.LogPrinter;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,26 +22,63 @@ import androidx.appcompat.app.AppCompatActivity;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import edu.upenn.cis350.cis350finalproject.ui.login.LoginActivity;
+
 public class MessageBoardActivity extends AppCompatActivity implements View.OnClickListener {
     private RadioGroup radioGroup;
     private String donorUsername;
     private JSONArray arr;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.view_message_board);
         Bundle bundle = getIntent().getExtras();
-        donorUsername = bundle.getString("USER");
+        donorUsername = bundle.getString("username");
         View selectButton = findViewById(R.id.select_post);
         selectButton.setVisibility(View.GONE);
+        TextView noMessageText = (TextView) findViewById(R.id.noMessages);
+
         radioGroup = findViewById(R.id.radiogroup);
         arr = DataSource.getClaimsByDonor(donorUsername);
 
+        if (arr.length() > 0) {
+            noMessageText.setVisibility(View.GONE);
 
-        addRadioButtons();
+            addRadioButtons();
+        } else {
+            noMessageText.setVisibility(View.VISIBLE);
+        }
 
+        ImageButton editProfile = findViewById(R.id.edit_profile_button);
+        editProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getApplicationContext(), EditProfileActivity.class);
+                i.putExtra("username", donorUsername);
+                startActivity(i);
+            }
+        });
 
+        ImageButton createPost = findViewById(R.id.create_post);
+        createPost.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getApplicationContext(), CreatePostActivity.class);
+                i.putExtra("username", donorUsername);
+                startActivity(i);
+            }
+        });
+
+        Button logout = findViewById(R.id.logout_button);
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getApplicationContext(), LoginActivity.class);
+                startActivity(i);
+            }
+        });
     }
 
     public void addRadioButtons() {
@@ -57,8 +98,11 @@ public class MessageBoardActivity extends AppCompatActivity implements View.OnCl
                 RadioButton rdbtn = new RadioButton(this);
                 rdbtn.setId(View.generateViewId());
                 rdbtn.setPadding(30, 40, 20, 30);
-                rdbtn.setText(firstName + " from " + org + " says:\n" + description);
+                rdbtn.setFontFeatureSettings("");
+                rdbtn.setText(firstName + " from " + org + " says: \n" + description);
                 rdbtn.setTag(id);
+                rdbtn.setTextSize(20);
+                rdbtn.setTypeface(Typeface.SERIF);
                 rdbtn.setOnClickListener(this);
 
                 radioGroup.addView(rdbtn);
@@ -88,6 +132,7 @@ public class MessageBoardActivity extends AppCompatActivity implements View.OnCl
 
         i.putExtra("CLAIMID", claimId);
         i.putExtra("DESCRIPTION", message);
+        i.putExtra("username", donorUsername);
         startActivityForResult(i, MessageResponseActivity_ID);
 
     }

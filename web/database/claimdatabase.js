@@ -17,7 +17,17 @@ var createClaim = function(claim, route_callback) {
 var getClaimsByDonor = function(username, route_callback) {
 	console.log("Finding Claims for")
 	console.log(username);
-	Claim.find({donorUsername : username}).exec(route_callback);
+	Claim.find({donorUsername : username, claimStatus : 'none'}).exec(route_callback);
+}
+
+var getClaimById = function(claimId, route_callback) {
+	console.log("Finding claim for")
+	console.log(claimId);
+	Claim.findById(claimId).exec(route_callback);
+}
+
+var updateClaimStatus = function(claimId, route_callback) {
+	Claim.findById(claimId).exec(route_callback);
 }
 
 // var saveClaim = function(claim, route_callback) {
@@ -51,8 +61,16 @@ var deleteAllClaimsAfterAccepting = function(post, route_callback) {
 // 	User.findOne({username : username}).select('password').exec(route_callback);
 // }
 
+var updateClaimsForAcceptedPost = function(id, route_callback) {
+	console.log("Updating claims to be rejected")
+	Claim.updateMany({postId : id}, {$set : {claimStatus : 'rejected'}}).exec(route_callback);
+}
+
 module.exports = {
 	deleteAllClaimsAfterAccepting: deleteAllClaimsAfterAccepting,
 	createClaim: createClaim,
-	getClaimsByDonor: getClaimsByDonor
+	getClaimsByDonor: getClaimsByDonor,
+	getClaimById: getClaimById,
+	updateClaimStatus: updateClaimStatus,
+	updateClaimsForAcceptedPost: updateClaimsForAcceptedPost
 }

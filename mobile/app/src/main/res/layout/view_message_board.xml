@@ -1,11 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:layout_marginTop="6dp"
+    android:layout_height="match_parent">
+
+    <Button
+        android:id="@+id/logout_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="7dp"
+        android:layout_marginTop="20dp"
+        android:text="Logout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/create_post"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="307dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="50dp"
+        android:src="@drawable/ic_create_24px"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/edit_profile_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="348dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="6dp"
+        android:src="@drawable/profile_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+<RelativeLayout
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#C7E3F1"
-    android:padding="10dp"
-    tools:context=".MessageBoardActivity">
+    android:padding="10dp">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -18,23 +58,43 @@
             android:orientation="vertical">
 
 
+<!--            <TextView-->
+<!--                android:id="@+id/header"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_gravity="center"-->
+<!--                android:background="#66B0E0"-->
+<!--                android:backgroundTint="#73BFDA"-->
+<!--                android:fontFamily="serif"-->
+<!--                android:gravity="center_horizontal"-->
+<!--                android:padding="9dp"-->
+<!--                android:text="Your Message Board"-->
+<!--                android:textAlignment="center"-->
+<!--                android:textAppearance="@style/TextAppearance.AppCompat.Large"-->
+<!--                android:textSize="20sp" />-->
+
             <TextView
-                android:id="@+id/header"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:background="#66B0E0"
-                android:backgroundTint="#73BFDA"
-                android:fontFamily="serif"
-                android:gravity="center_horizontal"
-                android:padding="9dp"
-                android:text="Your Message Board"
+                android:text="Message Board"
                 android:textAlignment="center"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                android:textSize="30sp" />
+                android:textAllCaps="true"
+                android:layout_marginTop="5dp"
+                android:textColor="@color/colorPrimary"
+                android:textSize="27dp" />
 
-
-
+            <TextView
+                android:id="@+id/noMessages"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:fontFamily="serif"
+                android:includeFontPadding="true"
+                android:lineSpacingExtra="10sp"
+                android:padding="15dp"
+                android:text="No new claims have been made on your posts. You have no messages."
+                android:textAlignment="viewStart"
+                android:textSize="20sp" />
 
             <RadioGroup
                 android:id="@+id/radiogroup"
@@ -46,14 +106,18 @@
                 android:id="@+id/select_post"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="#72CF75"
+                android:background="#009082"
                 android:fontFamily="serif"
+                android:onClick="onSelectButtonClick"
                 android:padding="9dp"
-                android:text="Select this post..."
-                android:textStyle="bold"
-                android:onClick="onSelectButtonClick"/>
+                android:text="Respond to this post..."
+                android:textColor="#FFFFFFFF"
+                android:textStyle="bold" />
+
+
 
         </LinearLayout>
 
     </ScrollView>
 </RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
