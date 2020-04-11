@@ -97,12 +97,19 @@ public class MessageBoardActivity extends AppCompatActivity implements View.OnCl
 
                 RadioButton rdbtn = new RadioButton(this);
                 rdbtn.setId(View.generateViewId());
-                rdbtn.setPadding(30, 40, 20, 30);
+                rdbtn.setPadding(30, 15, 20, 30);
                 rdbtn.setFontFeatureSettings("");
                 rdbtn.setText(firstName + " from " + org + " says: \n" + description);
                 rdbtn.setTag(id);
                 rdbtn.setTextSize(20);
                 rdbtn.setTypeface(Typeface.SERIF);
+
+
+                View v = new View(this);
+                v.setLayoutParams(new RadioGroup.LayoutParams(RadioGroup.LayoutParams.MATCH_PARENT, 1));
+                v.setBackgroundColor(getResources().getColor(android.R.color.darker_gray));
+                radioGroup.addView(v);
+
                 rdbtn.setOnClickListener(this);
 
                 radioGroup.addView(rdbtn);
