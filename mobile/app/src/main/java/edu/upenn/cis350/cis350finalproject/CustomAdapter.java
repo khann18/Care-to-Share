@@ -2,6 +2,7 @@ package edu.upenn.cis350.cis350finalproject;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,8 +11,23 @@ import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.TextView;
 
+//import org.json.JSONArray;
+//import org.json.JSONObject;
+
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
+import org.json.JSONArray;
+
+import edu.upenn.cis350.cis350finalproject.data.DataSource;
+
+
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+
+import static androidx.constraintlayout.widget.Constraints.TAG;
 
 
 public class CustomAdapter extends BaseAdapter implements Filterable
@@ -21,10 +37,45 @@ public class CustomAdapter extends BaseAdapter implements Filterable
     String[] rooms;
     public ArrayList<String> stringList = new ArrayList<String>();
     public ArrayList<String> masterList = new ArrayList<String>();
+//    public ArrayList<JSONObject> jList = new ArrayList<JSONObject>();
 
 
     public CustomAdapter(Context c)
     {
+        String ja = DataSource.getAllPosts();
+        try {
+            JSONArray jarr = new JSONArray("[{\"\\\"ROM\\\"\": 0}]");
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+
+        if (ja == null) {
+            Log.d("RESULT", "It's all fucked up");
+        }
+        ja.length();
+
+        HashMap<String, String> applicationSettings = new HashMap<String,String>();
+
+//        for(int i=0; i< ja.length(); i++){
+//            String value = ja.getJSONObject(i).getString("value");
+//            String name = ja.getJSONObject(i).getString("name");
+//            applicationSettings.put(name, value);
+//        }
+
+//        for (int i = 0; i < ja.length(); i++) {
+//            try {
+//                JSONObject current = ja.getJSONObject(i);
+//                String name = current.getString("description");
+//                this.stringList.add(name);
+//            } catch (Exception e) {
+//
+//            }
+//        }
+
         context = c;
         Resources res = c.getResources();
 
@@ -32,29 +83,29 @@ public class CustomAdapter extends BaseAdapter implements Filterable
         this.stringList = new ArrayList<String>();
         // rooms = new String[]{"Post1", "Post2", "Post3", "Post15", "Post2", "Post3", "Post1", "Post2", "Post3", "Post1", "Post2", "Post3",
          //       "Post1", "Post2", "Post3", "Post1", "Post2", "Post3", "Post1", "Post2", "Post3", "Post1", "Post2", "Post3"};
-        stringList.add("Post1");
-        stringList.add("Post12");
-        stringList.add("Post3");
-
-        masterList.add("Post1");
-        masterList.add("Post2");
-        masterList.add("Post3");
-
-        stringList.add("Post1");
-        stringList.add("Post2");
-        stringList.add("Post3");
-
-        masterList.add("Post1");
-        masterList.add("Post2");
-        masterList.add("Post3");
-
-        stringList.add("Post1");
-        stringList.add("Post2");
-        stringList.add("Post3");
-
-        masterList.add("Post1");
-        masterList.add("Post2");
-        masterList.add("Post3");
+//        stringList.add("Post1");
+//        stringList.add("Post12");
+//        stringList.add("Post3");
+//
+//        masterList.add("Post1");
+//        masterList.add("Post2");
+//        masterList.add("Post3");
+//
+//        stringList.add("Post1");
+//        stringList.add("Post2");
+//        stringList.add("Post3");
+//
+//        masterList.add("Post1");
+//        masterList.add("Post2");
+//        masterList.add("Post3");
+//
+//        stringList.add("Post1");
+//        stringList.add("Post2");
+//        stringList.add("Post3");
+//
+//        masterList.add("Post1");
+//        masterList.add("Post2");
+//        masterList.add("Post3");
     }
 
     public void addItem(String item) {
@@ -128,38 +179,6 @@ public class CustomAdapter extends BaseAdapter implements Filterable
         return filter;
     }
 
-//
-//        public Filter getFilter() {
-//            return new Filter() {
-//
-//                @Override
-//                protected FilterResults performFiltering(CharSequence constraint) {
-//                    final FilterResults oReturn = new FilterResults();
-//                    final ArrayList<String> results = new ArrayList<String>();
-//                    if (stringList == null)
-//                        stringList = new ArrayList<String>();
-//                    if (constraint != null) {
-//                        if (stringList != null && stringList.size() > 0) {
-//                            for (final String g : stringList) {
-//                                if (g.toString().toLowerCase()
-//                                        .contains(constraint.toString()))
-//                                    results.add(g);
-//                            }
-//                        }
-//                        oReturn.values = results;
-//                    }
-//                    return oReturn;
-//                }
-//
-//                @SuppressWarnings("unchecked")
-//                @Override
-//                protected void publishResults(CharSequence constraint,
-//                                              FilterResults results) {
-//                    stringList = (ArrayList<String>) results.values;
-//                    notifyDataSetChanged();
-//                }
-//            };
-//        }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {

@@ -21,7 +21,7 @@
     <!--        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />-->
 
     <SearchView
-        android:id= "@+id/searchbar"
+        android:id="@+id/searchbar"
         android:layout_width="414dp"
         android:layout_height="44dp"
         android:layout_marginTop="231dp"
@@ -46,8 +46,7 @@
         android:divider="#666666"
         android:dividerHeight="0.1dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" >
-    </ListView>
+        app:layout_constraintTop_toTopOf="parent"></ListView>
 
     <TextView
         android:id="@+id/textView"
@@ -79,12 +78,12 @@
         android:layout_marginTop="20dp"
         android:layout_marginEnd="60dp"
         android:src="@drawable/ic_create_24px"
-        tools:layout_editor_absoluteX="307dp"
-        tools:layout_editor_absoluteY="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="307dp"
+        tools:layout_editor_absoluteY="20dp" />
 
     <ImageButton
         android:id="@+id/edit_profile_button"
@@ -119,6 +118,15 @@
         android:layout_marginTop="600dp"
         android:onClick="onClaimPostButtonClick"
         android:text="Claim Post"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <fragment
+        android:id="@+id/fragment"
+        android:name="edu.upenn.cis350.cis350finalproject.MapViewFragment"
+        android:layout_width="416dp"
+        android:layout_height="141dp"
+        android:layout_marginTop="88dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

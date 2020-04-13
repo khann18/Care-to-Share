@@ -48,6 +48,7 @@ var getPosts = function(req, res) {
 			console.log(err);
 		}else {
 			console.log(data);
+			console.log("SENT");
 			res.send(data);
 		}
 	});

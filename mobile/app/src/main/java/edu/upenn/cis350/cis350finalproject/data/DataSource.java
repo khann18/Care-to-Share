@@ -7,10 +7,31 @@ import java.net.URL;
 import edu.upenn.cis350.cis350finalproject.AccessWebTask;
 import edu.upenn.cis350.cis350finalproject.Post;
 import edu.upenn.cis350.cis350finalproject.User;
+
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
+
+import static androidx.constraintlayout.widget.Constraints.TAG;
 
 
 public class DataSource {
+
+    public static String getAllPosts() {
+        Log.d("RESULT", "Aww shit here we go again");
+
+        String res = null;
+        try {
+            URL url = new URL("http://10.0.2.2:3000/getPost");
+            AccessWebTask task = new AccessWebTask();
+            task.execute(url);
+            res = task.get();
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+        Log.d("RESULT", res);
+        return (res);
+    }
 
     public static boolean isCorrectPassword(String username, String password) {
         try {
