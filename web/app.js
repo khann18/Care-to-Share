@@ -36,6 +36,7 @@ app.get('/deleteaccount', routes.deleteaccount);
 app.get('/console', routes.console);
 app.get('/getUser', routes.get_user);
 app.get('/getPost', routes.get_post);
+app.get('/data', routes.get_data);
 
 app.get('/testRoute', function(req, res) {
 	async function main(){

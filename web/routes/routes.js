@@ -253,6 +253,15 @@ var getUser = function(req, res) {
 	});
 }
 
+var get_data = function(req, res) {
+	post_db.getTopUsersByNumPosts(2, function(err, data) {
+		res.render('data.ejs', {data: data});
+
+	});
+	
+}
+
+
 
 
 var routes = {
@@ -273,6 +282,7 @@ var routes = {
   get_user: userInfo,
   update_account: updateAccount,
   deleteaccount: deleteaccount,
+  get_data: get_data,
 };
 //exporting the routes
 module.exports = routes;
