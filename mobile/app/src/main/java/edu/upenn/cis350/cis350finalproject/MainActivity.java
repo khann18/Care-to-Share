@@ -1,36 +1,23 @@
 package edu.upenn.cis350.cis350finalproject;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.os.AsyncTask;
 import android.os.Bundle;
 
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.SearchView;
-import android.widget.TextView;
 import android.widget.Toast;
-
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapView;
-
-import java.net.URL;
-import java.util.ArrayList;
+import org.json.JSONObject;
 import java.util.Date;
-
 import edu.upenn.cis350.cis350finalproject.data.DataSource;
 
 
@@ -38,40 +25,10 @@ import edu.upenn.cis350.cis350finalproject.ui.login.LoginActivity;
 
 public class MainActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
 
-//    private RecyclerView recyclerView;
-//    private RAdapter mAdapter;
-//    private RecyclerView.LayoutManager layoutManager;
-
-    MapView mapView;
-    GoogleMap map;
     SearchView sv;
     ListView lv;
     CustomAdapter ca;
 
-    public void checkPermission(String permission, int requestCode)
-    {
-
-        // Checking if permission is not granted
-        if (ContextCompat.checkSelfPermission(
-                MainActivity.this,
-                permission)
-                == PackageManager.PERMISSION_DENIED) {
-            ActivityCompat
-                    .requestPermissions(
-                            MainActivity.this,
-                            new String[] { permission },
-                            requestCode);
-        }
-        else {
-            Toast
-                    .makeText(MainActivity.this,
-                            "Permission already granted",
-                            Toast.LENGTH_SHORT)
-                    .show();
-        }
-    }
-
-    
 
     @SuppressLint("NewApi")
     private void setupSearchView()
@@ -96,7 +53,6 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     @Override
     public boolean onQueryTextSubmit(String query)
     {
-        // DataSource.getTest();
         return false;
     }
 
@@ -109,44 +65,36 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Here, thisActivity is the current activity
-        if (ContextCompat.checkSelfPermission(this,
-                Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED) {
-
-            // Permission is not granted
-            // Should we show an explanation?
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-                    Manifest.permission.ACCESS_FINE_LOCATION)) {
-                // Show an explanation to the user *asynchronously* -- don't block
-                // this thread waiting for the user's response! After the user
-                // sees the explanation, try again to request the permission.
-            } else {
-                // No explanation needed; request the permission
-                ActivityCompat.requestPermissions(this,
-                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                        1337);
-
-                // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
-                // app-defined int constant. The callback method gets the
-                // result of the request.
-            }
-        } else {
-            // Permission has already been granted
-        }
 
         //get username passed to intent
         final String username = getIntent().getStringExtra("username");
 
-
-
-        ListView listView = (ListView) findViewById(R.id.listView);
-        lv = listView;
+        lv =  (ListView) findViewById(R.id.listView);
         sv = (SearchView) findViewById(R.id.searchbar);
 
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.d("Position", "" + position);
                 String item = parent.getItemAtPosition(position).toString();
+                JSONObject jItem = (JSONObject) ca.getItem(position);
+
+                String location;
+                String contact;
+
+                try {
+                    location = jItem.getString("location");
+                    contact = jItem.getString("postedBy");
+                    User n = new User(contact, null, location, null, null, null, null, null, location);
+                    Post p = new Post(null, null, null, n, null, false, null);
+                    Intent myIntent = new Intent(MainActivity.this, ClaimPostActivity.class);
+                    myIntent.putExtra("POST", p); //Optional parameters
+                    MainActivity.this.startActivity(myIntent);
+
+                } catch (Exception e) {
+
+                }
+
+                //jItem.getString("location");
 
                 Context context = getApplicationContext();
                 CharSequence text = item;
@@ -162,7 +110,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
 
         CustomAdapter cAdapter = new CustomAdapter(this);
         ca = cAdapter;
-        listView.setAdapter(ca);
+        lv.setAdapter(ca);
 
         lv.setTextFilterEnabled(true);
         setupSearchView();
@@ -202,10 +150,6 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
 
     public void onClaimPostButtonClick(View view) {
         Intent i = new Intent(this, ClaimPostActivity.class);
-
-//          Intent i = new Intent(this, MessageBoardActivity.class);
-
-
 
 //        DO STUFF HERE TO PUT THIS IN DB AS DUMMY
         User me = new User("Paula", "Hann", "Phoenix",

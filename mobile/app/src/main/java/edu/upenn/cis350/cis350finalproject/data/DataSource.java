@@ -17,20 +17,26 @@ import static androidx.constraintlayout.widget.Constraints.TAG;
 
 public class DataSource {
 
-    public static String getAllPosts() {
-        Log.d("RESULT", "Aww shit here we go again");
 
+    public static JSONArray getAllPosts() {
+        Log.d("RESULT", "Commence Get Posts");
         String res = null;
         try {
             URL url = new URL("http://10.0.2.2:3000/getPost");
             AccessWebTask task = new AccessWebTask();
             task.execute(url);
             res = task.get();
+            int t = res.indexOf('[');
+            int t1 = res.indexOf(']');
+            res = res.substring(t, t1) + "]";
+
+            Log.d("RESULT", res);
+            JSONArray j = new JSONArray(res);
+            return j;
         }catch (Exception e) {
             e.printStackTrace();
+            return null;
         }
-        Log.d("RESULT", res);
-        return (res);
     }
 
     public static boolean isCorrectPassword(String username, String password) {
@@ -174,6 +180,8 @@ public class DataSource {
             return null;
         }
     }
+
+
 
     public static void deleteAccount(String username) {
         try {
