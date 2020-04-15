@@ -3,6 +3,7 @@ var user_db = require('../database/userdatabase.js');
 var post_db = require('../database/postdatabase.js');
 var User = require('../database/users.js');
 var Post = require('../database/posts.js');
+var request = require("request");
 
 var testArray = ["Alex", "Taki", "Vatsin", "Katherine"]
 
@@ -22,24 +23,70 @@ var getCreateAccount = function(req, res) {
 
 
 var createNewPost = function(req, res) {
-	var newPost = new Post({
-		description: req.query.description,
-		location: req.query.location,
-		postedBy: req.query.poster,
-		pickupTime: req.query.pickupTime,
-		contactInfo: req.query.contact,
-		isClaimed: req.query.isClaimed,
-		claimMessage: req.query.claimMessage,
-		marked: req.query.marked
-	});
+	var API_KEY = "AIzaSyD9L96DpB9wyP4Are37YqzlJlICplSR-B0";
+    var BASE_URL = "https://maps.googleapis.com/maps/api/geocode/json?address=";
+    var address = req.query.location;
 
-	post_db.createPost(newPost, function(err, data){
-		if (err) {
-			console.log(err);
-		} else {
-			console.log(data);
-		}
-	});
+    var url = BASE_URL + address + "&key=" + API_KEY;
+
+    var coords = "";
+    request(url, function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+            // console.log(Object.keys(body));
+            var response = JSON.parse(body);
+            console.log(response.results['0'].geometry.location);
+            console.log(Object.keys(response.results));
+            coords = "" + response.results['0'].geometry.location.lat + "," + response.results['0'].geometry.location.lng;
+
+            	var newPost = new Post({
+					description: req.query.description,
+					location: req.query.location,
+					postedBy: req.query.poster,
+					pickupTime: req.query.pickupTime,
+					contactInfo: req.query.contact,
+					isClaimed: req.query.isClaimed,
+					claimMessage: req.query.claimMessage,
+					marked: req.query.marked,
+					latlng: coords
+				});
+
+				post_db.createPost(newPost, function(err, data){
+					if (err) {
+						console.log(err);
+					} else {
+						console.log(data);
+					}
+				});
+				res.send(200);
+       				 }
+        else {
+            console.log("Fail");
+            res.send(200);
+            // The request failed, handle it
+        }
+    });
+
+    console.log(coords);
+
+	// var newPost = new Post({
+	// 	description: req.query.description,
+	// 	location: req.query.location,
+	// 	postedBy: req.query.poster,
+	// 	pickupTime: req.query.pickupTime,
+	// 	contactInfo: req.query.contact,
+	// 	isClaimed: req.query.isClaimed,
+	// 	claimMessage: req.query.claimMessage,
+	// 	marked: req.query.marked,
+	// 	latlng: coords
+	// });
+
+	// post_db.createPost(newPost, function(err, data){
+	// 	if (err) {
+	// 		console.log(err);
+	// 	} else {
+	// 		console.log(data);
+	// 	}
+	// });
 }
 
 var getPosts = function(req, res) {

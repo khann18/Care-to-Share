@@ -91,20 +91,15 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
                     MainActivity.this.startActivity(myIntent);
 
                 } catch (Exception e) {
-
+                    e.printStackTrace();
                 }
-
-                //jItem.getString("location");
 
                 Context context = getApplicationContext();
                 CharSequence text = item;
                 int duration = Toast.LENGTH_SHORT;
 
-                Toast toast = Toast.makeText(context, text, duration);
-                toast.show();
-
-                ca.addItem("NewPost");
-                // When clicked perform some action...
+                //Toast toast = Toast.makeText(context, text, duration);
+                // toast.show();
             }
         });
 
