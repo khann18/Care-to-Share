@@ -44,6 +44,7 @@ public class CreateAccountActivity extends AppCompatActivity {
                 String email = ((EditText) findViewById(R.id.input_email)).getText().toString();
                 String organization = ((EditText) findViewById(R.id.input_organization)).getText().toString();
                 String location = ((EditText) findViewById(R.id.input_location)).getText().toString();
+                String profilePic = ((EditText) findViewById(R.id.input_profile_pic)).getText().toString();
 
                 Spinner accountTypeSpinner = (Spinner) findViewById(R.id.input_account_type);
                 String accountType = accountTypeSpinner.getSelectedItem().toString();
@@ -60,7 +61,7 @@ public class CreateAccountActivity extends AppCompatActivity {
                 }
 
                 else {
-                    DataSource.createAccount(firstName, lastName, username, password, email, phoneNumber, accountType, location, organization);
+                    DataSource.createAccount(firstName, lastName, username, password, email, phoneNumber, accountType, location, organization, profilePic);
 
                     Intent i = new Intent(getApplicationContext(), MainActivity.class);
                     //pass username to the home activity

@@ -30,7 +30,8 @@ var saveUser = function(user, route_callback) {
 		email: user.email,
 		location: user.location,
 		organization: user.organization,
-		userType: user.userType
+		userType: user.userType,
+		profilePic: user.profilePic,
 	}
 	console.log(updated);
 	User.findOneAndUpdate({username : user.username}, updated, function(err, result){
@@ -64,6 +65,32 @@ var getPassword = function(username, route_callback) {
 	User.findOne({username : username}).select('password').exec(route_callback);
 }
 
+var getTopLocationsByNumUsers = function(num_locations, route_callback) {
+	User.find({}, function(err, docs) {
+		var user_count = {};
+		docs.forEach((doc) => {
+			location = doc.location;
+			if (location in user_count) {
+				user_count[location] = user_count[location] + 1;
+			} else {
+				user_count[location] = 1;
+			}
+		});
+		var items = Object.keys(user_count).map(function(key) {
+  			return [key, user_count[key]];
+		});
+		items.sort(function(first, second) {
+  			return second[1] - first[1];
+		});
+
+		// Create a new array with only the first num_users items
+		console.log(items.slice(0, num_locations));
+
+		//return dictionary with key username and value number of posts, sorted in decreasing number of posts
+		route_callback(user_count, null);
+	});
+}
+
 module.exports = {
 	createUser: createUser,
 	getPassword: getPassword,
@@ -71,5 +98,6 @@ module.exports = {
 	checkUsernameTaken: checkUsernameTaken,
 	saveUser: saveUser,
 	userInfo: userInfo,
-	deleteUser: deleteUser
+	deleteUser: deleteUser,
+	getTopLocationsByNumUsers, getTopLocationsByNumUsers,
 }

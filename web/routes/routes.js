@@ -96,13 +96,14 @@ var createNewUser = function(req, res) {
 		password: req.query.password,
 		phoneNumber: req.query.phoneNumber,
 		email: req.query.email,
-		organization: req.query.organization
+		organization: req.query.organization,
+		profilePic: req.query.profilePic,
 	 });
 	user_db.createUser(newUser, function(err, data) {
 		if (err) {
 			console.log(err);
 		} else {
-			console.log(data);
+			console.log(newUser);
 			//Returns the entire User object that was created
 			res.send(newUser);
 		}
@@ -181,7 +182,8 @@ var updateAccount = function(req, res) {
 		password: req.query.password,
 		phoneNumber: req.query.phoneNumber,
 		email: req.query.email,
-		organization: req.query.organization
+		organization: req.query.organization,
+		profilePic: req.query.profilePic,
 	 });
 	user_db.saveUser(newUser, function(err, data) {
 		if (err) {
@@ -254,10 +256,20 @@ var getUser = function(req, res) {
 }
 
 var get_data = function(req, res) {
-	post_db.getTopUsersByNumPosts(2, function(err, data) {
-		res.render('data.ejs', {data: data});
-
+	stats = {}
+	post_db.getTopUsersByNumPosts(10, function(err, data) {
+		stats.topUsersByNumPosts = data;
 	});
+	post_db.getTopLocationsByNumPosts(10, function(err, data) {
+		stats.topLocationsByNumPosts = data;
+	});
+	user_db.getTopLocationsByNumUsers(10, function(err, data) {
+		stats.topLocationsByNumUsers = data;
+	});
+
+	//TODO: stuff with claims database
+
+	res.render('data.ejs', stats);
 	
 }
 
