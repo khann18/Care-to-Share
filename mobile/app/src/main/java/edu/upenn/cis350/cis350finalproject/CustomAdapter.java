@@ -143,9 +143,8 @@ public class CustomAdapter extends BaseAdapter implements Filterable
             description.setText(temp);
             JSONObject curr = jsonList.get(position);
             Log.d("Size", "" + jsonList.size());
-            try{
-                extraInfo.setText("Location: " + curr.getString("location") + "|  Posted By: "  +
-                        curr.getString("postedBy"));
+            try {
+                extraInfo.setText("Location: " + curr.getString("location"));
             } catch (Exception e) {
                 e.printStackTrace();
             }

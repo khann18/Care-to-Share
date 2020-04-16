@@ -24,11 +24,18 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import edu.upenn.cis350.cis350finalproject.data.DataSource;
 
 import static android.content.Context.LOCATION_SERVICE;
 import static androidx.constraintlayout.widget.Constraints.TAG;
@@ -86,7 +93,7 @@ public class MapViewFragment extends Fragment {
                     public void onLocationChanged(android.location.Location location) {
                         double latitude=location.getLatitude();
                         double longitude=location.getLongitude();
-                        String msg="New Latitude: "+latitude + "New Longitude: "+longitude;
+                        String msg =  "New Latitude: "+latitude + "New Longitude: "+longitude;
                         // Toast.makeText(getContext(), msg, Toast.LENGTH_LONG).show();
                     }
 
@@ -109,13 +116,40 @@ public class MapViewFragment extends Fragment {
                 locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
                 Location lastKnownLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
                 LatLng userLocation = new LatLng(lastKnownLocation.getLatitude(),lastKnownLocation.getLongitude());
+                userLocation = new LatLng(39.9522, -75.1932);
                 googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(userLocation,12));
+                googleMap.getUiSettings().setZoomControlsEnabled(true);
 
                 // For dropping a marker at a point on the Map
                 LatLng sydney = new LatLng(-34, 151);
 
-                googleMap.addMarker(new MarkerOptions().position(sydney).title("Marker Title").snippet("Marker Description"));
+                googleMap.addMarker(new MarkerOptions()
+                        .position(userLocation)
+                        .title("Current Location")
+                        .snippet("You are here")
+                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
 
+
+                JSONArray closePosts = DataSource.getClosePosts(userLocation);
+                closePosts.length();
+                for (int i = 0; i < closePosts.length(); i++) {
+                    try {
+                        JSONObject current = closePosts.getJSONObject(i);
+                        String name = current.getString("description");
+                        String user = current.getString("postedBy");
+                        String[] location = current.getString("latlng").split(",");
+                        LatLng locationCoords = new LatLng(Double.parseDouble(location[0]), Double.parseDouble(location[1]));
+
+                        googleMap.addMarker(new MarkerOptions()
+                                .position(locationCoords)
+                                .title(name)
+                                .snippet("Posted By: " + user)
+                                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
                 // For zooming automatically to the location of the marker
 //                CameraPosition cameraPosition = new CameraPosition.Builder().target(sydney).zoom(12).build();
 //                googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));

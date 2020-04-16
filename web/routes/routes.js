@@ -59,6 +59,25 @@ var createNewPost = function(req, res) {
 				});
 				res.send(200);
        	} else {
+	    	var newPost = new Post({
+				description: req.query.description,
+				location: req.query.location,
+				postedBy: req.query.poster,
+				pickupTime: req.query.pickupTime,
+				contactInfo: req.query.contact,
+				isClaimed: req.query.isClaimed,
+				claimMessage: req.query.claimMessage,
+				marked: req.query.marked,
+				latlng: ""
+			});
+
+			post_db.createPost(newPost, function(err, data){
+				if (err) {
+					console.log(err);
+				} else {
+					console.log(data);
+				}
+			});
             console.log("Fail");
             res.send(200);
             // The request failed, handle it
