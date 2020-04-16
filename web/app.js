@@ -37,6 +37,8 @@ app.get('/deleteaccount', routes.deleteaccount);
 app.get('/console', routes.console);
 app.get('/getUser', routes.get_user);
 app.get('/getPost', routes.get_post);
+app.get('/getCPost', routes.get_close_posts);
+
 
 app.get('/testAPI', function(req, res) {
     var API_KEY = "AIzaSyD9L96DpB9wyP4Are37YqzlJlICplSR-B0";
