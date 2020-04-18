@@ -41,13 +41,18 @@ import static android.content.Context.LOCATION_SERVICE;
 import static androidx.constraintlayout.widget.Constraints.TAG;
 
 
-public class MapViewFragment extends Fragment {
+public class MapViewFragment extends Fragment implements GoogleMap.OnMarkerClickListener {
 
 
     MapView mMapView;
     private GoogleMap googleMap;
     protected LocationManager locationManager;
     protected LocationListener locationListener;
+
+    @Override
+    public boolean onMarkerClick (Marker marker) {
+        return true;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -136,6 +141,7 @@ public class MapViewFragment extends Fragment {
                     try {
                         JSONObject current = closePosts.getJSONObject(i);
                         String name = current.getString("description");
+                        String loc = current.getString("location");
                         String user = current.getString("postedBy");
                         String[] location = current.getString("latlng").split(",");
                         LatLng locationCoords = new LatLng(Double.parseDouble(location[0]), Double.parseDouble(location[1]));
@@ -143,7 +149,7 @@ public class MapViewFragment extends Fragment {
                         googleMap.addMarker(new MarkerOptions()
                                 .position(locationCoords)
                                 .title(name)
-                                .snippet("Posted By: " + user)
+                                .snippet("Address: " + loc)
                                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
 
                     } catch (Exception e) {
