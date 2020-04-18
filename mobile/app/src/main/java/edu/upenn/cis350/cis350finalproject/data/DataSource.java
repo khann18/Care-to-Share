@@ -2,11 +2,15 @@ package edu.upenn.cis350.cis350finalproject.data;
 
 import android.util.Log;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import java.net.URL;
 
 import edu.upenn.cis350.cis350finalproject.AccessWebTask;
 import edu.upenn.cis350.cis350finalproject.Post;
 import edu.upenn.cis350.cis350finalproject.User;
+
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 
@@ -251,4 +255,47 @@ public class DataSource {
             System.out.println("yikessssss");
         }
     }
+
+    public static JSONArray getAllPosts() {
+        Log.d("RESULT", "Commence Get Posts");
+        String res = null;
+        try {
+            URL url = new URL("http://10.0.2.2:3000/getPost");
+            AccessWebTask task = new AccessWebTask();
+            task.execute(url);
+            res = task.get();
+            int t = res.indexOf('[');
+            int t1 = res.indexOf(']');
+            res = res.substring(t, t1) + "]";
+
+            Log.d("RESULT", res);
+            JSONArray j = new JSONArray(res);
+            return j;
+        }catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static JSONArray getClosePosts(LatLng coords) {
+        Log.d("RESULT", "Commence Get Posts");
+        String res = null;
+        try {
+            URL url = new URL("http://10.0.2.2:3000/getCPost?" + "lat" + coords.latitude + "&" + "lng" + coords.longitude);
+            AccessWebTask task = new AccessWebTask();
+            task.execute(url);
+            res = task.get();
+            int t = res.indexOf('[');
+            int t1 = res.indexOf(']');
+            res = res.substring(t, t1) + "]";
+
+            Log.d("RESULT", res);
+            JSONArray j = new JSONArray(res);
+            return j;
+        }catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
 }

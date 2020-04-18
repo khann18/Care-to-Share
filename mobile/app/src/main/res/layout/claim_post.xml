@@ -31,23 +31,31 @@
         android:textSize="30dp" />
 
     <TextView
-        android:id="@+id/header"
+        android:id="@+id/header1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="9dp"
+        android:includeFontPadding="true"
         android:background="#EDA8D9F7"
         android:backgroundTintMode="add"
-        android:fontFamily="serif"
-        android:includeFontPadding="true"
-        android:padding="15dp"
+        android:padding="8dp"
         android:textAlignment="viewStart"
-        android:textSize="20sp" />
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/header2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="9dp"
+        android:includeFontPadding="true"
+        android:padding="8dp"
+        android:textAlignment="viewStart"
+        android:textSize="18sp" />
 
     <EditText
         android:id="@+id/enterMessage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fontFamily="serif"
         android:minHeight="100dp"
         android:textAlignment="viewStart"
         android:textIsSelectable="true"
@@ -72,7 +80,8 @@
         android:textAlignment="center"
         android:textAllCaps="true"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textSize="20sp"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
         android:textStyle="bold" />
 <!--   original green button color "#7CB97C-->
 </LinearLayout>

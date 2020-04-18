@@ -43,6 +43,7 @@ app.get('/findPostById', routes.find_post_by_id);
 app.get('/getClaimById', routes.get_claim_by_id);
 app.get('/updateClaimStatus', routes.update_claim_status);
 app.get('/updateClaimsForAcceptedPost', routes.update_claims_for_accepted_post);
+app.get('/getCPost', routes.get_close_posts);
 
 
 app.get('/testRoute', function(req, res) {
@@ -79,6 +80,30 @@ app.get('/testRoute', function(req, res) {
 
 main().catch(console.error);
 });
+
+app.get('/testAPI', function(req, res) {
+    var API_KEY = "AIzaSyD9L96DpB9wyP4Are37YqzlJlICplSR-B0";
+    var BASE_URL = "https://maps.googleapis.com/maps/api/geocode/json?address=";
+    var address = "1600 Amphitheatre Parkway, Mountain View, CA";
+
+    var url = BASE_URL + address + "&key=" + API_KEY;
+
+    request(url, function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+            // console.log(Object.keys(body));
+            var response = JSON.parse(body);
+            console.log(response.results['0'].geometry.location);
+            console.log(Object.keys(response.results));
+
+            res.json(body);
+        }
+        else {
+            console.log("Fail");
+            res.send(200);
+            // The request failed, handle it
+        }
+    });
+})
 
 
 app.listen(3000, function () {

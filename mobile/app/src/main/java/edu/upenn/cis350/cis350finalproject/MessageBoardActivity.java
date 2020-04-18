@@ -40,26 +40,16 @@ public class MessageBoardActivity extends AppCompatActivity implements View.OnCl
         selectButton.setVisibility(View.GONE);
         TextView noMessageText = (TextView) findViewById(R.id.noMessages);
 
-        radioGroup = findViewById(R.id.radiogroup);
-        arr = DataSource.getClaimsByDonor(donorUsername);
-
-        if (arr.length() > 0) {
-            noMessageText.setVisibility(View.GONE);
-
-            addRadioButtons();
-        } else {
-            noMessageText.setVisibility(View.VISIBLE);
-        }
-
         ImageButton editProfile = findViewById(R.id.edit_profile_button);
         editProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(getApplicationContext(), EditProfileActivity.class);
                 i.putExtra("username", donorUsername);
-                startActivity(i);
+                startActivityForResult(i,1);
             }
         });
+
 
         ImageButton createPost = findViewById(R.id.create_post);
         createPost.setOnClickListener(new View.OnClickListener() {
@@ -79,6 +69,19 @@ public class MessageBoardActivity extends AppCompatActivity implements View.OnCl
                 startActivity(i);
             }
         });
+
+        radioGroup = findViewById(R.id.radiogroup);
+        arr = DataSource.getClaimsByDonor(donorUsername);
+
+        if (arr.length() > 0) {
+            noMessageText.setVisibility(View.GONE);
+
+            addRadioButtons();
+        } else {
+            noMessageText.setVisibility(View.VISIBLE);
+        }
+
+
     }
 
     public void addRadioButtons() {
@@ -143,4 +146,11 @@ public class MessageBoardActivity extends AppCompatActivity implements View.OnCl
         startActivityForResult(i, MessageResponseActivity_ID);
 
     }
+
+//    public void onCreatePostClick(View v) {
+//        ImageButton createPost = findViewById(R.id.create_post);
+//        Intent i = new Intent(this, CreatePostActivity.class);
+//        i.putExtra("username", donorUsername);
+//        startActivityForResult(i,1);
+//    }
 }

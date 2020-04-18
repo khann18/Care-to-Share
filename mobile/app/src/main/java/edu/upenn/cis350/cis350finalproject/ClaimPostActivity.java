@@ -26,8 +26,8 @@ public class ClaimPostActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.claim_post);
         Bundle bundle = getIntent().getExtras();
-        postId = bundle.getString("POSTID");
-        obtainerUsername = bundle.getString("USER");
+        postId = bundle.getString("postid");
+        obtainerUsername = bundle.getString("username");
         JSONObject post = DataSource.findPostById(postId);
         try {
             if (post != null) {
@@ -46,8 +46,13 @@ public class ClaimPostActivity extends AppCompatActivity {
         } catch (Exception e) {
             headerText = headerText + "Cannot find the organization or user that created this post.";
         }
-        TextView header = (TextView) findViewById(R.id.header);
-        header.setText(headerText);
+
+        String description = bundle.getString("description");
+        TextView header1 = (TextView) findViewById(R.id.header1);
+        header1.setText("Post description: \n" + description);
+
+        TextView header2 = (TextView) findViewById(R.id.header2);
+        header2.setText(headerText);
     }
 
     public void onSendButtonClick(View view) {

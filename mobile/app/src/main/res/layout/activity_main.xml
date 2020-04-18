@@ -7,48 +7,25 @@
     android:layout_marginTop="15dp"
     tools:context=".MainActivity">
 
-    <!--    <android.support.v7.widget.Toolbar-->
-    <!--        android:id="@+id/my_toolbar"-->
-    <!--        android:layout_width="409dp"-->
-    <!--        android:layout_height="55dp"-->
-    <!--        android:layout_marginStart="1dp"-->
-    <!--        android:layout_marginTop="33dp"-->
-    <!--        android:background="?attr/colorPrimary"-->
-    <!--        android:elevation="4dp"-->
-    <!--        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintTop_toTopOf="parent"-->
-    <!--        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />-->
 
     <SearchView
-        android:id= "@+id/searchbar"
+        android:id="@+id/searchbar"
         android:layout_width="414dp"
         android:layout_height="44dp"
-        android:layout_marginTop="231dp"
+        android:layout_marginTop="340dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!--    <androidx.recyclerview.widget.RecyclerView-->
-    <!--        android:id = "@+id/recycler"-->
-    <!--        android:layout_width="409dp"-->
-    <!--        android:layout_height="454dp"-->
-    <!--        android:layout_marginEnd="1dp"-->
-    <!--        android:layout_marginBottom="1dp"-->
-    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent" />-->
-    <!--    -->
 
     <ListView
         android:id="@+id/listView"
-        android:layout_width="414dp"
-        android:layout_height="452dp"
-        android:layout_marginTop="279dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="380dp"
         android:divider="#666666"
         android:dividerHeight="0.1dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" >
-    </ListView>
+        app:layout_constraintTop_toTopOf="parent"></ListView>
 
 <!--    <TextView-->
 <!--        android:id="@+id/textView"-->
@@ -111,26 +88,26 @@
         android:textAllCaps="true"
         android:textColor="@color/colorPrimary"
         android:textSize="32dp" />
+
 <!--    <TextView-->
 <!--        android:id="@+id/textView2"-->
 <!--        android:layout_width="150dp"-->
 <!--        android:layout_height="28dp"-->
-<!--        android:layout_marginTop="31dp"-->
-<!--        android:text="Final Project"-->
+<!--        android:layout_marginTop="16dp"-->
+<!--        android:text="Local Map"-->
 <!--        android:textAppearance="@style/TextAppearance.AppCompat.Large"-->
 <!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintHorizontal_bias="0.557"-->
+<!--        app:layout_constraintHorizontal_bias="0.59"-->
 <!--        app:layout_constraintStart_toStartOf="parent"-->
 <!--        app:layout_constraintTop_toTopOf="parent" />-->
 
-    <Button
-        android:id="@+id/claimPost"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="144dp"
-        android:layout_marginTop="132dp"
-        android:onClick="onClaimPostButtonClick"
-        android:text="Claim Post"
+
+    <fragment
+        android:id="@+id/fragment"
+        android:name="edu.upenn.cis350.cis350finalproject.MapViewFragment"
+        android:layout_width="413dp"
+        android:layout_height="255dp"
+        android:layout_marginTop="70dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
