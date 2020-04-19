@@ -273,7 +273,23 @@ var getUserProfile = function (req, res) {
 			});
 		}
 	});
-}
+};
+
+var deleteUserAdmin = function (req, res) {
+	post_db.deletePosts(req.body.username, function(err, data){
+		if (err) {
+			console.log("error deleting all of users posts");
+		} else {
+			user_db.deleteUser(req.body.username, function(err, data) {
+				if (err) {
+					console.log(err);
+				} else {
+					res.redirect('/console');
+				}
+		});
+	}
+	});
+};
 
 
 
@@ -296,7 +312,8 @@ var routes = {
   update_account: updateAccount,
   deleteaccount: deleteaccount,
 	displayMap: getMap,
-	displayUser: getUserProfile
+	displayUser: getUserProfile,
+	deleteUser: deleteUserAdmin
 };
 //exporting the routes
 module.exports = routes;

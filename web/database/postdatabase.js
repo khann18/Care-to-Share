@@ -39,12 +39,16 @@ var setClaimMessage = function(description, route_callback) {
     Post.findOne({description : description}).exec(route_callback);
 }
 
+var deleteUserPosts = function (user, route_callback) {
+	Post.remove({postedBy: user}).exec(route_callback);
+}
+
 module.exports = {
 	editMarked: updatePostMark,
 	deletePost: removePost,
 	createPost: createPost,
 	getPosts: getPosts,
-    getAdminPosts: getAdminPosts,
-    setClaimMessage: setClaimMessage
+  getAdminPosts: getAdminPosts,
+  setClaimMessage: setClaimMessage,
+	deletePosts: deleteUserPosts
 }
-

@@ -60,8 +60,11 @@
                 <li class="list-group-item"><img src="https://img.icons8.com/nolan/30/organization.png" /> <%= user[0].organization %></li>
               </ul>
               <div class="card-body">
-                <a href="#" class="card-link">Card link</a>
-                <a href="#" class="card-link">Another link</a>
+                <form action="/deleteUser" method="POST">
+                  <input type="hidden" name="username" value="<%= user[0].username %>" />
+                  <input class="btn btn-outline-danger" type="submit" value="Delete User">
+                </form>
+
               </div>
             </div>
           </div>
