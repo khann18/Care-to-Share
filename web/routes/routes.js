@@ -58,7 +58,6 @@ var getAdminPosts = function(req, res) {
 		if (err) {
 			console.log(err);
 		}else {
-			console.log(data);
 			res.render('home.ejs', {message : data });
 		}
 	});
@@ -228,17 +227,18 @@ var displayConsole = function (req, res){
 	user_db.getUser("", function(err, data) {
 		if (err) {
 			console.log(err);
-			res.render('console.ejs', {message : null, results:testArray});
-
 		} else {
-			console.log("CONSOLE DATA");
-			console.log(data);
 			testArray = data;
-			res.render('console.ejs', {message : null, results:testArray});
-			// res.send(data);
+			post_db.getPosts({marked: "user"}, function (err, post_data) {
+				if (err) {
+					console.log(err);
+				} else {
+					console.log(post_data);
+					res.render('console.ejs', {message : null, results:testArray, posts: post_data});
+				}
+			});
 		}
 	});
-	console.log("Async Test");
 };
 
 var getUser = function(req, res) {
@@ -253,9 +253,7 @@ var getUser = function(req, res) {
 	});
 }
 
-var getMap = function (req, res) {
-	res.render('maps.ejs', {message: null});
-}
+
 
 var getUserProfile = function (req, res) {
 	user_db.getUser({username : req.body.username}, function(err, user_data) {
@@ -311,7 +309,6 @@ var routes = {
   get_user: userInfo,
   update_account: updateAccount,
   deleteaccount: deleteaccount,
-	displayMap: getMap,
 	displayUser: getUserProfile,
 	deleteUser: deleteUserAdmin
 };
