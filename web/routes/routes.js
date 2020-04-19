@@ -256,20 +256,27 @@ var getUser = function(req, res) {
 }
 
 var get_data = function(req, res) {
-	stats = {}
+	
+
 	post_db.getTopUsersByNumPosts(10, function(err, data) {
-		stats.topUsersByNumPosts = data;
+		stats = [];
+		stats.push(data);
+		post_db.getTopLocationsByNumPosts(10, function(err, data) {
+			stats.push(data)
+			user_db.getTopLocationsByNumUsers(10, function(err, data) {
+				stats.push(data)
+				console.log(stats)
+				res.render('data.ejs', {stats: stats})
+			});
+		});
 	});
-	post_db.getTopLocationsByNumPosts(10, function(err, data) {
-		stats.topLocationsByNumPosts = data;
-	});
-	user_db.getTopLocationsByNumUsers(10, function(err, data) {
-		stats.topLocationsByNumUsers = data;
-	});
+	
+	
+
 
 	//TODO: stuff with claims database
 
-	res.render('data.ejs', stats);
+	
 	
 }
 

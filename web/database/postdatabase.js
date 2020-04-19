@@ -58,10 +58,11 @@ var getTopUsersByNumPosts = function(num_users, route_callback) {
 		});
 
 		// Create a new array with only the first num_users items
-		console.log(items.slice(0, num_users));
+		//console.log(items.slice(0, num_users));
+		var data = items.slice(0, num_users);
 
 		//return dictionary with key username and value number of posts, sorted in decreasing number of posts
-		route_callback(post_count, null);
+		route_callback(null, data);
 	});
 }
 
@@ -84,10 +85,11 @@ var getTopLocationsByNumPosts = function(num_locations, route_callback) {
 		});
 
 		// Create a new array with only the first num_users items
-		console.log(items.slice(0, num_locations));
+		//console.log(items.slice(0, num_locations));
+		var data = items.slice(0, num_locations);
 
 		//return dictionary with key username and value number of posts, sorted in decreasing number of posts
-		route_callback(post_count, null);
+		route_callback(null, data);
 	});
 }
 

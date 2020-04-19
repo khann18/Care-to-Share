@@ -5,6 +5,7 @@ const {MongoClient} = require('mongodb');
 
 // set up EJS
 app.set('view engine', 'ejs');
+app.use(express.static(__dirname + '/styles'));
 
 // set up BodyParser
 var bodyParser = require('body-parser');
