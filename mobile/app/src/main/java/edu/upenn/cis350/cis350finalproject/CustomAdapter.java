@@ -2,6 +2,7 @@ package edu.upenn.cis350.cis350finalproject;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,54 +11,53 @@ import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.TextView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import edu.upenn.cis350.cis350finalproject.data.DataSource;
 import java.util.ArrayList;
 import java.util.List;
-
 
 public class CustomAdapter extends BaseAdapter implements Filterable
 {
 
     Context context;
-    String[] rooms;
     public ArrayList<String> stringList = new ArrayList<String>();
+    public ArrayList<JSONObject> jsonList = new ArrayList<JSONObject>();
     public ArrayList<String> masterList = new ArrayList<String>();
+    public ArrayList<String> descriptionList = new ArrayList<String>();
 
 
     public CustomAdapter(Context c)
     {
+         JSONArray ja = DataSource.getAllPosts();
+            ja.length();
+            for (int i = 0; i < ja.length(); i++) {
+                try {
+                    JSONObject current = ja.getJSONObject(i);
+                    String name = current.getString("description");
+                    Log.d("RESULT", name);
+                    Log.d("RESULT", current.getString("location"));
+
+                    this.stringList.add(name);
+                    this.masterList.add(name);
+                    this.jsonList.add(current);
+                    this.descriptionList.add("Location: " + current.getString("location") + "Posted By: "  +
+                            current.getString("postedby"));
+
+                } catch (Exception e) {
+
+                }
+        }
+
         context = c;
-        Resources res = c.getResources();
+        // this.notifyDataSetChanged();
 
-        // rooms = res.getStringArray(R.array.images);
-        this.stringList = new ArrayList<String>();
-        // rooms = new String[]{"Post1", "Post2", "Post3", "Post15", "Post2", "Post3", "Post1", "Post2", "Post3", "Post1", "Post2", "Post3",
-         //       "Post1", "Post2", "Post3", "Post1", "Post2", "Post3", "Post1", "Post2", "Post3", "Post1", "Post2", "Post3"};
-        stringList.add("Post1");
-        stringList.add("Post12");
-        stringList.add("Post3");
-
-        masterList.add("Post1");
-        masterList.add("Post2");
-        masterList.add("Post3");
-
-        stringList.add("Post1");
-        stringList.add("Post2");
-        stringList.add("Post3");
-
-        masterList.add("Post1");
-        masterList.add("Post2");
-        masterList.add("Post3");
-
-        stringList.add("Post1");
-        stringList.add("Post2");
-        stringList.add("Post3");
-
-        masterList.add("Post1");
-        masterList.add("Post2");
-        masterList.add("Post3");
     }
 
     public void addItem(String item) {
+
         masterList.add(item);
         stringList.add(item);
         this.notifyDataSetChanged();
@@ -72,8 +72,8 @@ public class CustomAdapter extends BaseAdapter implements Filterable
 
     @Override
     public Object getItem(int position) {
-
-        return stringList.get(position);
+        Log.d("Position", "" + position);
+        return jsonList.get(position);
     }
 
     public void notifyDataSetChanged() {
@@ -98,6 +98,7 @@ public class CustomAdapter extends BaseAdapter implements Filterable
 
                 if (constraint != null && constraint.toString().length() > 0) {
                     List<String> founded = new ArrayList<String>();
+
                     for (String item : masterList) {
                         if (item.toString().toLowerCase().contains(constraint)) {
                             founded.add(item);
@@ -128,51 +129,29 @@ public class CustomAdapter extends BaseAdapter implements Filterable
         return filter;
     }
 
-//
-//        public Filter getFilter() {
-//            return new Filter() {
-//
-//                @Override
-//                protected FilterResults performFiltering(CharSequence constraint) {
-//                    final FilterResults oReturn = new FilterResults();
-//                    final ArrayList<String> results = new ArrayList<String>();
-//                    if (stringList == null)
-//                        stringList = new ArrayList<String>();
-//                    if (constraint != null) {
-//                        if (stringList != null && stringList.size() > 0) {
-//                            for (final String g : stringList) {
-//                                if (g.toString().toLowerCase()
-//                                        .contains(constraint.toString()))
-//                                    results.add(g);
-//                            }
-//                        }
-//                        oReturn.values = results;
-//                    }
-//                    return oReturn;
-//                }
-//
-//                @SuppressWarnings("unchecked")
-//                @Override
-//                protected void publishResults(CharSequence constraint,
-//                                              FilterResults results) {
-//                    stringList = (ArrayList<String>) results.values;
-//                    notifyDataSetChanged();
-//                }
-//            };
-//        }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
         LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view =  inflater.inflate(R.layout.single_row,parent,false);
-        TextView txt = (TextView) view.findViewById(R.id.firstLine);
-        // String temp = rooms[position];
+        TextView description = (TextView) view.findViewById(R.id.firstLine);
+        TextView extraInfo = (TextView) view.findViewById(R.id.secondLine);
+
         if (position < stringList.size()) {
             String temp = stringList.get(position);
-            txt.setText(temp);
+            description.setText(temp);
+            JSONObject curr = jsonList.get(position);
+            Log.d("Size", "" + jsonList.size());
+            try {
+                extraInfo.setText("Location: " + curr.getString("location"));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
         } else {
-            txt.setText("");
+            description.setText("");
+            extraInfo.setText("");
         }
         return view;
     }

@@ -22,7 +22,8 @@ var postSchema = new Schema({
     contactInfo: String, //could be email or phone number
     isClaimed: Boolean,
     claimMessage: String,
-    marked: String
+    marked: String,
+    latlng: String
     });
 
 

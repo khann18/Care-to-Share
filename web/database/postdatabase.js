@@ -6,6 +6,7 @@ var getPost = function(username, route_callback) {
 }
 
 var createPost = function(post, route_callback) {
+
 	// save the user to the database
 	post.save( (err) => {
 		if (err) {
@@ -16,7 +17,7 @@ var createPost = function(post, route_callback) {
 		else {
 		   route_callback(null, "success creating post");
 		}
-	    } );
+	    });
 }
 
 var getPosts = function(post, route_callback) {
