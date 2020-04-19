@@ -6,6 +6,7 @@ var request = require("request");
 
 // set up EJS
 app.set('view engine', 'ejs');
+app.use(express.static(__dirname + '/styles'));
 
 // set up BodyParser
 var bodyParser = require('body-parser');
@@ -37,6 +38,7 @@ app.get('/deleteaccount', routes.deleteaccount);
 app.get('/console', routes.console);
 app.get('/getUser', routes.get_user);
 app.get('/getPost', routes.get_post);
+app.get('/data', routes.get_data);
 app.get('/getCPost', routes.get_close_posts);
 
 

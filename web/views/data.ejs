@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="UTF-8">
+<link rel="stylesheet" type="text/css" href="/data.css">
+<title>Admin Dashboard</title>
+
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+
+
+<nav class="navbar navbar-default" role="navigation">
+<div class="container-fluid">
+
+    <div class="navbar-header">
+        <a class="navbar-brand" href="/">
+            <span class="glyphicon glyphicon glyphicon-apple"></span>
+            Dashboard
+        </a>
+
+    </div>
+</div>
+</nav>
+
+
+
+
+<main>
+	
+
+<div id="tables" style="padding-left: 300px"> 
+
+<table class="table table-hover table-bordered" style="width: 80%; padding-left:200px">
+	<caption style="font-weight:bold; color: blue; font-size: 25px">Top Users by Number of Posts</caption>
+  <thead>
+    <tr class="table-primary">
+      <th scope="col">Username</th>
+      <th scope="col">Number of Posts</th>
+    </tr>
+  </thead>
+  <tbody>
+  	<% var topUsersByNumPosts = stats[0]%>
+
+	<% for(var i=0; i < topUsersByNumPosts.length; i++) { %>
+	<% 		var user = topUsersByNumPosts[i]%>
+    <tr>
+      <td><%= user[0] %></td>
+      <td><%= user[1] %></td>
+    </tr>
+    <% } %>
+  </tbody>
+</table>
+
+<br>
+<br>
+
+<table class="table table-hover table-bordered" style="width: 80%; padding-left:200px">
+	<caption style="font-weight:bold; color: red; font-size: 25px">Top Locations by Number of Posts</caption>
+  <thead>
+    <tr class="table-primary">
+      <th scope="col">Location</th>
+      <th scope="col">Number of Posts</th>
+    </tr>
+  </thead>
+  <tbody>
+  	<% var topLocationsByNumPosts = stats[1]%>
+
+	<% for(var i=0; i < topLocationsByNumPosts.length; i++) { %>
+	<% 		var location = topLocationsByNumPosts[i]%>
+    <tr>
+      <td><%= location[0] %></td>
+      <td><%= location[1] %></td>
+    </tr>
+    <% } %>
+  </tbody>
+</table>
+
+
+<br>
+
+<br>
+
+<table class="table table-hover table-bordered" style="width: 80%; padding-left:200px">
+	<caption style="font-weight:bold; color: green; font-size: 25px">Top Locations by Number of Users</caption>
+  <thead>
+    <tr class="table-primary">
+      <th scope="col">Location</th>
+      <th scope="col">Number of Users</th>
+    </tr>
+  </thead>
+  <tbody>
+  	<% var topLocationsByNumUsers = stats[2]%>
+
+	<% for(var i=0; i < topLocationsByNumUsers.length; i++) { %>
+	<% 		var location = topLocationsByNumUsers[i]%>
+    <tr>
+      <td><%= location[0] %></td>
+      <td><%= location[1] %></td>
+    </tr>
+    <% } %>
+  </tbody>
+</table>
+
+</div>
+
+</main>
+
+<br>
+<br>
+
+<p class="text-center text-muted">CIS 350 Final Project</p>
+
+
+</html>
+
+

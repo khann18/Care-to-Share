@@ -76,12 +76,12 @@ public class DataSource {
     }
 
     public static void createAccount(String firstName, String lastName, String username, String password, String email, String phoneNumber,
-                                     String accountType, String location, String organization) {
+                                     String accountType, String location, String organization, String profilePic) {
         try {
             URL url = new URL("http://10.0.2.2:3000/createaccount?firstName=" + firstName +
                     "&lastName=" + lastName + "&username=" + username + "&phoneNumber=" + phoneNumber
                     + "&email=" + email + "&password=" + password + "&accountType=" + accountType
-                    + "&location=" + location + "&organization=" + organization);
+                    + "&location=" + location + "&organization=" + organization + "&profilePic=" + profilePic);
             AccessWebTask task = new AccessWebTask();
             task.execute(url);
             String result = task.get();
@@ -160,13 +160,13 @@ public class DataSource {
     }
 
 
-    public static void updateAccount(String firstName, String lastName, String username, String password, String email, String phoneNumber, String accountType, String location, String organization) {
+    public static void updateAccount(String firstName, String lastName, String username, String password, String email, String phoneNumber, String accountType, String location, String organization, String profilePic) {
         try {
             Log.d("MADE IT HERE", "yuh");
             URL url = new URL("http://10.0.2.2:3000/updateaccount?firstName=" + firstName +
                     "&lastName=" + lastName + "&username=" + username + "&phoneNumber=" + phoneNumber
                     + "&email=" + email + "&password=" + password + "&userType=" + accountType
-            + "&organization=" + organization + "&location=" + location);
+            + "&organization=" + organization + "&location=" + location + "&profilePic=" + profilePic);
             Log.d("THE URL", url.toString());
             AccessWebTask task = new AccessWebTask();
             task.execute(url);
