@@ -4,81 +4,93 @@
 <title>Admin Console</title>
 
 <head>
-<style>
-.button {
-  background-color: #4CAF50; /* Green */
-  border: none;
-  color: white;
-  padding: 15px 32px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin: 4px 2px;
-  cursor: pointer;
-}
+  <style>
+    .button {
+      background-color: #4CAF50;
+      /* Green */
+      border: none;
+      color: white;
+      padding: 15px 32px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin: 4px 2px;
+      cursor: pointer;
+    }
 
-.SearchBar {
-    position: absolute;
-    top: 355px;
-    left: 575px;
-    height: 30px;
-    width: 50px;
-}
+    .SearchBar {
+      position: absolute;
+      top: 355px;
+      left: 575px;
+      height: 30px;
+      width: 50px;
+    }
 
-.button1 {width: 250px;}
-.button2 {width: 50%;}
-.button3 {width: 100%;}
-</style>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    .button1 {
+      width: 250px;
+    }
+
+    .button2 {
+      width: 50%;
+    }
+
+    .button3 {
+      width: 100%;
+    }
+  </style>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 </head>
+
 <body>
 
-<!-- CSS (load bootstrap from a CDN) -->
-<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-<style>
-    body    { padding-top:50px; }
-</style>
+  <!-- CSS (load bootstrap from a CDN) -->
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+  <style>
+    body {
+      padding-top: 50px;
+    }
+  </style>
 
-<nav class="navbar navbar-default" role="navigation">
-<div class="container-fluid">
+  <nav class="navbar navbar-default" role="navigation">
+    <div class="container-fluid">
 
-    <div class="navbar-header">
+      <div class="navbar-header">
         <a class="navbar-brand" href="#">
-            <span class="glyphicon glyphicon glyphicon-tree-deciduous"></span>
-            More Info
+          <span class="glyphicon glyphicon glyphicon-tree-deciduous"></span>
+          More Info
         </a>
 
         <ul class="nav navbar-nav">
-            <li><a href="/">Home</a></li>
-            <li><a href="/about">About</a></li>
+          <li><a href="/">Home</a></li>
+          <li><a href="/about">About</a></li>
         </ul>
 
+      </div>
     </div>
-</div>
-</nav>
+  </nav>
 
 
-<main>
+  <main>
     <div class="jumbotron">
-        <h2>Admin Console</h2>
-        <p>Search for Users</p>
+      <h2>Admin Console</h2>
+      <p>Search for Users</p>
       <div class="topnav">
-		  <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names..">
-	  </div>
-        <ul id = "myUL">
+        <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names..">
+      </div>
+      <ul id="myUL">
         <%for (var result in results){%>
 
 
-            <li style="list-style-type: none;">
-              <form action="/userposts" method="POST">
-              <input type = "hidden" name= "id" type ="submit" value = "<%= results[result]._id %>"/>
-              <a href="javascript:$('form').submit()" class="btn my-2 my-sm-0"  role="button"><%= results[result].firstName + " " + results[result].lastName %></a>
-              </form>
-            </li>
+        <li style="list-style-type: none;">
+          <form action="/user" method="POST">
+            <input type="hidden" name="username" type="submit" value="<%= results[result].username %>" />
+            <a onclick="this.closest('form').submit();return false;" class="btn my-2 my-sm-0" role="button"><%= results[result].firstName + " " + results[result].lastName %></a>
+          </form>
+        </li>
 
 
-          <%}%>
+        <%}%>
         </ul>
     </div>
 </main>

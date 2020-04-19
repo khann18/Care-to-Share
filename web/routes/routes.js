@@ -225,7 +225,7 @@ var deleteaccount = function(req, res) {
 }
 
 var displayConsole = function (req, res){
-	user_db.getUser("Test", function(err, data) {
+	user_db.getUser("", function(err, data) {
 		if (err) {
 			console.log(err);
 			res.render('console.ejs', {message : null, results:testArray});
@@ -242,7 +242,7 @@ var displayConsole = function (req, res){
 };
 
 var getUser = function(req, res) {
-	user_db.getUser("Test", function(err, data) {
+	user_db.getUser("", function(err, data) {
 		if (err) {
 			console.log(err);
 			res.send(404);
@@ -255,6 +255,24 @@ var getUser = function(req, res) {
 
 var getMap = function (req, res) {
 	res.render('maps.ejs', {message: null});
+}
+
+var getUserProfile = function (req, res) {
+	user_db.getUser({username : req.body.username}, function(err, user_data) {
+		if (err) {
+			console.log(err);
+		} else {
+			post_db.getPosts({marked: "user", postedBy: req.body.username}, function (err, post_data) {
+				if (err) {
+					console.log(err);
+				} else {
+					console.log(user_data);
+					console.log(post_data);
+					res.render('profile.ejs', {user : user_data, message: post_data});
+				}
+			});
+		}
+	});
 }
 
 
@@ -277,7 +295,8 @@ var routes = {
   get_user: userInfo,
   update_account: updateAccount,
   deleteaccount: deleteaccount,
-	displayMap: getMap
+	displayMap: getMap,
+	displayUser: getUserProfile
 };
 //exporting the routes
 module.exports = routes;

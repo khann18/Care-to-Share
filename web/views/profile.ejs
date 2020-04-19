@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>
+    User Info
+  </title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <script src="https://kit.fontawesome.com/566c51828b.js" crossorigin="anonymous"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+</head>
+
+<nav class="navbar navbar-light" style="background-color: #e3f2fd;">
+  <a class="navbar-brand">Navbar</a>
+
+</nav>
+
+<script>
+  $(document).ready(function() {
+    $('.toast').toast('show');
+  });
+</script>
+
+<style>
+  .container-fluid,
+  .container-lg,
+  .container-md,
+  .container-sm,
+  .container-xl {
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: 150px;
+    margin-top: 30px;
+  }
+</style>
+
+
+
+<body>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="row">
+          <div class="col-md-4">
+            <div class="card">
+              <div class="card-body">
+                <h4 class="card-title"> <%= user[0].firstName %> <%= user[0].lastName %> </h4>
+                <footer class="blockquote-footer"> <%= user[0].username %> </footer>
+              </div>
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item"><img src="https://img.icons8.com/nolan/30/email.png" /> <%= user[0].email %></li>
+                <li class="list-group-item"><img src="https://img.icons8.com/nolan/28/phone.png" /> <%= user[0].phoneNumber %></li>
+                <li class="list-group-item"><img src="https://img.icons8.com/nolan/30/organization.png" /> <%= user[0].organization %></li>
+              </ul>
+              <div class="card-body">
+                <a href="#" class="card-link">Card link</a>
+                <a href="#" class="card-link">Another link</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-8">
+            <div class="card w-50">
+
+              <div class="card-body">
+                <h5 class="card-title"> Activity </h5>
+
+
+                <div>
+                  <% for (var k = 0; k < message.length; k++) { %>
+
+                  <div class="toast" data-autohide="false">
+                    <div class="toast-header">
+                      <strong class="mr-auto text-primary"> Contact: <%= message[k].contactInfo %></strong>
+                      <small class="text-muted"><%= (message[k].location).split(",")[1] %></small>
+                    </div>
+                    <div class="toast-body">
+                      <%= message[k].description %>
+
+                    </div>
+                  </div>
+
+                  <% } %>
+
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+
+</html>

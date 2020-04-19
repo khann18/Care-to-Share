@@ -37,6 +37,7 @@ app.get('/console', routes.console);
 app.get('/getUser', routes.get_user);
 app.get('/getPost', routes.get_post);
 app.get('/map', routes.displayMap);
+app.post('/user', routes.displayUser);
 
 app.get('/testRoute', function(req, res) {
 	async function main(){
