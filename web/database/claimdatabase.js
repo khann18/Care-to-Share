@@ -15,13 +15,13 @@ var createClaim = function(claim, route_callback) {
 }
 
 var getClaimsByDonor = function(username, route_callback) {
-	console.log("Finding Claims for")
+	console.log("Finding claims by donor:")
 	console.log(username);
 	Claim.find({donorUsername : username, claimStatus : 'none'}).exec(route_callback);
 }
 
 var getClaimsByObtainer = function(username, route_callback) {
-	console.log("Finding Claims for")
+	console.log("Finding claims by obtainer:")
 	console.log(username);
 	Claim.find({obtainerUsername : username}).exec(route_callback);
 }
@@ -44,7 +44,7 @@ var updateClaimStatus = function(claimId, route_callback) {
 // 		username: user.username,
 // 		password: user.password,
 // 		phoneNumber: user.phoneNumber,
-// 		email: user.email,
+// 		email: user.email, 
 // 		location: user.location,
 // 		organization: user.organization,
 // 		userType: user.userType

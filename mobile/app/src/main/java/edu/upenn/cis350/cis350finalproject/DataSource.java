@@ -123,7 +123,8 @@ public class DataSource {
     public static void createClaim(String obtainerUsername, String donorUsername, String postId, String claimMessage) {
         try {
             URL url = new URL("http://10.0.2.2:3000/createClaim?obtainerUsername=" + obtainerUsername +
-                    "&donorUsername=" + donorUsername + "&postId=" + postId + "&claimMessage=" + claimMessage);
+                    "&donorUsername=" + donorUsername + "&postId=" + postId + "&claimMessage=" + claimMessage +
+                    "&claimStatus=none");
             AccessWebTask task = new AccessWebTask();
             task.execute(url);
             String result = task.get();

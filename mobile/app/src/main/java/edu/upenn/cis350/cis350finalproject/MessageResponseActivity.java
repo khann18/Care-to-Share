@@ -62,7 +62,7 @@ public class MessageResponseActivity extends AppCompatActivity {
     //make sure to show if not responded to
     public void onRejectButtonClick(View view) {
         DataSource.updateClaimStatus(claimId, "rejected");
-        Intent i = new Intent(this, MainActivity.class);
+        Intent i = new Intent(this, MessageBoardActivity.class);
 
         i.putExtra("username", donorUsername);
         startActivityForResult(i, MessageBoardActivity_ID);
@@ -72,7 +72,7 @@ public class MessageResponseActivity extends AppCompatActivity {
         DataSource.updateClaimsForAcceptedPost(postId);
 
         DataSource.updateClaimStatus(claimId, "accepted");
-        Intent i = new Intent(this, MainActivity.class);
+        Intent i = new Intent(this, MessageBoardActivity.class);
 
         i.putExtra("username", donorUsername);
         startActivityForResult(i, MessageBoardActivity_ID);

@@ -114,7 +114,8 @@ var createNewClaim = function(req, res) {
 		donorUsername: req.query.donorUsername,
 		obtainerUsername: req.query.obtainerUsername,
 		postId: req.query.postId,
-		claimMessage: req.query.claimMessage
+		claimMessage: req.query.claimMessage,
+		claimStatus: req.query.claimStatus
 	});
 
 	claim_db.createClaim(newClaim, function(err, data){
