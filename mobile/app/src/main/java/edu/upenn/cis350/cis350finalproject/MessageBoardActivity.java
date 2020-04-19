@@ -147,10 +147,4 @@ public class MessageBoardActivity extends AppCompatActivity implements View.OnCl
 
     }
 
-//    public void onCreatePostClick(View v) {
-//        ImageButton createPost = findViewById(R.id.create_post);
-//        Intent i = new Intent(this, CreatePostActivity.class);
-//        i.putExtra("username", donorUsername);
-//        startActivityForResult(i,1);
-//    }
 }

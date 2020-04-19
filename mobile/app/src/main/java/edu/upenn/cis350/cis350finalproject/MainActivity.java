@@ -95,12 +95,12 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
                     e.printStackTrace();
                 }
 
-                Context context = getApplicationContext();
-                CharSequence text = item;
-                int duration = Toast.LENGTH_SHORT;
+//                Context context = getApplicationContext();
+//                CharSequence text = item;
+//                int duration = Toast.LENGTH_SHORT;
 
-                //Toast toast = Toast.makeText(context, text, duration);
-                // toast.show();
+//                Toast toast = Toast.makeText(context, text, duration);
+//                toast.show();
             }
         });
 
@@ -121,11 +121,11 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
             }
         });
 
-        ImageButton createPost = findViewById(R.id.create_post);
-        createPost.setOnClickListener(new View.OnClickListener() {
+        ImageButton viewDonorResponses = findViewById(R.id.view_donor_responses);
+        viewDonorResponses.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(), CreatePostActivity.class);
+                Intent i = new Intent(getApplicationContext(), ViewDonorResponsesActivity.class);
                 i.putExtra("username", username);
                 startActivity(i);
             }

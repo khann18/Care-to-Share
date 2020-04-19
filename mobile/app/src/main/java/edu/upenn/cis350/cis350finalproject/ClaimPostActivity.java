@@ -1,5 +1,6 @@
 package edu.upenn.cis350.cis350finalproject;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -60,6 +61,8 @@ public class ClaimPostActivity extends AppCompatActivity {
         String message = editText.getText().toString();
 
         DataSource.createClaim(obtainerUsername, donorUsername, postId, message);
-        finish();
+        Intent i = new Intent(this, MainActivity.class);
+        i.putExtra("username", obtainerUsername);
+        startActivity(i);
     }
 }

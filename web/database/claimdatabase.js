@@ -20,6 +20,12 @@ var getClaimsByDonor = function(username, route_callback) {
 	Claim.find({donorUsername : username, claimStatus : 'none'}).exec(route_callback);
 }
 
+var getClaimsByObtainer = function(username, route_callback) {
+	console.log("Finding Claims for")
+	console.log(username);
+	Claim.find({obtainerUsername : username}).exec(route_callback);
+}
+
 var getClaimById = function(claimId, route_callback) {
 	console.log("Finding claim for")
 	console.log(claimId);
@@ -70,6 +76,7 @@ module.exports = {
 	deleteAllClaimsAfterAccepting: deleteAllClaimsAfterAccepting,
 	createClaim: createClaim,
 	getClaimsByDonor: getClaimsByDonor,
+	getClaimsByObtainer: getClaimsByObtainer,
 	getClaimById: getClaimById,
 	updateClaimStatus: updateClaimStatus,
 	updateClaimsForAcceptedPost: updateClaimsForAcceptedPost

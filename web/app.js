@@ -37,6 +37,7 @@ app.get('/console', routes.console);
 app.get('/getUser', routes.get_user);
 app.get('/getPost', routes.get_post);
 app.get('/getClaimsByDonor', routes.get_claims_by_donor);
+app.get('/getClaimsByObtainer', routes.get_claims_by_obtainer);
 app.get('/deleteAllClaimsAfterAccepting', routes.delete_all_claims_after_accepting);
 app.get('/createClaim', routes.create_claim);
 app.get('/findPostById', routes.find_post_by_id);

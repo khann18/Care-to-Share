@@ -122,6 +122,7 @@ var createNewClaim = function(req, res) {
 			console.log(err);
 		} else {
 			console.log(data);
+			res.send(data);
 		}
 	});
 }
@@ -201,6 +202,17 @@ var getClosePosts = function(req, res) {
 
 var getClaimsByDonor = function(req, res) {
 	claim_db.getClaimsByDonor(req.query.donorUsername, function(err, data){
+		if (err) {
+			console.log(err);
+		}else {
+			console.log(data);
+			res.send(data);
+		}
+	});
+}
+
+var getClaimsByObtainer = function(req, res) {
+	claim_db.getClaimsByObtainer(req.query.obtainerUsername, function(err, data){
 		if (err) {
 			console.log(err);
 		}else {
@@ -519,6 +531,7 @@ var routes = {
 	deleteaccount: deleteaccount,
 	delete_all_claims_after_accepting: deleteAllClaimsAfterAccepting,
 	get_claims_by_donor: getClaimsByDonor,
+	get_claims_by_obtainer: getClaimsByObtainer,
 	find_post_by_id: findPostById,
 	get_claim_by_id: getClaimById,
 	update_claim_status: updateClaimStatus,

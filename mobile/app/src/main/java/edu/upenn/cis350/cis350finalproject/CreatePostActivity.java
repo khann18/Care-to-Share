@@ -64,8 +64,9 @@ public class CreatePostActivity extends AppCompatActivity {
                         }
 
                         protected void onPostExecute(String input) {
-                            Intent i = new Intent(getApplicationContext(), MainActivity.class);
-                            startActivity(i);
+//                            Intent i = new Intent(getApplicationContext(), MainActivity.class);
+//                            startActivity(i);
+                            finish();
                         }
 
                     }.execute();
@@ -79,8 +80,9 @@ public class CreatePostActivity extends AppCompatActivity {
         discard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(i);
+//                Intent i = new Intent(getApplicationContext(), MainActivity.class);
+//                startActivity(i);
+                finish();
             }
         });
 

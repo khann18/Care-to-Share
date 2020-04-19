@@ -6,6 +6,7 @@ import com.google.android.gms.maps.model.LatLng;
 
 import java.net.URL;
 
+import edu.upenn.cis350.cis350finalproject.APITask;
 import edu.upenn.cis350.cis350finalproject.AccessWebTask;
 import edu.upenn.cis350.cis350finalproject.Post;
 import edu.upenn.cis350.cis350finalproject.User;
@@ -294,6 +295,21 @@ public class DataSource {
             return j;
         }catch (Exception e) {
             e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static JSONArray getClaimsByObtainer(String obtainerUsername) {
+        try {
+            URL url = new URL("http://10.0.2.2:3000/getClaimsByObtainer?obtainerUsername=" + obtainerUsername);
+            APITask task = new APITask();
+            task.execute(url);
+            String result = task.get();
+            JSONArray j = new JSONArray(result);
+            Log.d("RESULT", result);
+            return j;
+
+        }catch (Exception e){
             return null;
         }
     }

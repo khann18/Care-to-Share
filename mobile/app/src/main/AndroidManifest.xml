@@ -44,6 +44,7 @@
         <activity android:name=".EditProfileActivity" />
         <activity android:name=".MessageBoardActivity" />
         <activity android:name=".MessageResponseActivity" />
+        <activity android:name=".ViewAcceptOrRejectActivity" />
         <activity android:name=".ViewDonorResponsesActivity" />
         <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyD9L96DpB9wyP4Are37YqzlJlICplSR-B0"/>
     </application

@@ -29,7 +29,7 @@ public class EditProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
         Spinner spin = (Spinner) findViewById(R.id.input_account_type);
-        String[] account_type = { "Obtainer", "Donor"};
+        final String[] account_type = { "Obtainer", "Donor"};
         ArrayAdapter aa = new ArrayAdapter(this,android.R.layout.simple_spinner_item,account_type);
         aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spin.setAdapter(aa);
@@ -107,7 +107,13 @@ public class EditProfileActivity extends AppCompatActivity {
                 else {
                     DataSource.updateAccount(firstName, lastName, username, password, email, phoneNumber, accountType, location, organization);
 
-                    Intent i = new Intent(getApplicationContext(), MainActivity.class);
+                    Intent i = null;
+                    if (accountType.equals("Obtainer")) {
+                        i = new Intent(getApplicationContext(), MainActivity.class);
+                    } else {
+                        i = new Intent(getApplicationContext(), MessageBoardActivity.class);
+                    }
+
                     //pass username to the home activity
                     i.putExtra("username", username);
                     startActivity(i);
