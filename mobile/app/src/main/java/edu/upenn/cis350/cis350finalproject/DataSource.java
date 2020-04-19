@@ -1,4 +1,5 @@
 package edu.upenn.cis350.cis350finalproject;
+
 import android.util.Log;
 
 import com.google.android.gms.maps.model.LatLng;
@@ -8,9 +9,7 @@ import org.json.JSONObject;
 
 import java.net.URL;
 
-import edu.upenn.cis350.cis350finalproject.AccessWebTask;
-import edu.upenn.cis350.cis350finalproject.Post;
-import edu.upenn.cis350.cis350finalproject.User;
+//import org.json.simple.parser.JSONParser;
 
 public class DataSource {
 
@@ -236,5 +235,4 @@ public class DataSource {
             return null;
         }
     }
-
 }

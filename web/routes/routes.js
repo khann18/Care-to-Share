@@ -7,6 +7,7 @@ var User = require('../database/users.js');
 var Post = require('../database/posts.js');
 var Claim = require('../database/claims.js');
 
+var request = require("request");
 
 var testArray = ["Alex", "Taki", "Vatsin", "Katherine"]
 
@@ -121,7 +122,7 @@ var createNewClaim = function(req, res) {
 	claim_db.createClaim(newClaim, function(err, data){
 		if (err) {
 			console.log(err);
-		} else {
+		}else {
 			console.log(data);
 			res.send(data);
 		}
@@ -129,11 +130,75 @@ var createNewClaim = function(req, res) {
 }
 
 var getPosts = function(req, res) {
-	post_db.getPosts({marked: 'user'}, function(err, data){
+
+	post_db.getPosts({marked: 'user'}, function(err, data) {
+
 		if (err) {
 			console.log(err);
 		}else {
+			console.log("SENT");
+			res.send(data);
+		}
+	});
+}
+
+function distance(lat1, lon1, lat2, lon2, unit) {
+	if ((lat1 == lat2) && (lon1 == lon2)) {
+		return 0;
+	}
+	else {
+		var radlat1 = Math.PI * lat1/180;
+		var radlat2 = Math.PI * lat2/180;
+		var theta = lon1-lon2;
+		var radtheta = Math.PI * theta/180;
+		var dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
+		if (dist > 1) {
+			dist = 1;
+		}
+		dist = Math.acos(dist);
+		dist = dist * 180/Math.PI;
+		dist = dist * 60 * 1.1515;
+		if (unit=="K") { dist = dist * 1.609344 }
+		if (unit=="N") { dist = dist * 0.8684 }
+		return dist;
+	}
+}
+
+var getClosePosts = function(req, res) {
+    var latitude = req.query.lat;
+    var long = req.query.lng;
+
+    var jArray = [];
+    var finalArray = [];
+
+    var postID = 0;
+
+	post_db.getPosts({marked: 'user'}, function(err, data) {
+		if (err) {
+			console.log(err);
+		} else {
 			console.log(data);
+			for (var i = 0; i < data.length; i++) {
+				var coordString = data[i].latlng;
+				console.log(data[i].latlng);
+				if (coordString != undefined && coordString.length > 0) {
+					var coordArr = coordString.split(",");
+
+					var dist = distance(parseFloat(coordArr[0]), 
+						parseFloat(coordArr[1]),
+						parseFloat(latitude),
+						parseFloat(long), "K") ;
+					jArray.push({data: data[i], id: dist});
+					console.log(dist);
+					jArray.sort((a, b) => (a.id > b.id) ? 1 : -1);
+					postID++;
+				}
+			}
+			for (var i = 0; i < jArray.length && i < 10; i++) {
+				finalArray.push(jArray[i].data);
+			}
+			console.log(finalArray);
+			console.log("SENT");
 			res.send(data);
 		}
 	});
@@ -276,13 +341,14 @@ var createNewUser = function(req, res) {
 		password: req.query.password,
 		phoneNumber: req.query.phoneNumber,
 		email: req.query.email,
-		organization: req.query.organization
+		organization: req.query.organization,
+		profilePic: req.query.profilePic,
 	 });
 	user_db.createUser(newUser, function(err, data) {
 		if (err) {
 			console.log(err);
 		} else {
-			console.log(data);
+			console.log(newUser);
 			//Returns the entire User object that was created
 			res.send(newUser);
 		}
@@ -403,7 +469,8 @@ var updateAccount = function(req, res) {
 		password: req.query.password,
 		phoneNumber: req.query.phoneNumber,
 		email: req.query.email,
-		organization: req.query.organization
+		organization: req.query.organization,
+		profilePic: req.query.profilePic,
 	 });
 	user_db.saveUser(newUser, function(err, data) {
 		if (err) {
@@ -509,6 +576,32 @@ var getUser = function(req, res) {
 	});
 }
 
+var get_data = function(req, res) {
+	
+
+	post_db.getTopUsersByNumPosts(10, function(err, data) {
+		stats = [];
+		stats.push(data);
+		post_db.getTopLocationsByNumPosts(10, function(err, data) {
+			stats.push(data)
+			user_db.getTopLocationsByNumUsers(10, function(err, data) {
+				stats.push(data)
+				console.log(stats)
+				res.render('data.ejs', {stats: stats})
+			});
+		});
+	});
+	
+	
+
+
+	//TODO: stuff with claims database
+
+	
+	
+}
+
+
 
 
 var routes = {
@@ -525,7 +618,6 @@ var routes = {
 	create_claim: createNewClaim,
 	console: displayConsole,
   	check_password: checkPassword,
-//   set_claim_message: setPostClaimMessage,
   	check_username: checkUsername,
   	get_user: userInfo,
   	update_account: updateAccount,
@@ -537,7 +629,8 @@ var routes = {
 	get_claim_by_id: getClaimById,
 	update_claim_status: updateClaimStatus,
 	update_claims_for_accepted_post: updateClaimsForAcceptedPost,
-	get_close_posts: getClosePosts
+	get_close_posts: getClosePosts,
+	get_data: get_data
 };
 //exporting the routes
 module.exports = routes;

@@ -24,7 +24,8 @@ var userSchema = new Schema({
 	password: String,
 	phoneNumber: String,
 	email: String,
-	organization: String
+	organization: String,
+	profilePic: String,
     });
 
 // export personSchema as a class called User

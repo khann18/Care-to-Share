@@ -49,7 +49,7 @@ public class CustomAdapter extends BaseAdapter implements Filterable
             } catch (Exception e) {
 
             }
-        }
+    }
 
         context = c;
         // this.notifyDataSetChanged();
@@ -141,7 +141,6 @@ public class CustomAdapter extends BaseAdapter implements Filterable
         if (position < stringList.size()) {
             String temp = stringList.get(position);
             description.setText(temp);
-//            description.setMinimumHeight(100);
             JSONObject curr = jsonList.get(position);
             Log.d("Size", "" + jsonList.size());
             try {
