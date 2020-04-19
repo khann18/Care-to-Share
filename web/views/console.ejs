@@ -30,6 +30,7 @@
 .button2 {width: 50%;}
 .button3 {width: 100%;}
 </style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 </head>
 <body>
 
@@ -67,8 +68,16 @@
 	  </div>
         <ul id = "myUL">
         <%for (var result in results){%>
-          <li style="list-style-type: none;">
-><a href="<%= result %>" class="button button2" role="button"><%= results[result].firstName + " " + results[result].lastName %></a></li>    
+
+
+            <li style="list-style-type: none;">
+              <form action="/userposts" method="POST">
+              <input type = "hidden" name= "id" type ="submit" value = "<%= results[result]._id %>"/>
+              <a href="javascript:$('form').submit()" class="btn my-2 my-sm-0"  role="button"><%= results[result].firstName + " " + results[result].lastName %></a>
+              </form>
+            </li>
+
+
           <%}%>
         </ul>
     </div>
@@ -122,5 +131,3 @@ function myFunction() {
 </script>
 
 </html>
-
-

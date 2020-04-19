@@ -14,11 +14,11 @@ var routes = require('./routes/routes.js');
 
 async function listDatabases(client){
     databasesList = await client.db().admin().listDatabases();
- 
+
     console.log("Databases:");
     databasesList.databases.forEach(db => console.log(` - ${db.name}`));
 };
- 
+
 
 app.get('/', routes.login);
 app.get('/post', routes.create_post);
@@ -36,6 +36,7 @@ app.get('/deleteaccount', routes.deleteaccount);
 app.get('/console', routes.console);
 app.get('/getUser', routes.get_user);
 app.get('/getPost', routes.get_post);
+app.get('/map', routes.displayMap);
 
 app.get('/testRoute', function(req, res) {
 	async function main(){
@@ -44,23 +45,23 @@ app.get('/testRoute', function(req, res) {
      * See https://docs.mongodb.com/ecosystem/drivers/node/ for more details
      */
     const uri = "mongodb+srv://ayang015:La890729@0607@cluster0-qf07n.mongodb.net/test?retryWrites=true&w=majority";
- 
 
-    const client = new MongoClient(uri, { 
+
+    const client = new MongoClient(uri, {
         useNewUrlParser: true,
         useCreateIndex: true,
         useUnifiedTopology: false
       });
- 
+
     try {
         // Connect to the MongoDB cluster
         await client.connect();
 
         // await client.getCollection('users');
- 
+
         // Make the appropriate DB calls
         await  listDatabases(client);
- 
+
     } catch (e) {
         console.error(e);
     } finally {

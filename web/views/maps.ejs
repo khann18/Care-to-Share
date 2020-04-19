@@ -1,0 +1,59 @@
+<!doctype html>
+
+<title> Deliverys </title>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+  <body>
+    <div id="map" style="width:800px;height:500px;"></div>
+    <div class="modal-footer">
+
+    </div>
+    <div id="out"></div><p>
+  </body>
+
+
+    <script type="text/javascript" src="http://maps.google.com/maps/api/js?key=AIzaSyBWxc2yvhpFCdEBcgGrDkSY1QleD3lygGU"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script type="text/javascript">
+
+      var map;
+
+      /* First, we define a function that creates a new Google Map and installs
+         it in the 'map' DIV (see the HTML part at the bottom). */
+
+      var loadMap = function()
+      {
+        var myOptions = {
+          center: new google.maps.LatLng(39.952335, -75.163789),
+          zoom: 11,
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+        map = new google.maps.Map(document.getElementById("map"), myOptions);
+
+		google.maps.event.addListener(map, 'click', function(event){
+        document.getElementById('lat').value = event.latLng.lat();
+        document.getElementById('long').value = event.latLng.lng();
+      });
+
+      };
+
+      /* We then assign this function to the 'onload' property of the main window,
+         so that it will be called as soon as the browser has finished loading the page. */
+
+      window.onload = loadMap;
+
+      /* Finally, we need a function that downloads the geo data from the server (which is
+         running visualizer.js and makes the data available under '/getGeoData') and
+         puts a marker on the map for each line of the geo data */
+
+
+
+
+
+
+
+
+    </script>
+
+</html>

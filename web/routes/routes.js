@@ -207,7 +207,7 @@ var userInfo = function(req, res) {
 			} else {
 				res.send({result: null});
 			}
-			
+
 		}
 	});
 
@@ -253,6 +253,10 @@ var getUser = function(req, res) {
 	});
 }
 
+var getMap = function (req, res) {
+	res.render('maps.ejs', {message: null});
+}
+
 
 
 var routes = {
@@ -273,6 +277,7 @@ var routes = {
   get_user: userInfo,
   update_account: updateAccount,
   deleteaccount: deleteaccount,
+	displayMap: getMap
 };
 //exporting the routes
 module.exports = routes;
