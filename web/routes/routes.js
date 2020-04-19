@@ -3,6 +3,7 @@ var user_db = require('../database/userdatabase.js');
 var post_db = require('../database/postdatabase.js');
 var User = require('../database/users.js');
 var Post = require('../database/posts.js');
+var request = require("request");
 
 var testArray = ["Alex", "Taki", "Vatsin", "Katherine"]
 
@@ -22,32 +23,160 @@ var getCreateAccount = function(req, res) {
 
 
 var createNewPost = function(req, res) {
-	var newPost = new Post({
-		description: req.query.description,
-		location: req.query.location,
-		postedBy: req.query.poster,
-		pickupTime: req.query.pickupTime,
-		contactInfo: req.query.contact,
-		isClaimed: req.query.isClaimed,
-		claimMessage: req.query.claimMessage,
-		marked: req.query.marked
-	});
+	var API_KEY = "AIzaSyD9L96DpB9wyP4Are37YqzlJlICplSR-B0";
+    var BASE_URL = "https://maps.googleapis.com/maps/api/geocode/json?address=";
+    var address = req.query.location;
 
-	post_db.createPost(newPost, function(err, data){
-		if (err) {
-			console.log(err);
-		} else {
-			console.log(data);
-		}
-	});
+    var url = BASE_URL + address + "&key=" + API_KEY;
+
+    var coords = "";
+    request(url, function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+            // console.log(Object.keys(body));
+            var response = JSON.parse(body);
+            console.log(response.results['0'].geometry.location);
+            console.log(Object.keys(response.results));
+            coords = "" + response.results['0'].geometry.location.lat + "," + response.results['0'].geometry.location.lng;
+
+            	var newPost = new Post({
+					description: req.query.description,
+					location: req.query.location,
+					postedBy: req.query.poster,
+					pickupTime: req.query.pickupTime,
+					contactInfo: req.query.contact,
+					isClaimed: req.query.isClaimed,
+					claimMessage: req.query.claimMessage,
+					marked: req.query.marked,
+					latlng: coords
+				});
+
+				post_db.createPost(newPost, function(err, data){
+					if (err) {
+						console.log(err);
+					} else {
+						console.log(data);
+					}
+				});
+				res.send(200);
+       	} else {
+	    	var newPost = new Post({
+				description: req.query.description,
+				location: req.query.location,
+				postedBy: req.query.poster,
+				pickupTime: req.query.pickupTime,
+				contactInfo: req.query.contact,
+				isClaimed: req.query.isClaimed,
+				claimMessage: req.query.claimMessage,
+				marked: req.query.marked,
+				latlng: ""
+			});
+
+			post_db.createPost(newPost, function(err, data){
+				if (err) {
+					console.log(err);
+				} else {
+					console.log(data);
+				}
+			});
+            console.log("Fail");
+            res.send(200);
+            // The request failed, handle it
+        }
+    });
+
+    console.log(coords);
+
+	// var newPost = new Post({
+	// 	description: req.query.description,
+	// 	location: req.query.location,
+	// 	postedBy: req.query.poster,
+	// 	pickupTime: req.query.pickupTime,
+	// 	contactInfo: req.query.contact,
+	// 	isClaimed: req.query.isClaimed,
+	// 	claimMessage: req.query.claimMessage,
+	// 	marked: req.query.marked,
+	// 	latlng: coords
+	// });
+
+	// post_db.createPost(newPost, function(err, data){
+	// 	if (err) {
+	// 		console.log(err);
+	// 	} else {
+	// 		console.log(data);
+	// 	}
+	// });
 }
 
 var getPosts = function(req, res) {
-	post_db.getPosts({marked: 'user'}, function(err, data){
+
+	post_db.getPosts({marked: 'user'}, function(err, data) {
 		if (err) {
 			console.log(err);
 		}else {
 			console.log(data);
+			console.log("SENT");
+			res.send(data);
+		}
+	});
+}
+
+function distance(lat1, lon1, lat2, lon2, unit) {
+	if ((lat1 == lat2) && (lon1 == lon2)) {
+		return 0;
+	}
+	else {
+		var radlat1 = Math.PI * lat1/180;
+		var radlat2 = Math.PI * lat2/180;
+		var theta = lon1-lon2;
+		var radtheta = Math.PI * theta/180;
+		var dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
+		if (dist > 1) {
+			dist = 1;
+		}
+		dist = Math.acos(dist);
+		dist = dist * 180/Math.PI;
+		dist = dist * 60 * 1.1515;
+		if (unit=="K") { dist = dist * 1.609344 }
+		if (unit=="N") { dist = dist * 0.8684 }
+		return dist;
+	}
+}
+
+var getClosePosts = function(req, res) {
+    var latitude = req.query.lat;
+    var long = req.query.lng;
+
+    var jArray = [];
+    var finalArray = [];
+
+    var postID = 0;
+
+	post_db.getPosts({marked: 'user'}, function(err, data) {
+		if (err) {
+			console.log(err);
+		} else {
+			console.log(data);
+			for (var i = 0; i < data.length; i++) {
+				var coordString = data[i].latlng;
+				console.log(data[i].latlng);
+				if (coordString != undefined && coordString.length > 0) {
+					var coordArr = coordString.split(",");
+
+					var dist = distance(parseFloat(coordArr[0]), 
+						parseFloat(coordArr[1]),
+						parseFloat(latitude),
+						parseFloat(long), "K") ;
+					jArray.push({data: data[i], id: dist});
+					console.log(dist);
+					jArray.sort((a, b) => (a.id > b.id) ? 1 : -1);
+					postID++;
+				}
+			}
+			for (var i = 0; i < jArray.length && i < 10; i++) {
+				finalArray.push(jArray[i].data);
+			}
+			console.log(finalArray);
+			console.log("SENT");
 			res.send(data);
 		}
 	});
@@ -262,6 +391,7 @@ var routes = {
 	get_post: getPosts,
 	get_admin_post: getAdminPosts,
   get_users: getUser,
+  get_close_posts: getClosePosts,
   login: getLogin,
   logout: getLogout,
   account_creation: getCreateAccount,

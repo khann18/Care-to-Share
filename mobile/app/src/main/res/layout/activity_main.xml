@@ -20,14 +20,6 @@
     <!--        app:layout_constraintTop_toTopOf="parent"-->
     <!--        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />-->
 
-    <SearchView
-        android:id= "@+id/searchbar"
-        android:layout_width="414dp"
-        android:layout_height="44dp"
-        android:layout_marginTop="231dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <!--    <androidx.recyclerview.widget.RecyclerView-->
     <!--        android:id = "@+id/recycler"-->
     <!--        android:layout_width="409dp"-->
@@ -38,25 +30,33 @@
     <!--        app:layout_constraintEnd_toEndOf="parent" />-->
     <!--    -->
 
+    <SearchView
+        android:id="@+id/searchbar"
+        android:layout_width="414dp"
+        android:layout_height="44dp"
+        android:layout_marginTop="312dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <ListView
         android:id="@+id/listView"
-        android:layout_width="414dp"
-        android:layout_height="452dp"
-        android:layout_marginTop="279dp"
+        android:layout_width="410dp"
+        android:layout_height="376dp"
+        android:layout_marginTop="356dp"
         android:divider="#666666"
         android:dividerHeight="0.1dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" >
-    </ListView>
+        app:layout_constraintTop_toTopOf="parent"></ListView>
+
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="410dp"
-        android:layout_height="88dp"
+        android:layout_width="417dp"
+        android:layout_height="58dp"
         android:background="#4CAF50"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -65,33 +65,29 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
         android:text="Logout"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
 
     <ImageButton
         android:id="@+id/create_post"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="307dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="4dp"
         android:layout_marginEnd="60dp"
         android:src="@drawable/ic_create_24px"
-        tools:layout_editor_absoluteX="307dp"
-        tools:layout_editor_absoluteY="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
         android:id="@+id/edit_profile_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="348dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="4dp"
         android:layout_marginEnd="14dp"
         android:src="@drawable/profile_button"
         app:layout_constraintEnd_toEndOf="parent"
@@ -103,22 +99,20 @@
         android:id="@+id/textView2"
         android:layout_width="150dp"
         android:layout_height="28dp"
-        android:layout_marginTop="31dp"
-        android:text="Final Project"
+        android:layout_marginTop="16dp"
+        android:text="Local Map"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.557"
+        app:layout_constraintHorizontal_bias="0.59"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/claimPost"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="150dp"
-        android:layout_marginTop="600dp"
-        android:onClick="onClaimPostButtonClick"
-        android:text="Claim Post"
+    <fragment
+        android:id="@+id/fragment"
+        android:name="edu.upenn.cis350.cis350finalproject.MapViewFragment"
+        android:layout_width="413dp"
+        android:layout_height="255dp"
+        android:layout_marginTop="56dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

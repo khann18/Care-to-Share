@@ -1,11 +1,12 @@
 package edu.upenn.cis350.cis350finalproject;
+
 import android.util.Log;
+
+import org.json.JSONArray;
 
 import java.net.URL;
 
-import edu.upenn.cis350.cis350finalproject.AccessWebTask;
-import edu.upenn.cis350.cis350finalproject.Post;
-import edu.upenn.cis350.cis350finalproject.User;
+//import org.json.simple.parser.JSONParser;
 
 public class DataSource {
 
@@ -97,6 +98,23 @@ public class DataSource {
             Log.d("RESULT", result);
         }catch (Exception e){
             System.out.println("yikessssss");
+        }
+    }
+
+    public static JSONArray getAllPosts() {
+        Log.d("RESULT", "Commence Get Posts");
+        String res = null;
+        try {
+            URL url = new URL("http://10.0.2.2:3000/getPost");
+            APITask task = new APITask();
+            task.execute(url);
+            res = task.get();
+//            JSONParser parser_obj = new JSONParser();
+//            JSONArray array_obj = (JSONArray) parser_obj.parse(res);
+            return new JSONArray(res);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
         }
     }
 }
