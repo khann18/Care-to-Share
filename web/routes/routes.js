@@ -233,8 +233,15 @@ var displayConsole = function (req, res){
 				if (err) {
 					console.log(err);
 				} else {
-					console.log(post_data);
-					res.render('console.ejs', {message : null, results:testArray, posts: post_data});
+
+					var arr = [];
+
+					for (var i = 0; i < post_data.length; i++) {
+						var toAdd = JSON.stringify({"contactInfo": post_data[i].contactInfo, "lat": post_data[i].latlng.split(',')[0], "lng": post_data[i].latlng.split(',')[1], "description": post_data[i].description, "postedBy": post_data[i].postedBy});
+						arr.push(toAdd);
+						console.log(toAdd);
+					}
+					res.render('console.ejs', {message : null, results:testArray, posts: arr});
 				}
 			});
 		}

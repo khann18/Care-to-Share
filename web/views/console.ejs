@@ -93,20 +93,36 @@ var map;
 
 var loadMap = function()
 {
-  var myLatLng = {lat: -25.363, lng: 131.044};
 
+  var myLatLng = {lat: 38.8976633, lng: -77.0365739};
   var myOptions = {
-    center: new google.maps.LatLng(39.952335, -75.163789),
+    center: new google.maps.LatLng(38.8976633, -77.0365739),
     zoom: 11,
     mapTypeId: google.maps.MapTypeId.ROADMAP
   };
   map = new google.maps.Map(document.getElementById("map"), myOptions);
+  <% for (var item of posts) { %>
+    var latitude =  <%= JSON.parse(item).lat%>
+    var longitude = <%= JSON.parse(item).lng %>
+    var marker = new google.maps.Marker({
+      position:  {lat: latitude, lng: longitude},
+      map: map
+    });
 
-  var marker = new google.maps.Marker({
-    position: myLatLng,
-    map: map,
-    title: 'Hello World!'
-  });
+    var contentString = '<b>' + "<%= JSON.parse(item).contactInfo%>" + '</b> <br>' + "<%= JSON.parse(item).description %>" + '<br>' +  '<i> Created by ' + "<%= JSON.parse(item).postedBy %>" + '</i>';
+    marker['infowindow'] = new google.maps.InfoWindow({
+      content: contentString
+    });
+
+          // ... and we add a 'listener' function to the marker that will
+          // be called when someone clicks on it. The listener will then
+          // open the info window we just created.
+
+
+        google.maps.event.addListener(marker, 'click', function() {
+        this['infowindow'].open(map, this);
+        });
+  <% } %>
 };
 
 window.onload = loadMap;
