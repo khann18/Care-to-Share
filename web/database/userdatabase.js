@@ -16,7 +16,12 @@ var createUser = function(user, route_callback) {
 
 var getUser = function(username, route_callback) {
 	console.log("Finding Users")
-	User.find().exec(route_callback);
+	if (username.length == 0) {
+			User.find().exec(route_callback);
+	} else {
+		console.log(username);
+		User.find(username).exec(route_callback);
+	}
 }
 
 var saveUser = function(user, route_callback) {

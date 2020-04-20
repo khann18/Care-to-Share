@@ -293,7 +293,6 @@ var getAdminPosts = function(req, res) {
 		if (err) {
 			console.log(err);
 		}else {
-			console.log(data);
 			res.render('home.ejs', {message : data });
 		}
 	});
@@ -496,7 +495,7 @@ var userInfo = function(req, res) {
 			} else {
 				res.send({result: null});
 			}
-			
+
 		}
 	});
 
@@ -548,24 +547,32 @@ var deleteaccount = function(req, res) {
 }
 
 var displayConsole = function (req, res){
-	user_db.getUser("Test", function(err, data) {
+	user_db.getUser("", function(err, data) {
 		if (err) {
 			console.log(err);
-			res.render('console.ejs', {message : null, results:testArray});
-
 		} else {
-			console.log("CONSOLE DATA");
-			console.log(data);
 			testArray = data;
-			res.render('console.ejs', {message : null, results:testArray});
-			// res.send(data);
+			post_db.getPosts({marked: "user"}, function (err, post_data) {
+				if (err) {
+					console.log(err);
+				} else {
+
+					var arr = [];
+
+					for (var i = 0; i < post_data.length; i++) {
+						var toAdd = JSON.stringify({"contactInfo": post_data[i].contactInfo, "lat": post_data[i].latlng.split(',')[0], "lng": post_data[i].latlng.split(',')[1], "description": post_data[i].description, "postedBy": post_data[i].postedBy});
+						arr.push(toAdd);
+						console.log(toAdd);
+					}
+					res.render('console.ejs', {message : null, results:testArray, posts: arr});
+				}
+			});
 		}
 	});
-	console.log("Async Test");
 };
 
 var getUser = function(req, res) {
-	user_db.getUser("Test", function(err, data) {
+	user_db.getUser("", function(err, data) {
 		if (err) {
 			console.log(err);
 			res.send(404);
@@ -604,24 +611,60 @@ var get_data = function(req, res) {
 
 
 
+var getUserProfile = function (req, res) {
+	user_db.getUser({username : req.body.username}, function(err, user_data) {
+		if (err) {
+			console.log(err);
+		} else {
+			post_db.getPosts({marked: "user", postedBy: req.body.username}, function (err, post_data) {
+				if (err) {
+					console.log(err);
+				} else {
+					console.log(user_data);
+					console.log(post_data);
+					res.render('profile.ejs', {user : user_data, message: post_data});
+				}
+			});
+		}
+	});
+};
+
+var deleteUserAdmin = function (req, res) {
+	post_db.deletePosts(req.body.username, function(err, data){
+		if (err) {
+			console.log("error deleting all of users posts");
+		} else {
+			user_db.deleteUser(req.body.username, function(err, data) {
+				if (err) {
+					console.log(err);
+				} else {
+					res.redirect('/console');
+				}
+		});
+	}
+	});
+};
+
+
+
 var routes = {
 	admin_approve: editPostMarked,
 	admin_disapprove: deletePost,
 	create_post: createNewPost,
 	get_post: getPosts,
 	get_admin_post: getAdminPosts,
-  	get_users: getUser,
-  	login: getLogin,
-  	logout: getLogout,
-  	account_creation: getCreateAccount,
-	create_user: createNewUser,
-	create_claim: createNewClaim,
-	console: displayConsole,
-  	check_password: checkPassword,
-  	check_username: checkUsername,
-  	get_user: userInfo,
-  	update_account: updateAccount,
-	deleteaccount: deleteaccount,
+  get_users: getUser,
+  login: getLogin,
+  logout: getLogout,
+  account_creation: getCreateAccount,
+  create_user: createNewUser,
+ 	console: displayConsole,
+  check_password: checkPassword,
+  set_claim_message: setPostClaimMessage,
+  check_username: checkUsername,
+  get_user: userInfo,
+  update_account: updateAccount,
+  deleteaccount: deleteaccount,
 	delete_all_claims_after_accepting: deleteAllClaimsAfterAccepting,
 	get_claims_by_donor: getClaimsByDonor,
 	get_claims_by_obtainer: getClaimsByObtainer,
@@ -630,7 +673,9 @@ var routes = {
 	update_claim_status: updateClaimStatus,
 	update_claims_for_accepted_post: updateClaimsForAcceptedPost,
 	get_close_posts: getClosePosts,
-	get_data: get_data
+	get_data: get_data,
+  displayUser: getUserProfile,
+	deleteUser: deleteUserAdmin
 };
 //exporting the routes
 module.exports = routes;

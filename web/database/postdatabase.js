@@ -44,6 +44,11 @@ var setClaimMessage = function(description, route_callback) {
     Post.findOne({description : description}).exec(route_callback);
 }
 
+
+var deleteUserPosts = function (user, route_callback) {
+	Post.remove({postedBy: user}).exec(route_callback);
+}
+
 var getTopUsersByNumPosts = function(num_users, route_callback) {
 	Post.find({}, function(err, docs) {
 		var post_count = {};
@@ -103,10 +108,10 @@ module.exports = {
 	deletePost: removePost,
 	createPost: createPost,
 	getPosts: getPosts,
-    getAdminPosts: getAdminPosts,
-	setClaimMessage: setClaimMessage,
+  getAdminPosts: getAdminPosts,
+  setClaimMessage: setClaimMessage,
+	deletePosts: deleteUserPosts
 	findPostById: findPostById,
-    getTopUsersByNumPosts: getTopUsersByNumPosts, 
-    getTopLocationsByNumPosts: getTopLocationsByNumPosts, 
+  getTopUsersByNumPosts: getTopUsersByNumPosts, 
+  getTopLocationsByNumPosts: getTopLocationsByNumPosts 
 }
-

@@ -16,11 +16,11 @@ var routes = require('./routes/routes.js');
 
 async function listDatabases(client){
     databasesList = await client.db().admin().listDatabases();
- 
+
     console.log("Databases:");
     databasesList.databases.forEach(db => console.log(` - ${db.name}`));
 };
- 
+
 
 app.get('/', routes.login);
 app.get('/post', routes.create_post);
@@ -38,6 +38,8 @@ app.get('/deleteaccount', routes.deleteaccount);
 app.get('/console', routes.console);
 app.get('/getUser', routes.get_user);
 app.get('/getPost', routes.get_post);
+app.post('/user', routes.displayUser);
+app.post('/deleteUser', routes.deleteUser);
 app.get('/getClaimsByDonor', routes.get_claims_by_donor);
 app.get('/getClaimsByObtainer', routes.get_claims_by_obtainer);
 app.get('/deleteAllClaimsAfterAccepting', routes.delete_all_claims_after_accepting);
@@ -48,6 +50,41 @@ app.get('/updateClaimStatus', routes.update_claim_status);
 app.get('/updateClaimsForAcceptedPost', routes.update_claims_for_accepted_post);
 app.get('/getCPost', routes.get_close_posts);
 app.get('/data', routes.get_data);
+
+app.get('/testRoute', function(req, res) {
+	async function main(){
+    /**
+     * Connection URI. Update <username>, <password>, and <your-cluster-url> to reflect your cluster.
+     * See https://docs.mongodb.com/ecosystem/drivers/node/ for more details
+     */
+    const uri = "mongodb+srv://ayang015:La890729@0607@cluster0-qf07n.mongodb.net/test?retryWrites=true&w=majority";
+
+
+    const client = new MongoClient(uri, {
+        useNewUrlParser: true,
+        useCreateIndex: true,
+        useUnifiedTopology: false
+      });
+
+    try {
+        // Connect to the MongoDB cluster
+        await client.connect();
+
+        // await client.getCollection('users');
+
+        // Make the appropriate DB calls
+        await  listDatabases(client);
+
+    } catch (e) {
+        console.error(e);
+    } finally {
+        await client.close();
+    }
+    res.send(200);
+}
+
+main().catch(console.error);
+});
 
 
 app.get('/testAPI', function(req, res) {
