@@ -143,14 +143,19 @@ public class MapViewFragment extends Fragment implements GoogleMap.OnMarkerClick
                         String name = current.getString("description");
                         String loc = current.getString("location");
                         String user = current.getString("postedBy");
-                        String[] location = current.getString("latlng").split(",");
-                        LatLng locationCoords = new LatLng(Double.parseDouble(location[0]), Double.parseDouble(location[1]));
 
-                        googleMap.addMarker(new MarkerOptions()
-                                .position(locationCoords)
-                                .title(name)
-                                .snippet("Address: " + loc)
-                                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
+                        if (current.has("latlng")) {
+                            String getLoc = current.getString("latlng");
+                            if (getLoc.contains(",")) {
+                                String[] location = current.getString("latlng").split(",");
+                                LatLng locationCoords = new LatLng(Double.parseDouble(location[0]), Double.parseDouble(location[1]));
+                                googleMap.addMarker(new MarkerOptions()
+                                        .position(locationCoords)
+                                        .title(name)
+                                        .snippet("Address: " + loc)
+                                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
+                            }
+                        }
 
                     } catch (Exception e) {
                         e.printStackTrace();

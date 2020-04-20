@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -142,13 +143,14 @@ public class LoginActivity extends AppCompatActivity {
         // TODO : initiate successful logged in experience
         Toast.makeText(getApplicationContext(), welcome, Toast.LENGTH_LONG).show();
         String username = ((EditText) findViewById(R.id.username)).getText().toString();
+        Log.d("user", username);
         Intent i = null;
         JSONObject user = DataSource.getAccountInfo(username);
         String type = "";
         try {
             type = user.getString("userType");
         } catch (Exception e) {
-            System.out.println("Couldn't find this user.");
+            Log.d("bad news bears", "Couldn't find this user.");
         }
         if (type.equals("Obtainer")) {
             i = new Intent(this, MainActivity.class);

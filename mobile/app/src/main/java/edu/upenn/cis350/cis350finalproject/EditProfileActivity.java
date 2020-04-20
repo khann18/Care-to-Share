@@ -63,8 +63,9 @@ public class EditProfileActivity extends AppCompatActivity {
                 String profPic = j.get("profilePic").toString();
                 Log.d("profPIC", profPic);
                 setProfilePicture(profPic);
-                ((EditText) findViewById(R.id.input_profile_pic)).setText(j.get("profilePic").toString());
                 Spinner accountTypeSpinner = (Spinner) findViewById(R.id.input_account_type);
+                ((EditText) findViewById(R.id.input_profile_pic)).setText(j.get("profilePic").toString());
+
                 String accountType = j.get("userType").toString();
                 if (accountType.equals("Obtainer")) {
                     accountTypeSpinner.setSelection(0);
@@ -74,15 +75,7 @@ public class EditProfileActivity extends AppCompatActivity {
 
             } catch (JSONException e) {
                 Log.d("RESULT", "COULDN'T LOAD USER DATA");
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } catch (ExecutionException e) {
-                e.printStackTrace();
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
             }
-
-
         }
 
 
@@ -151,15 +144,20 @@ public class EditProfileActivity extends AppCompatActivity {
 
     }
 
-    void setProfilePicture(String imageURL) throws MalformedURLException, ExecutionException, InterruptedException {
+    void setProfilePicture(String imageURL) {
         ImageView profPic = (ImageView) findViewById(R.id.profilePic);
         LoadImageTask task = new LoadImageTask();
-        URL url = new URL(imageURL);
-        task.execute(url);
-        Object result = task.get();
-        if (result != null) {
-            profPic.setImageDrawable((Drawable) result);
-        } else {
+        try {
+            URL url = new URL(imageURL);
+            task.execute(url);
+            Object result = task.get();
+            if (result != null) {
+                profPic.setImageDrawable((Drawable) result);
+            } else {
+                profPic.setImageResource(android.R.drawable.ic_menu_camera);
+            }
+        } catch (Exception e) {
+            Log.d("No Real URL", "No Real URL");
             profPic.setImageResource(android.R.drawable.ic_menu_camera);
         }
 
