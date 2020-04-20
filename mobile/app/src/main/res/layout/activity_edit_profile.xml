@@ -26,8 +26,9 @@
 <!--        Profile Picture-->
 
         <ImageView
-            android:layout_width="200dp"
-            android:layout_height="100dp"
+            android:layout_width="300dp"
+            android:layout_height="150dp"
+            android:paddingLeft="80dp"
             android:id="@+id/profilePic"/>
 
         <!--  Name Label -->

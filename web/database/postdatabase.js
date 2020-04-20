@@ -110,7 +110,7 @@ module.exports = {
 	getPosts: getPosts,
   getAdminPosts: getAdminPosts,
   setClaimMessage: setClaimMessage,
-	deletePosts: deleteUserPosts
+	deletePosts: deleteUserPosts,
 	findPostById: findPostById,
   getTopUsersByNumPosts: getTopUsersByNumPosts, 
   getTopLocationsByNumPosts: getTopLocationsByNumPosts 

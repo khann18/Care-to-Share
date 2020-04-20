@@ -660,7 +660,7 @@ var routes = {
   create_user: createNewUser,
  	console: displayConsole,
   check_password: checkPassword,
-  set_claim_message: setPostClaimMessage,
+  // set_claim_message: setPostClaimMessage,
   check_username: checkUsername,
   get_user: userInfo,
   update_account: updateAccount,
@@ -675,7 +675,8 @@ var routes = {
 	get_close_posts: getClosePosts,
 	get_data: get_data,
   displayUser: getUserProfile,
-	deleteUser: deleteUserAdmin
+	deleteUser: deleteUserAdmin,
+	create_claim: createNewClaim,
 };
 //exporting the routes
 module.exports = routes;

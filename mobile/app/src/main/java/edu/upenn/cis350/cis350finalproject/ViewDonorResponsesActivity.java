@@ -216,9 +216,11 @@ public class ViewDonorResponsesActivity extends AppCompatActivity implements Vie
 
     public void addRadioButtons() {
         radioGroup.setOrientation(LinearLayout.VERTICAL);
+        Log.d("ARRAY LENGTH", Integer.toString(arr.length()));
         for (int i = 0; i < arr.length(); i++) {
             try {
                 JSONObject json = (JSONObject) arr.get(i);
+
 
 
                 String description = json.getString("claimMessage");
@@ -230,6 +232,8 @@ public class ViewDonorResponsesActivity extends AppCompatActivity implements Vie
                 String donorUsername = json.getString("donorUsername");
                 JSONObject user = DataSource.getAccountInfo(donorUsername);
                 String org = user.getString("organization");
+
+                Log.d("MADE HERE", user.toString());
 
                 RadioButton rdbtn = new RadioButton(this);
                 rdbtn.setId(View.generateViewId());
