@@ -1,6 +1,11 @@
 package edu.upenn.cis350.cis350finalproject;
 import android.util.Log;
 
+import com.google.android.gms.maps.model.LatLng;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.net.URL;
 
 import edu.upenn.cis350.cis350finalproject.AccessWebTask;
@@ -99,4 +104,137 @@ public class DataSource {
             System.out.println("yikessssss");
         }
     }
+
+    public static JSONObject findPostById(String postId) {
+        try {
+            URL url = new URL("http://10.0.2.2:3000/findPostById=" + postId);
+            AccessWebTask task = new AccessWebTask();
+            task.execute(url);
+            String result = task.get();
+            JSONObject j = new JSONObject(result);
+            Log.d("RESULT", result);
+            return j;
+
+        }catch (Exception e){
+            return null;
+        }
+    }
+
+    public static void createClaim(String obtainerUsername, String donorUsername, String postId, String claimMessage) {
+        try {
+            URL url = new URL("http://10.0.2.2:3000/createClaim?obtainerUsername=" + obtainerUsername +
+                    "&donorUsername=" + donorUsername + "&postId=" + postId + "&claimMessage=" + claimMessage +
+                    "&claimStatus=none");
+            AccessWebTask task = new AccessWebTask();
+            task.execute(url);
+            String result = task.get();
+            Log.d("RESULT", result);
+        }catch (Exception e){
+
+        }
+    }
+
+    public static JSONArray getPosts() {
+        try {
+            URL url = new URL("http://10.0.2.2:3000/getPost");
+            AccessWebTask task = new AccessWebTask();
+            task.execute(url);
+            String result = task.get();
+            JSONArray j = new JSONArray(result);
+            Log.d("RESULT", result);
+            return j;
+
+        }catch (Exception e){
+            return null;
+        }
+    }
+
+    public static JSONArray getClaimsByDonor(String donorUsername) {
+        try {
+            URL url = new URL("http://10.0.2.2:3000/getClaimsByDonor?donorUsername=" + donorUsername);
+            APITask task = new APITask();
+            task.execute(url);
+            String result = task.get();
+            JSONArray j = new JSONArray(result);
+            Log.d("RESULT", result);
+            return j;
+
+        }catch (Exception e){
+            return null;
+        }
+    }
+
+    public static JSONArray getClaimsByObtainer(String obtainerUsername) {
+        try {
+            URL url = new URL("http://10.0.2.2:3000/getClaimsByObtainer?obtainerUsername=" + obtainerUsername);
+            APITask task = new APITask();
+            task.execute(url);
+            String result = task.get();
+            JSONArray j = new JSONArray(result);
+            Log.d("RESULT", result);
+            return j;
+
+        }catch (Exception e){
+            return null;
+        }
+    }
+
+    public static JSONObject getAccountInfo(String username) {
+        try {
+            URL url = new URL("http://10.0.2.2:3000/getUser?username=" + username);
+            AccessWebTask task = new AccessWebTask();
+            task.execute(url);
+            String result = task.get();
+            JSONObject j = new JSONObject(result);
+            Log.d("RESULT", result);
+            return j;
+
+        }catch (Exception e){
+            return null;
+        }
+    }
+
+
+    public static JSONArray getAllPosts() {
+        Log.d("RESULT", "Commence Get Posts");
+        String res = null;
+        try {
+            URL url = new URL("http://10.0.2.2:3000/getPost");
+            AccessWebTask task = new AccessWebTask();
+            task.execute(url);
+            res = task.get();
+            int t = res.indexOf('[');
+            int t1 = res.indexOf(']');
+            res = res.substring(t, t1) + "]";
+
+            Log.d("RESULT", res);
+            JSONArray j = new JSONArray(res);
+            return j;
+        }catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static JSONArray getClosePosts(LatLng coords) {
+        Log.d("RESULT", "Commence Get Posts");
+        String res = null;
+        try {
+            URL url = new URL("http://10.0.2.2:3000/getCPost?" + "lat" + coords.latitude + "&" + "lng" + coords.longitude);
+            AccessWebTask task = new AccessWebTask();
+            task.execute(url);
+            res = task.get();
+            int t = res.indexOf('[');
+            int t1 = res.indexOf(']');
+            res = res.substring(t, t1) + "]";
+
+            Log.d("RESULT", res);
+            JSONArray j = new JSONArray(res);
+            return j;
+        }catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
 }

@@ -9,6 +9,7 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -30,7 +31,7 @@ public class CreateAccountActivity extends AppCompatActivity {
 
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create_account);
+        setContentView(R.layout.content_create_account);
 
         final Button submitButton = findViewById(R.id.submit_button);
         submitButton.setOnClickListener(new View.OnClickListener() {
@@ -44,14 +45,16 @@ public class CreateAccountActivity extends AppCompatActivity {
                 String email = ((EditText) findViewById(R.id.input_email)).getText().toString();
                 String organization = ((EditText) findViewById(R.id.input_organization)).getText().toString();
                 String location = ((EditText) findViewById(R.id.input_location)).getText().toString();
+                String profilePic = ((EditText) findViewById(R.id.input_profile_pic)).getText().toString();
 
                 Spinner accountTypeSpinner = (Spinner) findViewById(R.id.input_account_type);
                 String accountType = accountTypeSpinner.getSelectedItem().toString();
+                Log.d("account type", accountType);
 
 
                 //make sure all fields have been filled in
                 if (firstName.isEmpty() || lastName.isEmpty() || username.isEmpty() || password.isEmpty() || phoneNumber.isEmpty() || email.isEmpty()
-                || location.isEmpty() || organization.isEmpty()) {
+                || location.isEmpty() || organization.isEmpty() || accountType.isEmpty()) {
                     Toast.makeText(getApplicationContext(), "Please fill out all of the fields", Toast.LENGTH_SHORT).show();
                 }
 
@@ -60,7 +63,7 @@ public class CreateAccountActivity extends AppCompatActivity {
                 }
 
                 else {
-                    DataSource.createAccount(firstName, lastName, username, password, email, phoneNumber, accountType, location, organization);
+                    DataSource.createAccount(firstName, lastName, username, password, email, phoneNumber, accountType, location, organization, profilePic);
 
                     Intent i = new Intent(getApplicationContext(), MainActivity.class);
                     //pass username to the home activity

@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -23,8 +24,12 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONObject;
+
 import edu.upenn.cis350.cis350finalproject.MainActivity;
+import edu.upenn.cis350.cis350finalproject.MessageBoardActivity;
 import edu.upenn.cis350.cis350finalproject.R;
+import edu.upenn.cis350.cis350finalproject.data.DataSource;
 import edu.upenn.cis350.cis350finalproject.ui.login.LoginViewModel;
 import edu.upenn.cis350.cis350finalproject.ui.login.LoginViewModelFactory;
 
@@ -134,11 +139,24 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void updateUiWithUser(LoggedInUserView model) {
-        String welcome = getString(R.string.welcome) + model.getDisplayName();
+        String welcome = "Welcome " + model.getDisplayName() + "!";
         // TODO : initiate successful logged in experience
         Toast.makeText(getApplicationContext(), welcome, Toast.LENGTH_LONG).show();
         String username = ((EditText) findViewById(R.id.username)).getText().toString();
-        Intent i = new Intent(this, MainActivity.class);
+        Log.d("user", username);
+        Intent i = null;
+        JSONObject user = DataSource.getAccountInfo(username);
+        String type = "";
+        try {
+            type = user.getString("userType");
+        } catch (Exception e) {
+            Log.d("bad news bears", "Couldn't find this user.");
+        }
+        if (type.equals("Obtainer")) {
+            i = new Intent(this, MainActivity.class);
+        } else if (type.equals("Donor")) {
+            i = new Intent(this, MessageBoardActivity.class);
+        }
         i.putExtra("username", username);
         startActivity(i);
     }

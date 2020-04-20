@@ -1,8 +1,13 @@
 //accessing the database functions
 var user_db = require('../database/userdatabase.js');
 var post_db = require('../database/postdatabase.js');
+var claim_db = require('../database/claimdatabase.js');
+
 var User = require('../database/users.js');
 var Post = require('../database/posts.js');
+var Claim = require('../database/claims.js');
+
+var request = require("request");
 
 var testArray = ["Alex", "Taki", "Vatsin", "Katherine"]
 
@@ -20,30 +25,260 @@ var getCreateAccount = function(req, res) {
 	res.render('signup.ejs');
 };
 
-
 var createNewPost = function(req, res) {
-	var newPost = new Post({
-		description: req.query.description,
-		location: req.query.location,
-		postedBy: req.query.poster,
-		pickupTime: req.query.pickupTime,
-		contactInfo: req.query.contact,
-		isClaimed: req.query.isClaimed,
+	var API_KEY = "AIzaSyD9L96DpB9wyP4Are37YqzlJlICplSR-B0";
+    var BASE_URL = "https://maps.googleapis.com/maps/api/geocode/json?address=";
+    var address = req.query.location;
+
+    var url = BASE_URL + address + "&key=" + API_KEY;
+
+    var coords = "";
+    request(url, function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+            // console.log(Object.keys(body));
+            var response = JSON.parse(body);
+            console.log(response.results['0'].geometry.location);
+            console.log(Object.keys(response.results));
+            coords = "" + response.results['0'].geometry.location.lat + "," + response.results['0'].geometry.location.lng;
+
+            	var newPost = new Post({
+					description: req.query.description,
+					location: req.query.location,
+					postedBy: req.query.poster,
+					pickupTime: req.query.pickupTime,
+					contactInfo: req.query.contact,
+					isClaimed: req.query.isClaimed,
+					claimMessage: req.query.claimMessage,
+					marked: req.query.marked,
+					latlng: coords
+				});
+
+				post_db.createPost(newPost, function(err, data){
+					if (err) {
+						console.log(err);
+					} else {
+						console.log(data);
+					}
+				});
+				res.send(200);
+       	} else {
+	    	var newPost = new Post({
+				description: req.query.description,
+				location: req.query.location,
+				postedBy: req.query.poster,
+				pickupTime: req.query.pickupTime,
+				contactInfo: req.query.contact,
+				isClaimed: req.query.isClaimed,
+				claimMessage: req.query.claimMessage,
+				marked: req.query.marked,
+				latlng: ""
+			});
+
+			post_db.createPost(newPost, function(err, data){
+				if (err) {
+					console.log(err);
+				} else {
+					console.log(data);
+				}
+			});
+            console.log("Fail");
+            res.send(200);
+            // The request failed, handle it
+        }
+    });
+
+    console.log(coords);
+
+	// var newPost = new Post({
+	// 	description: req.query.description,
+	// 	location: req.query.location,
+	// 	postedBy: req.query.poster,
+	// 	pickupTime: req.query.pickupTime,
+	// 	contactInfo: req.query.contact,
+	// 	isClaimed: req.query.isClaimed,
+	// 	claimMessage: req.query.claimMessage,
+	// 	marked: req.query.marked,
+	// 	latlng: coords
+	// });
+
+	// post_db.createPost(newPost, function(err, data){
+	// 	if (err) {
+	// 		console.log(err);
+	// 	} else {
+	// 		console.log(data);
+	// 	}
+	// });
+}
+
+var createNewClaim = function(req, res) {
+	var newClaim = new Claim({
+		donorUsername: req.query.donorUsername,
+		obtainerUsername: req.query.obtainerUsername,
+		postId: req.query.postId,
 		claimMessage: req.query.claimMessage,
-		marked: req.query.marked
+		claimStatus: req.query.claimStatus
 	});
 
-	post_db.createPost(newPost, function(err, data){
+	claim_db.createClaim(newClaim, function(err, data){
 		if (err) {
 			console.log(err);
-		} else {
+		}else {
 			console.log(data);
+			res.send(data);
 		}
 	});
 }
 
 var getPosts = function(req, res) {
-	post_db.getPosts({marked: 'user'}, function(err, data){
+
+	post_db.getPosts({marked: 'user'}, function(err, data) {
+
+		if (err) {
+			console.log(err);
+		}else {
+			console.log("SENT");
+			res.send(data);
+		}
+	});
+}
+
+function distance(lat1, lon1, lat2, lon2, unit) {
+	if ((lat1 == lat2) && (lon1 == lon2)) {
+		return 0;
+	}
+	else {
+		var radlat1 = Math.PI * lat1/180;
+		var radlat2 = Math.PI * lat2/180;
+		var theta = lon1-lon2;
+		var radtheta = Math.PI * theta/180;
+		var dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
+		if (dist > 1) {
+			dist = 1;
+		}
+		dist = Math.acos(dist);
+		dist = dist * 180/Math.PI;
+		dist = dist * 60 * 1.1515;
+		if (unit=="K") { dist = dist * 1.609344 }
+		if (unit=="N") { dist = dist * 0.8684 }
+		return dist;
+	}
+}
+
+var getClosePosts = function(req, res) {
+    var latitude = req.query.lat;
+    var long = req.query.lng;
+
+    var jArray = [];
+    var finalArray = [];
+
+    var postID = 0;
+
+	post_db.getPosts({marked: 'user'}, function(err, data) {
+		if (err) {
+			console.log(err);
+		} else {
+			console.log(data);
+			for (var i = 0; i < data.length; i++) {
+				var coordString = data[i].latlng;
+				console.log(data[i].latlng);
+				if (coordString != undefined && coordString.length > 0) {
+					var coordArr = coordString.split(",");
+
+					var dist = distance(parseFloat(coordArr[0]), 
+						parseFloat(coordArr[1]),
+						parseFloat(latitude),
+						parseFloat(long), "K") ;
+					jArray.push({data: data[i], id: dist});
+					console.log(dist);
+					jArray.sort((a, b) => (a.id > b.id) ? 1 : -1);
+					postID++;
+				}
+			}
+			for (var i = 0; i < jArray.length && i < 10; i++) {
+				finalArray.push(jArray[i].data);
+			}
+			console.log(finalArray);
+			console.log("SENT");
+			res.send(data);
+		}
+	});
+}
+
+function distance(lat1, lon1, lat2, lon2, unit) {
+	if ((lat1 == lat2) && (lon1 == lon2)) {
+		return 0;
+	}
+	else {
+		var radlat1 = Math.PI * lat1/180;
+		var radlat2 = Math.PI * lat2/180;
+		var theta = lon1-lon2;
+		var radtheta = Math.PI * theta/180;
+		var dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
+		if (dist > 1) {
+			dist = 1;
+		}
+		dist = Math.acos(dist);
+		dist = dist * 180/Math.PI;
+		dist = dist * 60 * 1.1515;
+		if (unit=="K") { dist = dist * 1.609344 }
+		if (unit=="N") { dist = dist * 0.8684 }
+		return dist;
+	}
+}
+
+var getClosePosts = function(req, res) {
+    var latitude = req.query.lat;
+    var long = req.query.lng;
+
+    var jArray = [];
+    var finalArray = [];
+
+    var postID = 0;
+
+	post_db.getPosts({marked: 'user'}, function(err, data) {
+		if (err) {
+			console.log(err);
+		} else {
+			console.log(data);
+			for (var i = 0; i < data.length; i++) {
+				var coordString = data[i].latlng;
+				console.log(data[i].latlng);
+				if (coordString != undefined && coordString.length > 0) {
+					var coordArr = coordString.split(",");
+
+					var dist = distance(parseFloat(coordArr[0]), 
+						parseFloat(coordArr[1]),
+						parseFloat(latitude),
+						parseFloat(long), "K") ;
+					jArray.push({data: data[i], id: dist});
+					console.log(dist);
+					jArray.sort((a, b) => (a.id > b.id) ? 1 : -1);
+					postID++;
+				}
+			}
+			for (var i = 0; i < jArray.length && i < 10; i++) {
+				finalArray.push(jArray[i].data);
+			}
+			console.log(finalArray);
+			console.log("SENT");
+			res.send(data);
+		}
+	});
+}
+
+var getClaimsByDonor = function(req, res) {
+	claim_db.getClaimsByDonor(req.query.donorUsername, function(err, data){
+		if (err) {
+			console.log(err);
+		}else {
+			console.log(data);
+			res.send(data);
+		}
+	});
+}
+
+var getClaimsByObtainer = function(req, res) {
+	claim_db.getClaimsByObtainer(req.query.obtainerUsername, function(err, data){
 		if (err) {
 			console.log(err);
 		}else {
@@ -74,6 +309,16 @@ var deletePost = function(req, res) {
 	});
 }
 
+var deleteAllClaimsAfterAccepting = function(req, res) {
+	claim_db.deleteAllClaimsAfterAccepting(req.query.postId, function(err, data){
+		if (err) {
+			console.log(err);
+		}else {
+			console.log(data);
+		}
+	});
+}
+
 var editPostMarked = function(req, res) {
 	post_db.editMarked({_id: req.query.id}, function(err, data){
 		if (err) {
@@ -95,13 +340,14 @@ var createNewUser = function(req, res) {
 		password: req.query.password,
 		phoneNumber: req.query.phoneNumber,
 		email: req.query.email,
-		organization: req.query.organization
+		organization: req.query.organization,
+		profilePic: req.query.profilePic,
 	 });
 	user_db.createUser(newUser, function(err, data) {
 		if (err) {
 			console.log(err);
 		} else {
-			console.log(data);
+			console.log(newUser);
 			//Returns the entire User object that was created
 			res.send(newUser);
 		}
@@ -147,24 +393,66 @@ var checkUsername = function(req, res) {
 
 }
 
-var setPostClaimMessage = function(req, res) {
-	var description = req.query.description;
-	var message = req.query.message;
+// var setPostClaimMessage = function(req, res) {
+// 	var description = req.query.description;
+// 	var message = req.query.message;
 
-	post_db.setClaimMessage(description, function(err, data) {
+// 	post_db.setClaimMessage(description, function(err, data) {
+// 		if (err) {
+// 			console.log(err);
+// 		} else {
+// 			data.claimMessage = message;
+// 			data.isClaimed = true;
+// 			console.log(data);
+// 			data.save( (err) => {
+// 				if (err) {
+// 					console.log(err);
+// 				} else {
+// 				 	res.send({result: message});
+// 			    }
+// 			});
+
+// 		}
+// 	});
+// }
+
+var updateClaimStatus = function(req, res) {
+
+	claim_db.updateClaimStatus(req.query.claimId, function(err, data) {
 		if (err) {
 			console.log(err);
 		} else {
-			data.claimMessage = message;
-			data.isClaimed = true;
+			data.claimStatus = req.query.claimStatus;
 			console.log(data);
 			data.save( (err) => {
 				if (err) {
 					console.log(err);
 				} else {
-				 	res.send({result: message});
+				 	res.send({result : req.query.claimStatus});
 			    }
 			});
+
+		}
+	});
+}
+
+var updateClaimsForAcceptedPost = function(req, res) {
+	var postId = req.query.postId
+	console.log(postId)
+	claim_db.updateClaimsForAcceptedPost(postId, function(err, data) {
+		if (err) {
+			console.log(err);
+		} else {
+			// data.claimStatus = 'rejected';
+			console.log(data);
+			// data.save( (err) => {
+			// 	if (err) {
+			// 		console.log(err);
+			// 	} else {
+				// res.write('I hope this works :');
+				 	res.send(data);
+			//     }
+			// });
 
 		}
 	});
@@ -180,7 +468,8 @@ var updateAccount = function(req, res) {
 		password: req.query.password,
 		phoneNumber: req.query.phoneNumber,
 		email: req.query.email,
-		organization: req.query.organization
+		organization: req.query.organization,
+		profilePic: req.query.profilePic,
 	 });
 	user_db.saveUser(newUser, function(err, data) {
 		if (err) {
@@ -207,6 +496,40 @@ var userInfo = function(req, res) {
 				res.send({result: null});
 			}
 
+		}
+	});
+
+}
+
+var findPostById = function(req, res) {
+	var postId = req.query.postId;
+	post_db.findPostById(postId, function(err, data) {
+		if (err) {
+			console.log(err);
+		} else {
+			if (data) {
+				res.send({result: data});
+			} else {
+				res.send({result: null});
+			}
+			
+		}
+	});
+
+}
+
+var getClaimById = function(req, res) {
+	var claimId = req.query.claimId;
+	claim_db.getClaimById(claimId, function(err, data) {
+		if (err) {
+			console.log(err);
+		} else {
+			if (data) {
+				res.send({result: data});
+			} else {
+				res.send({result: null});
+			}
+			
 		}
 	});
 
@@ -259,6 +582,32 @@ var getUser = function(req, res) {
 		}
 	});
 }
+
+var get_data = function(req, res) {
+	
+
+	post_db.getTopUsersByNumPosts(10, function(err, data) {
+		stats = [];
+		stats.push(data);
+		post_db.getTopLocationsByNumPosts(10, function(err, data) {
+			stats.push(data)
+			user_db.getTopLocationsByNumUsers(10, function(err, data) {
+				stats.push(data)
+				console.log(stats)
+				res.render('data.ejs', {stats: stats})
+			});
+		});
+	});
+	
+	
+
+
+	//TODO: stuff with claims database
+
+	
+	
+}
+
 
 
 
@@ -316,7 +665,16 @@ var routes = {
   get_user: userInfo,
   update_account: updateAccount,
   deleteaccount: deleteaccount,
-	displayUser: getUserProfile,
+	delete_all_claims_after_accepting: deleteAllClaimsAfterAccepting,
+	get_claims_by_donor: getClaimsByDonor,
+	get_claims_by_obtainer: getClaimsByObtainer,
+	find_post_by_id: findPostById,
+	get_claim_by_id: getClaimById,
+	update_claim_status: updateClaimStatus,
+	update_claims_for_accepted_post: updateClaimsForAcceptedPost,
+	get_close_posts: getClosePosts,
+	get_data: get_data,
+  displayUser: getUserProfile,
 	deleteUser: deleteUserAdmin
 };
 //exporting the routes

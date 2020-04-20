@@ -1,16 +1,14 @@
 package edu.upenn.cis350.cis350finalproject;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -18,14 +16,8 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.Toast;
-
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapView;
-
-import java.net.URL;
-import java.util.ArrayList;
+import org.json.JSONObject;
 import java.util.Date;
-
 import edu.upenn.cis350.cis350finalproject.data.DataSource;
 
 
@@ -33,16 +25,10 @@ import edu.upenn.cis350.cis350finalproject.ui.login.LoginActivity;
 
 public class MainActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
 
-//    private RecyclerView recyclerView;
-//    private RAdapter mAdapter;
-//    private RecyclerView.LayoutManager layoutManager;
-
-    MapView mapView;
-    GoogleMap map;
     SearchView sv;
     ListView lv;
     CustomAdapter ca;
-
+    String username;
 
     @SuppressLint("NewApi")
     private void setupSearchView()
@@ -67,7 +53,6 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     @Override
     public boolean onQueryTextSubmit(String query)
     {
-        // DataSource.getTest();
         return false;
     }
 
@@ -80,31 +65,48 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         //get username passed to intent
-        final String username = getIntent().getStringExtra("username");
+        username = getIntent().getStringExtra("username");
 
-
-        ListView listView = (ListView) findViewById(R.id.listView);
-        lv = listView;
+        lv =  (ListView) findViewById(R.id.listView);
         sv = (SearchView) findViewById(R.id.searchbar);
 
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Context context = getApplicationContext();
-                CharSequence text = "Hello toast!";
-                int duration = Toast.LENGTH_SHORT;
+                Log.d("Position", "" + position);
+                String item = parent.getItemAtPosition(position).toString();
+                JSONObject jItem = (JSONObject) ca.getItem(position);
 
-                Toast toast = Toast.makeText(context, text, duration);
-                toast.show();
+                String location;
+                String contact;
 
-                ca.addItem("NewPost");
-                // When clicked perform some action...
+                try {
+                    String postId = jItem.getString("_id");
+                    String description = jItem.getString("description");
+
+                    Intent myIntent = new Intent(MainActivity.this, ClaimPostActivity.class);
+                    myIntent.putExtra("postid", postId);
+                    myIntent.putExtra("description", description);
+                    myIntent.putExtra("username", username);
+                    MainActivity.this.startActivity(myIntent);
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+//                Context context = getApplicationContext();
+//                CharSequence text = item;
+//                int duration = Toast.LENGTH_SHORT;
+
+//                Toast toast = Toast.makeText(context, text, duration);
+//                toast.show();
             }
         });
 
         CustomAdapter cAdapter = new CustomAdapter(this);
         ca = cAdapter;
-        listView.setAdapter(ca);
+        lv.setAdapter(ca);
 
         lv.setTextFilterEnabled(true);
         setupSearchView();
@@ -119,11 +121,11 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
             }
         });
 
-        ImageButton createPost = findViewById(R.id.create_post);
-        createPost.setOnClickListener(new View.OnClickListener() {
+        ImageButton viewDonorResponses = findViewById(R.id.view_donor_responses);
+        viewDonorResponses.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(), CreatePostActivity.class);
+                Intent i = new Intent(getApplicationContext(), ViewDonorResponsesActivity.class);
                 i.putExtra("username", username);
                 startActivity(i);
             }
@@ -139,27 +141,4 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         });
     }
 
-
-    public static final int CLAIMPOSTACTIVITY_ID = 1;
-
-    public void onClaimPostButtonClick(View view) {
-        Intent i = new Intent(this, ClaimPostActivity.class);
-
-//          Intent i = new Intent(this, MessageBoardActivity.class);
-
-
-
-//        DO STUFF HERE TO PUT THIS IN DB AS DUMMY
-        User me = new User("Paula", "Hann", "Phoenix",
-                "Donor", "yikes", "on bikes", "11111111",
-                "hann@seas.upenn.edu", "Food4Us");
-        Post p = new Post("Yes I am giving away tasty foods.", "Philadelphia",
-                new Date(), me, "khann22@seas.upenn.edu", false, "");
-        i.putExtra("POST", p);
-
-        DataSource.createFullUser(me);
-        DataSource.createPost(p);
-        startActivityForResult(i, CLAIMPOSTACTIVITY_ID);
-
-    }
 }

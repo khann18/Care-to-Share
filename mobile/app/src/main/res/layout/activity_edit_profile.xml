@@ -13,13 +13,22 @@
         android:paddingLeft="24dp"
         android:paddingRight="24dp">
 
+
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:text="Your Profile"
+            android:textAlignment="center"
             android:textAllCaps="true"
-            android:textSize="30dp"
             android:textColor="@color/colorPrimary"
-            android:text="Your Profile"/>
+            android:textSize="30dp" />
+
+<!--        Profile Picture-->
+
+        <ImageView
+            android:layout_width="200dp"
+            android:layout_height="100dp"
+            android:id="@+id/profilePic"/>
 
         <!--  Name Label -->
         <LinearLayout
@@ -76,8 +85,21 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:hint="Location" />
+                android:hint="Nearest city" />
 
+        </LinearLayout>
+
+        <LinearLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp">
+            <EditText android:id="@+id/input_profile_pic"
+                android:inputType="none"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Profile picture"/>
         </LinearLayout>
         <!-- Username Label - you can't change your username -->
         <LinearLayout
@@ -133,7 +155,7 @@
             android:id="@+id/delete_account_button"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="5dp"
             android:layout_marginBottom="24dp"
             android:padding="12dp"
             android:textColor="@color/colorAccent"
