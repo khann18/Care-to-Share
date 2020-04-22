@@ -50,7 +50,9 @@ var createNewPost = function(req, res) {
 					isClaimed: req.query.isClaimed,
 					claimMessage: req.query.claimMessage,
 					marked: req.query.marked,
-					latlng: coords
+					latlng: coords,
+					numPortions: req.query.numPortions,
+					tags: req.query.tags
 				});
 
 				post_db.createPost(newPost, function(err, data){
@@ -71,7 +73,9 @@ var createNewPost = function(req, res) {
 				isClaimed: req.query.isClaimed,
 				claimMessage: req.query.claimMessage,
 				marked: req.query.marked,
-				latlng: ""
+				latlng: "",
+				numPortions: req.query.numPortions,
+				tags: req.query.tags
 			});
 
 			post_db.createPost(newPost, function(err, data){
