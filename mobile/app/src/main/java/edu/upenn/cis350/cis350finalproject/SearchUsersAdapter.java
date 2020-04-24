@@ -2,6 +2,7 @@ package edu.upenn.cis350.cis350finalproject;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.Typeface;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -134,13 +135,14 @@ public class SearchUsersAdapter extends BaseAdapter implements Filterable
         LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view =  inflater.inflate(R.layout.single_row,parent,false);
         TextView description = (TextView) view.findViewById(R.id.firstLine);
+        description.setAllCaps(true);
+        description.setTypeface(null, Typeface.BOLD);
         TextView extraInfo = (TextView) view.findViewById(R.id.secondLine);
 
         if (position < stringList.size()) {
             String temp = stringList.get(position);
             description.setText(temp);
             JSONObject curr = jsonList.get(position);
-            Log.d("Size", "" + jsonList.size());
             try {
                 //Extra text displayed with each user
                 extraInfo.setText("Location: " + curr.getString("location"));

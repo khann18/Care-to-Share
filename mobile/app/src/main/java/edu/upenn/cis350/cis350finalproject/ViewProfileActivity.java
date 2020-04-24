@@ -38,12 +38,11 @@ public class ViewProfileActivity extends AppCompatActivity {
 
         ((TextView) findViewById(R.id.profile_view_title)).setText(getIntent().getStringExtra("username"));
 
-        ((TextView) findViewById(R.id.firstName)).setText(getIntent().getStringExtra("firstName"));
-        ((TextView) findViewById(R.id.lastName)).setText(getIntent().getStringExtra("lastName"));
-        ((TextView) findViewById(R.id.input_phone_number)).setText(getIntent().getStringExtra("phoneNumber"));
-        ((TextView) findViewById(R.id.input_email)).setText(getIntent().getStringExtra("email"));
-        ((TextView) findViewById(R.id.input_organization)).setText(getIntent().getStringExtra("organization"));
-        ((TextView) findViewById(R.id.input_location)).setText(getIntent().getStringExtra("location"));
+        ((TextView) findViewById(R.id.firstName)).setText(getIntent().getStringExtra("firstName") + " " + getIntent().getStringExtra("lastName"));
+        ((TextView) findViewById(R.id.input_phone_number)).setText("Phone number: " +  getIntent().getStringExtra("phoneNumber"));
+        ((TextView) findViewById(R.id.input_email)).setText("Email: " + getIntent().getStringExtra("email"));
+        ((TextView) findViewById(R.id.input_organization)).setText("Organization: " + getIntent().getStringExtra("organization"));
+        ((TextView) findViewById(R.id.input_location)).setText("Location: " + getIntent().getStringExtra("location"));
         ((TextView) findViewById(R.id.account_type)).setText(getIntent().getStringExtra("userType"));
         String profPic = getIntent().getStringExtra("profilePic");
         setProfilePicture(profPic);

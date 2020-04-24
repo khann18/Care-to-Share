@@ -31,7 +31,7 @@ public class SearchProfilesActivity extends AppCompatActivity implements SearchV
         sv.setIconifiedByDefault(false);
         sv.setOnQueryTextListener((SearchView.OnQueryTextListener) this);
         sv.setSubmitButtonEnabled(true);
-        sv.setQueryHint("Search Here");
+        sv.setQueryHint("Search for users...");
     }
 
     @Override
@@ -63,7 +63,6 @@ public class SearchProfilesActivity extends AppCompatActivity implements SearchV
 
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.d("got a click", "click");
                 String item = parent.getItemAtPosition(position).toString();
                 JSONObject jItem = (JSONObject) ca.getItem(position);
 
