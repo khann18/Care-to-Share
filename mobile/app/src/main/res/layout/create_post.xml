@@ -74,34 +74,103 @@
 
         </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp">
-
-
-        <Button
-            android:id="@+id/discard_button"
-            android:layout_width="147dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:layout_marginBottom="24dp"
-            android:padding="15dp"
-            android:layout_marginLeft="12dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp">
 
-            android:text="Discard"/>
+            <EditText
+                android:id="@+id/numPortions"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginHorizontal="10dp"
+                android:layout_weight="1"
+                android:hint="Number of portions available"
+                android:inputType="textCapWords" />
 
-        <Button
-            android:id="@+id/submit_button"
-            android:layout_width="147dp"
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/header"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:layout_marginBottom="24dp"
-            android:layout_marginLeft="40dp"
-            android:padding="12dp"
-            android:text="Submit Post" />
-    </LinearLayout>
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_weight="1"
+            android:text="Food Available:"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            android:textSize="17sp" />
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+            <CheckBox android:id="@+id/checkbox_entrees"
+                android:layout_width="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_height="wrap_content"
+                android:text="Full entrees"
+                android:onClick="onCheckboxClicked"/>
+            <CheckBox android:id="@+id/checkbox_appetizers"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Appetizers"
+                android:onClick="onCheckboxClicked"/>
+
+            <CheckBox android:id="@+id/checkbox_desserts"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Desserts"
+                android:onClick="onCheckboxClicked"/>
+
+            <CheckBox android:id="@+id/checkbox_raw"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Raw ingredients"
+                android:onClick="onCheckboxClicked"/>
+
+            <CheckBox android:id="@+id/checkbox_produce"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Fresh produce"
+                android:onClick="onCheckboxClicked"/>
+
+            <CheckBox android:id="@+id/checkbox_snacks"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Snack items"
+                android:onClick="onCheckboxClicked"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp">
+
+
+            <Button
+                android:id="@+id/discard_button"
+                android:layout_width="147dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="24dp"
+                android:padding="15dp"
+                android:layout_marginLeft="12dp"
+
+                android:text="Discard"/>
+
+            <Button
+                android:id="@+id/submit_button"
+                android:layout_width="147dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="24dp"
+                android:layout_marginLeft="40dp"
+                android:padding="12dp"
+                android:text="Submit Post" />
+        </LinearLayout>
 
     </LinearLayout>
 </ScrollView>

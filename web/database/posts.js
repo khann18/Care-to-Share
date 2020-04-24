@@ -24,6 +24,7 @@ var postSchema = new Schema({
     claimMessage: String,
     marked: String,
     latlng: String,
+    numPortions: String,
     tags: [{
         type: String
     }]
