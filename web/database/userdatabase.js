@@ -97,6 +97,10 @@ var getTopLocationsByNumUsers = function(num_locations, route_callback) {
 	});
 }
 
+var getAllUsers = function(route_callback) {
+	User.find({}).exec(route_callback);
+}
+
 module.exports = {
 	createUser: createUser,
 	getPassword: getPassword,
@@ -105,5 +109,6 @@ module.exports = {
 	saveUser: saveUser,
 	userInfo: userInfo,
 	deleteUser: deleteUser,
-	getTopLocationsByNumUsers, getTopLocationsByNumUsers,
+	getTopLocationsByNumUsers: getTopLocationsByNumUsers,
+	get_users: getAllUsers,
 }

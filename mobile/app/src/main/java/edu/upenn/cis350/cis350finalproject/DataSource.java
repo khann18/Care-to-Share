@@ -197,17 +197,19 @@ public class DataSource {
 
     public static JSONArray getAllPosts() {
         Log.d("RESULT", "Commence Get Posts");
+        Log.d("ALEX", "Commence Get Posts");
         String res = null;
         try {
             URL url = new URL("http://10.0.2.2:3000/getPost");
             AccessWebTask task = new AccessWebTask();
             task.execute(url);
             res = task.get();
+            Log.d("ALEX", res);
             int t = res.indexOf('[');
             int t1 = res.indexOf(']');
             res = res.substring(t, t1) + "]";
 
-            Log.d("RESULT", res);
+            Log.d("BUGBUG", res);
             JSONArray j = new JSONArray(res);
             return j;
         }catch (Exception e) {

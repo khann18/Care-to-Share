@@ -161,6 +161,7 @@ public class DataSource {
     public static JSONArray getAllPosts() {
         Log.d("RESULT", "Commence Get Posts");
         String res = null;
+        Log.d("ALEX", "made it here");
         try {
             URL url = new URL("http://10.0.2.2:3000/getPost");
             AccessWebTask task = new AccessWebTask();
@@ -169,6 +170,7 @@ public class DataSource {
             int t = res.indexOf('[');
             int t1 = res.indexOf(']');
             res = res.substring(t, t1) + "]";
+            Log.d("ALEX", res);
 
             Log.d("RESULT", res);
             JSONArray j = new JSONArray(res);
@@ -276,6 +278,21 @@ public class DataSource {
             Log.d("RESULT", result);
         }catch (Exception e){
 
+        }
+    }
+
+    public static JSONArray getAllUsers() {
+
+        try {
+            URL url = new URL("http://10.0.2.2:3000/getAllUsers");
+            APITask task = new APITask();
+            task.execute(url);
+            String result = task.get();
+            Log.d("Getting all users", result);
+            JSONArray j = new JSONArray(result);
+            return j;
+        }catch (Exception e){
+            return null;
         }
     }
 }

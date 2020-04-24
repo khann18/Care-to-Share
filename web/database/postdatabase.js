@@ -113,5 +113,5 @@ module.exports = {
 	deletePosts: deleteUserPosts,
 	findPostById: findPostById,
   getTopUsersByNumPosts: getTopUsersByNumPosts, 
-  getTopLocationsByNumPosts: getTopLocationsByNumPosts 
+  getTopLocationsByNumPosts: getTopLocationsByNumPosts,
 }

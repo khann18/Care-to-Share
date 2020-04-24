@@ -137,6 +137,8 @@ var getPosts = function(req, res) {
 			console.log(err);
 		}else {
 			console.log("SENT");
+			console.log("THE DATA");
+			console.log(data);
 			res.send(data);
 		}
 	});
@@ -645,6 +647,18 @@ var deleteUserAdmin = function (req, res) {
 	});
 };
 
+var getAllUsers = function(req, res) {
+		console.log("getting all users");
+		user_db.get_users(function(err, data){
+			if (err) {
+				console.log("error getting all users");
+			} else {
+				console.log(data);
+				res.send(data);
+			}});
+
+}
+
 
 
 var routes = {
@@ -677,6 +691,7 @@ var routes = {
   displayUser: getUserProfile,
 	deleteUser: deleteUserAdmin,
 	create_claim: createNewClaim,
+	getAllUsers: getAllUsers,
 };
 //exporting the routes
 module.exports = routes;
