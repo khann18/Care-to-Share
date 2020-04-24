@@ -29,7 +29,7 @@ app.get('/approve', routes.admin_approve);
 app.get('/home', routes.get_admin_post);
 app.get('/createaccount', routes.create_user);
 app.get('/createpost', routes.create_post);
-// app.get('/setclaimmessage', routes.set_claim_message);
+app.get('/setPostIsClaimed', routes.set_post_is_claimed);
 app.get('/loginCheck', routes.check_password);
 app.get('/usernameTaken', routes.check_username);
 app.get('/updateaccount', routes.update_account);

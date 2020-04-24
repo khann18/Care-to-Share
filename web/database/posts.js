@@ -23,7 +23,11 @@ var postSchema = new Schema({
     isClaimed: Boolean,
     claimMessage: String,
     marked: String,
-    latlng: String
+    latlng: String,
+    numPortions: String,
+    tags: [{
+        type: String
+    }]
     });
 
 
