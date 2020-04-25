@@ -561,28 +561,125 @@ var getUser = function(req, res) {
 	});
 }
 
+var dataVis = async function(req, res) {
+	var postNum = 0;
+	var claimNum = 0;
+	var userNum = 0;
+	var metaStats = [];
+	stats = [];
+	var finalData = [];
+
+	const promise_0A = new Promise(function(resolve, reject) {
+		post_db.getTopUsersByNumPosts(10, function(err, data) {
+			resolve(data);
+		});
+	})
+
+	const promise_0B = new Promise(function(resolve, reject) {
+
+		post_db.getTopLocationsByNumPosts(10, function(err, data) {
+			resolve(data);
+		});
+	})
+
+	const promise_0C = new Promise(function(resolve, reject) {
+
+		user_db.getTopLocationsByNumUsers(10, function(err, data) {
+			resolve(data);
+		});
+	})
+
+	// const promise0 = new Promise(function(resolve, reject) {
+	// 	post_db.getTopUsersByNumPosts(10, function(err, data) {
+	// 		stats.push(data);
+	// 		post_db.getTopLocationsByNumPosts(10, function(err, data) {
+	// 			stats.push(data)
+	// 			user_db.getTopLocationsByNumUsers(10, function(err, data) {
+	// 				stats.push(data)
+	// 				console.log(stats)
+	// 				resolve(stats);
+	// 			});
+	// 		});
+	// 	});
+	// })
+
+	const promise1 = new Promise(function(resolve, reject) {
+	  user_db.getUser("", function(err, data) {
+		userNum = data.length;
+		metaStats.push(['User Number', userNum]);
+		resolve();
+	  });
+	});
+
+	const promise2 = new Promise(function(resolve, reject) {
+		post_db.getAllPosts("User", function(err, data) {
+			console.log(data.length);
+			postNum = data.length;
+			metaStats.push(['Post Number', postNum]);
+			resolve();
+		});
+	});
+
+
+	const promise3 = new Promise(function(resolve, reject) {
+		claim_db.getAllClaims("Claim", function(err, data) {
+			claimNum = data.length;
+			metaStats.push(['Claim Number', claimNum]);
+			resolve();
+		});
+	});
+
+	const promise4 = new Promise(function(resolve, reject) {
+		user_db.getUserTypes(2, function(err, data) {
+			console.log(data);
+			resolve(data);
+		});
+	});
+
+	const promise5 = new Promise(function(resolve, reject) {
+		post_db.getPortionData(10, function(err, data) {
+			console.log(data);
+			resolve(data);
+		});
+	});
+
+	Promise.all([promise_0A, promise_0B, promise_0C, promise1, promise2, promise3, promise4, promise5]).then(function(values) {
+
+		console.log("PROMISE TEST");
+		finalData.push(values[0]);
+		finalData.push(values[1]);
+		finalData.push(values[2]);
+		finalData.push(values[6]);
+		finalData.push(values[7]);
+
+		res.send(finalData);
+	});
+}
+
+
 var get_data = function(req, res) {
 	
 
 	post_db.getTopUsersByNumPosts(10, function(err, data) {
+		var postNum = 0;
+		var claimNum = 0;
+		var userNum = 0;
+
 		stats = [];
 		stats.push(data);
 		post_db.getTopLocationsByNumPosts(10, function(err, data) {
 			stats.push(data)
 			user_db.getTopLocationsByNumUsers(10, function(err, data) {
 				stats.push(data)
-				console.log(stats)
-				res.render('data.ejs', {stats: stats})
+				post_db.getAllPosts("User", function(err, data) {
+					console.log(data.length);
+					res.render('data.ejs', {stats: stats})
+				});
+				console.log("DATASTAT")
 			});
 		});
 	});
-	
-	
-
-
 	//TODO: stuff with claims database
-
-	
 	
 }
 
@@ -653,6 +750,7 @@ var routes = {
   displayUser: getUserProfile,
 	deleteUser: deleteUserAdmin,
 	create_claim: createNewClaim,
+	visualizeData: dataVis,
 };
 //exporting the routes
 module.exports = routes;

@@ -1,4 +1,189 @@
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>Chart.js demo</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
+</head>
+<body>
+
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">Dashboard</a>
+    </div>
+    <ul class="nav navbar-nav">
+
+    </ul>
+  </div>
+</nav>
+    <h1>Admin Dashboard Example</h1>
+    <canvas id="bar-chartcanvas" width="600" height="300"></canvas>
+    <br>
+    <br>
+    <br>
+
+    <canvas id="doughnut-chart" width="600" height="300"></canvas>
+
+    <script>
+
+  var donut1 = document.getElementById("doughnut-chart").getContext("2d");
+
+  new Chart(document.getElementById("doughnut-chart").getContext("2d"), {
+      type: 'doughnut',
+      data: {
+        labels: ["Africa", "Asia", "Europe", "Latin America", "North America"],
+        datasets: [
+          {
+            label: "Population (millions)",
+            backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
+            data: [2478,5267,734,784,433]
+          }
+        ]
+      },
+      options: {
+        title: {
+          display: true,
+          text: 'Predicted world population (millions) in 2050'
+        }
+      }
+  });
+
+
+    var data1;
+  fetch('http://localhost:3000/graphData')
+    .then((response) => {
+      return response.json();
+    })
+    .then((returnedData) => {
+      data1 = returnedData;
+      console.log(data);
+    var ctx = document.getElementById("bar-chartcanvas").getContext("2d");
+
+        var data = {
+        labels : ["match1", "match2", "match3", "match4", "match5"],
+        datasets : [
+          {
+            label : "TeamA score",
+            data : data1,
+            backgroundColor : [
+              "red",
+              "green",
+              "blue",
+              "purple",
+              "magenta"
+            ],
+            borderColor : [
+              "#111",
+              "#111",
+              "#111",
+              "#111",
+              "#111"
+            ],
+            borderWidth : 1
+          }
+        ]
+      };
+
+      var options = {
+        title : {
+          display : true,
+          position : "top",
+          text : "Multicolor Bar Graph",
+          fontSize : 18,
+          fontColor : "#111"
+        },
+        legend : {
+          display : false
+        },
+        scales : {
+          yAxes : [{
+            ticks : {
+              min : 0
+            }
+          }]
+        }
+      };
+      var chart = new Chart( ctx, {
+        scales: {
+          yAxes: [{
+            scaleLabel: {
+              display: true,
+              labelString: 'probability'
+            }
+          }],
+          xAxes: [{
+            scaleLabel: {
+              display: true,
+              labelString: 'hola'
+            }
+          }],
+        },
+        type : "bar",
+        data : data,
+        options : options
+      });
+    });
+
+    // var ctx = document.getElementById("bar-chartcanvas").getContext("2d");
+
+console.log("Init Graph")
+  //       var data = {
+  //   labels : ["match1", "match2", "match3", "match4", "match5"],
+  //   datasets : [
+  //     {
+  //       label : "TeamA score",
+  //       data : data1,
+  //       backgroundColor : [
+  //         "red",
+  //         "green",
+  //         "blue",
+  //         "purple",
+  //         "magenta"
+  //       ],
+  //       borderColor : [
+  //         "#111",
+  //         "#111",
+  //         "#111",
+  //         "#111",
+  //         "#111"
+  //       ],
+  //       borderWidth : 1
+  //     }
+  //   ]
+  // };
+
+  // var options = {
+  //   title : {
+  //     display : true,
+  //     position : "top",
+  //     text : "Multicolor Bar Graph",
+  //     fontSize : 18,
+  //     fontColor : "#111"
+  //   },
+  //   legend : {
+  //     display : false
+  //   },
+  //   scales : {
+  //     yAxes : [{
+  //       ticks : {
+  //         min : 0
+  //       }
+  //     }]
+  //   }
+  // };
+  // var chart = new Chart( ctx, {
+  //   type : "bar",
+  //   data : data,
+  //   options : options
+  // });
+    </script>
+
+</body>
+<!-- 
 <!DOCTYPE html>
 <html lang="en">
 <meta charset="UTF-8">
@@ -112,3 +297,4 @@
 
 
 </html>
+ -->

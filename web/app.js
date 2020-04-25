@@ -2,7 +2,7 @@ var express = require('express');
 var app = express();
 const {MongoClient} = require('mongodb');
 var request = require("request");
-
+var path = require("path");
 
 // set up EJS
 app.set('view engine', 'ejs');
@@ -49,6 +49,16 @@ app.get('/updateClaimStatus', routes.update_claim_status);
 app.get('/updateClaimsForAcceptedPost', routes.update_claims_for_accepted_post);
 app.get('/getCPost', routes.get_close_posts);
 app.get('/data', routes.get_data);
+app.get('/visualize', routes.visualizeData);
+
+app.get('/graphs', function(req, res) {
+	res.sendFile(path.join(__dirname, '../web/views', 'data.html'));
+});
+
+app.get('/graphData', function(req, res) {
+	res.send([10, 20, 30, 40, 50]);
+});
+
 
 
 app.listen(3000, function () {
