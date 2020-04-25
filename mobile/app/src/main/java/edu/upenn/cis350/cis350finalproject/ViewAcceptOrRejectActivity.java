@@ -90,6 +90,25 @@ public class ViewAcceptOrRejectActivity extends AppCompatActivity {
             } catch (Exception e) {
                 info = "Cannot retrieve donor information.";
             }
+            String numPortions = "unknown";
+            String tags = "none";
+
+            try {
+                JSONObject post = DataSource.findPostById(postId);
+                numPortions = post.getString("numPortions");
+                tags = post.getString("tags");
+                tags = tags.substring(tags.lastIndexOf("[") + 1, tags.indexOf("]"));
+            } catch (Exception e) {
+
+            }
+
+            if (tags == null || tags.isEmpty()) {
+                tags = "none";
+            }
+            if (numPortions == null || numPortions.isEmpty()) {
+                numPortions = "unknown";
+            }
+            info = info + "\nNumber of portions: " + numPortions + "\nFood tags: " + tags;
             addInfo.setText(info);
         } else if (status.equals("rejected")) {
             addInfo.setVisibility(View.GONE);

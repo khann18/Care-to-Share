@@ -70,6 +70,7 @@ public class MessageResponseActivity extends AppCompatActivity {
 
     public void onAcceptButtonClick(View view) {
         DataSource.updateClaimsForAcceptedPost(postId);
+        DataSource.setPostIsClaimed(postId);
 
         DataSource.updateClaimStatus(claimId, "accepted");
         Intent i = new Intent(this, MessageBoardActivity.class);

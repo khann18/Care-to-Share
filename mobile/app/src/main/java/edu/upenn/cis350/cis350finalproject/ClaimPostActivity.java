@@ -10,6 +10,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+
 import edu.upenn.cis350.cis350finalproject.data.DataSource;
 
 public class ClaimPostActivity extends AppCompatActivity {
@@ -20,6 +22,8 @@ public class ClaimPostActivity extends AppCompatActivity {
     private String organization = "";
     private String headerText = "";
     private String obtainerUsername = "";
+    private String numPortions = "unknown";
+    private String tags = "none";
 
 
     @Override
@@ -30,9 +34,12 @@ public class ClaimPostActivity extends AppCompatActivity {
         postId = bundle.getString("postid");
         obtainerUsername = bundle.getString("username");
         JSONObject post = DataSource.findPostById(postId);
+
         try {
             if (post != null) {
+
                 donorUsername = post.getString("postedBy");
+                numPortions = post.getString("numPortions");
                 JSONObject donor = DataSource.getAccountInfo(donorUsername);
                 firstName = donor.getString("firstName");
                 organization = donor.getString("organization");
@@ -48,9 +55,22 @@ public class ClaimPostActivity extends AppCompatActivity {
             headerText = headerText + "Cannot find the organization or user that created this post.";
         }
 
+        try {
+            if (post != null) {
+                tags = post.getString("tags");
+                tags = tags.substring(tags.lastIndexOf("[") + 1, tags.indexOf("]"));
+            }
+        } catch (Exception e) {
+
+        }
+
+        if (tags == null || tags.isEmpty()) {
+            tags = "none";
+        }
         String description = bundle.getString("description");
         TextView header1 = (TextView) findViewById(R.id.header1);
-        header1.setText("Post description: \n" + description);
+        header1.setText("Post description: \n" + description + "\n\nNumber of portions available: "
+                + numPortions + "\nFood tags: " + tags);
 
         TextView header2 = (TextView) findViewById(R.id.header2);
         header2.setText(headerText);

@@ -47,12 +47,13 @@ var createNewPost = function(req, res) {
 					postedBy: req.query.poster,
 					pickupTime: req.query.pickupTime,
 					contactInfo: req.query.contact,
-					isClaimed: req.query.isClaimed,
-					claimMessage: req.query.claimMessage,
+					isClaimed: false,
 					marked: req.query.marked,
-					latlng: coords
+					latlng: coords,
+					numPortions: req.query.numPortions,
+					tags: req.query.tags
 				});
-
+				console.log(req.query.tags);
 				post_db.createPost(newPost, function(err, data){
 					if (err) {
 						console.log(err);
@@ -60,7 +61,7 @@ var createNewPost = function(req, res) {
 						console.log(data);
 					}
 				});
-				res.send(200);
+				res.sendStatus(200);
        	} else {
 	    	var newPost = new Post({
 				description: req.query.description,
@@ -68,10 +69,11 @@ var createNewPost = function(req, res) {
 				postedBy: req.query.poster,
 				pickupTime: req.query.pickupTime,
 				contactInfo: req.query.contact,
-				isClaimed: req.query.isClaimed,
-				claimMessage: req.query.claimMessage,
+				isClaimed: false,
 				marked: req.query.marked,
-				latlng: ""
+				latlng: "",
+				numPortions: req.query.numPortions,
+				tags: req.query.tags
 			});
 
 			post_db.createPost(newPost, function(err, data){
@@ -111,7 +113,7 @@ var createNewClaim = function(req, res) {
 
 var getPosts = function(req, res) {
 
-	post_db.getPosts({marked: 'user'}, function(err, data) {
+	post_db.getPosts({marked: 'user', isClaimed: false}, function(err, data) {
 
 		if (err) {
 			console.log(err);
@@ -153,7 +155,7 @@ var getClosePosts = function(req, res) {
 
     var postID = 0;
 
-	post_db.getPosts({marked: 'user'}, function(err, data) {
+	post_db.getPosts({marked: 'user', isClaimed: false}, function(err, data) {
 		if (err) {
 			console.log(err);
 		} else {
@@ -215,7 +217,7 @@ var getClosePosts = function(req, res) {
 
     var postID = 0;
 
-	post_db.getPosts({marked: 'user'}, function(err, data) {
+	post_db.getPosts({marked: 'user', isClaimed: false}, function(err, data) {
 		if (err) {
 			console.log(err);
 		} else {
@@ -373,28 +375,24 @@ var checkUsername = function(req, res) {
 
 }
 
-// var setPostClaimMessage = function(req, res) {
-// 	var description = req.query.description;
-// 	var message = req.query.message;
+var setPostIsClaimed = function(req, res) {
+	post_db.findPostById(req.query.postId, function(err, data) {
+		if (err) {
+			console.log(err);
+		} else {
+			data.isClaimed = true;
+			console.log(data);
+			data.save( (err) => {
+				if (err) {
+					console.log(err);
+				} else {
+				 	res.send({result : req.query.isClaimed});
+			    }
+			});
 
-// 	post_db.setClaimMessage(description, function(err, data) {
-// 		if (err) {
-// 			console.log(err);
-// 		} else {
-// 			data.claimMessage = message;
-// 			data.isClaimed = true;
-// 			console.log(data);
-// 			data.save( (err) => {
-// 				if (err) {
-// 					console.log(err);
-// 				} else {
-// 				 	res.send({result: message});
-// 			    }
-// 			});
-
-// 		}
-// 	});
-// }
+		}
+	});
+}
 
 var updateClaimStatus = function(req, res) {
 
@@ -589,8 +587,6 @@ var get_data = function(req, res) {
 }
 
 
-
-
 var getUserProfile = function (req, res) {
 	user_db.getUser({username : req.body.username}, function(err, user_data) {
 		if (err) {
@@ -640,6 +636,7 @@ var routes = {
   create_user: createNewUser,
  	console: displayConsole,
   check_password: checkPassword,
+  set_post_is_claimed: setPostIsClaimed,
   check_username: checkUsername,
   get_user: userInfo,
   update_account: updateAccount,
