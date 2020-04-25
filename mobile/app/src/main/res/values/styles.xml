@@ -1,35 +1,45 @@
+
 <resources>
 
-<!-- Base application theme. -->
-<style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-    <!-- Customize your theme here. -->
-    <item name="colorPrimary">@color/colorPrimary</item>
-    <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-    <item name="colorAccent">@color/colorAccent</item>
-<!--    <item name="android:windowBackground">@color/activityBackground</item>-->
-    <item name="android:windowBackground">@drawable/gradient_background</item>
-<!--    <item name="buttonStyle">@style/button</item>-->
-    <item name="android:fontFamily">sans-serif</item>
-</style>
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <!--    <item name="android:windowBackground">@color/activityBackground</item>-->
+        <item name="android:windowBackground">@drawable/gradient_background</item>
+        <!--    <item name="buttonStyle">@style/button</item>-->
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
 
-<style name="NoActionBar" parent="Theme.AppCompat.Light.NoActionBar">
-    <item name="windowActionBar">false</item>
-    <item name="windowNoTitle">true</item>
-</style>
+    <style name="NoActionBar" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
 
-<style name="AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
-<style name="PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
-<!--<style name="button" parent="text_large_wh" />-->
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
 
-<!--<style name="text_large_wh" parent="android:Widget.Button">-->
-<!--    <item name="android:textSize">8pt</item>-->
-<!--    <item name="android:shadowDy">1.0</item>-->
-<!--    <item name="android:shadowRadius">1</item>-->
-<!--    <item name="android:shadowColor">#888</item>-->
-<!--    <item name="android:layout_marginTop">10dp</item>-->
-<!--    <item name="android:fontFamily">sans-serif-black</item>-->
-<!--    <item name="android:buttonTint">10dp</item>-->
-<!--</style>-->
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <!--<style name="button" parent="text_large_wh" />-->
+
+    <!--<style name="text_large_wh" parent="android:Widget.Button">-->
+    <!--    <item name="android:textSize">8pt</item>-->
+    <!--    <item name="android:shadowDy">1.0</item>-->
+    <!--    <item name="android:shadowRadius">1</item>-->
+    <!--    <item name="android:shadowColor">#888</item>-->
+    <!--    <item name="android:layout_marginTop">10dp</item>-->
+    <!--    <item name="android:fontFamily">sans-serif-black</item>-->
+    <!--    <item name="android:buttonTint">10dp</item>-->
+    <!--</style>-->
 </resources>

@@ -6,6 +6,7 @@ import com.google.android.gms.maps.model.LatLng;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import edu.upenn.cis350.cis350finalproject.APITask;
 import edu.upenn.cis350.cis350finalproject.AccessWebTask;
@@ -303,6 +304,58 @@ public class DataSource {
             Log.d("RESULT", result);
         }catch (Exception e){
             Log.d("post is claimed", "yikessssss");
+        }
+    }
+
+    public static JSONArray getAllUsers() {
+
+        try {
+            URL url = new URL("http://10.0.2.2:3000/getAllUsers");
+            APITask task = new APITask();
+            task.execute(url);
+            String result = task.get();
+            Log.d("Getting all users", result);
+            JSONArray j = new JSONArray(result);
+            return j;
+        }catch (Exception e){
+            return null;
+        }
+    }
+
+    public static HashMap<String, Integer> getStatsForProfile(String method) {
+
+        try {
+            URL url = new URL("http://10.0.2.2:3000/" + method);
+            AccessWebTask task = new AccessWebTask();
+            task.execute(url);
+            String result = task.get();
+            String res = result.toString();
+            Log.d("YIKESSSS", res);
+            String[] arr = res.split("],");
+            HashMap<String, Integer> numPosts = new HashMap<>();
+            for (int i = 0; i < arr.length; i++) {
+                String s = arr[i];
+                String[] data = s.split(",");
+
+                String name = data[0].substring(data[0].indexOf("\"") + 1, data[0].lastIndexOf("\""));
+                Log.d("just name", name);
+//                Log.d("num", data[1]);
+
+                String numString = data[1];
+                if(i == arr.length - 1) {
+                     String[] more = data[1].split("]");
+                     numString = more[0];
+                }
+
+                int num = Integer.parseInt(numString);
+                Log.d("adding in", numString);
+                numPosts.put(name, num);
+            }
+
+            Log.d("RESULT", res);
+            return numPosts;
+        }catch (Exception e){
+            return null;
         }
     }
 }

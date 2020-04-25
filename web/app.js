@@ -50,6 +50,8 @@ app.get('/updateClaimStatus', routes.update_claim_status);
 app.get('/updateClaimsForAcceptedPost', routes.update_claims_for_accepted_post);
 app.get('/getCPost', routes.get_close_posts);
 app.get('/data', routes.get_data);
+app.get('/getAllUsers', routes.getAllUsers);
+app.get('/getStatsForProfile', routes.get_stats_for_profile);
 
 app.get('/testRoute', function(req, res) {
 	async function main(){

@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -94,6 +95,16 @@ public class EditProfileActivity extends AppCompatActivity {
                 startActivity(i);
 
 
+            }
+        });
+        //click listener for searching profiles
+        ImageButton search = (ImageButton) findViewById(R.id.search_profiles);
+        search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getApplicationContext(), SearchProfilesActivity.class);
+                i.putExtra("username", username);
+                startActivity(i);
             }
         });
 
