@@ -21,13 +21,13 @@
   </div>
 
 </nav>
-  <h1>Admin Data Dashboard</h1>
+  <h1 style="text-align:center">Admin Data Dashboard</h1>
 
 <table style="width:100%">
   <tr>
-    <th><canvas id="portionSizes" width=50% height=40%></canvas>
+    <th><canvas id="portionSizes" width=40% height=30%></canvas>
 </th>
-    <th><canvas id="dataBaseUsage" width=50% height=40%></canvas>
+    <th><canvas id="dataBaseUsage" width=40% height=30%></canvas>
 </th>
   </tr>
 
@@ -36,17 +36,17 @@
       <td>____________________________________________________________________________________________</td>
   </tr>
   <tr>
-    <td><canvas id="userRatios" width=50% height=40%></canvas></td>
-    <td><canvas id="topLocations2" width=50% height=40%></canvas></td>
+    <td><canvas id="userRatios" width=40% height=30%></canvas></td>
+    <td><canvas id="topLocations2" width=40% height=30%></canvas></td>
   </tr>
   <tr class="spaceUnder">
       <td>____________________________________________________________________________________________</td>
       <td>____________________________________________________________________________________________</td>
   </tr>
   <tr>
-    <td> <canvas id="topLocations" width=50% height=40%></canvas>
+    <td> <canvas id="topLocations" width=40% height=30%></canvas>
 </td>
-    <td>    <canvas id="topUsersByNumPosts" width=50% height=40%></canvas>
+    <td>    <canvas id="topUsersByNumPosts" width=40% height=30%></canvas>
 </td>
   </tr>
 </table>
@@ -342,118 +342,3 @@
      </script>
 
 </body>
-<!-- 
-<!DOCTYPE html>
-<html lang="en">
-<meta charset="UTF-8">
-<link rel="stylesheet" type="text/css" href="/data.css">
-<title>Admin Dashboard</title>
-<script src="https://d3js.org/d3.v5.min.js"></script>
-
-<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-<link href="css/default.css" rel="stylesheet">
-
-<nav class="navbar navbar-default" role="navigation">
-<div class="container-fluid">
-
-    <div class="navbar-header">
-        <a class="navbar-brand" href="/console">
-            <span class="glyphicon glyphicon glyphicon-apple"></span>
-            Dashboard
-        </a>
-
-    </div>
-</div>
-</nav>
-
-
-
-
-<main>
-
-
-<div id="tables" style="padding-left: 300px"> 
-
-<table class="table table-hover table-bordered" style="width: 80%; padding-left:200px">
-	<caption style="font-weight:bold; color: blue; font-size: 25px">Top Users by Number of Posts</caption>
-  <thead>
-    <tr class="table-primary">
-      <th scope="col">Username</th>
-      <th scope="col">Number of Posts</th>
-    </tr>
-  </thead>
-  <tbody>
-  	<% var topUsersByNumPosts = stats[0]%>
-
-	<% for(var i=0; i < topUsersByNumPosts.length; i++) { %>
-	<% 		var user = topUsersByNumPosts[i]%>
-    <tr>
-      <td><%= user[0] %></td>
-      <td><%= user[1] %></td>
-    </tr>
-    <% } %>
-  </tbody>
-</table>
-
-<br>
-<br>
-
-<table class="table table-hover table-bordered" style="width: 80%; padding-left:200px">
-	<caption style="font-weight:bold; color: red; font-size: 25px">Top Locations by Number of Posts</caption>
-  <thead>
-    <tr class="table-primary">
-      <th scope="col">Location</th>
-      <th scope="col">Number of Posts</th>
-    </tr>
-  </thead>
-  <tbody>
-  	<% var topLocationsByNumPosts = stats[1]%>
-
-	<% for(var i=0; i < topLocationsByNumPosts.length; i++) { %>
-	<% 		var location = topLocationsByNumPosts[i]%>
-    <tr>
-      <td><%= location[0] %></td>
-      <td><%= location[1] %></td>
-    </tr>
-    <% } %>
-  </tbody>
-</table>
-
-
-<br>
-
-<br>
-
-<table class="table table-hover table-bordered" style="width: 80%; padding-left:200px">
-	<caption style="font-weight:bold; color: green; font-size: 25px">Top Locations by Number of Users</caption>
-  <thead>
-    <tr class="table-primary">
-      <th scope="col">Location</th>
-      <th scope="col">Number of Users</th>
-    </tr>
-  </thead>
-  <tbody>
-  	<% var topLocationsByNumUsers = stats[2]%>
-
-	<% for(var i=0; i < topLocationsByNumUsers.length; i++) { %>
-	<% 		var location = topLocationsByNumUsers[i]%>
-    <tr>
-      <td><%= location[0] %></td>
-      <td><%= location[1] %></td>
-    </tr>
-    <% } %>
-  </tbody>
-</table>
-
-</div>
-
-</main>
-
-<br>
-<br>
-
-<p class="text-center text-muted">CIS 350 Final Project</p>
-
-
-</html>
- -->
