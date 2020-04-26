@@ -19,9 +19,46 @@
 
     </ul>
   </div>
+
 </nav>
-    <h1>Admin Dashboard Example</h1>
-    <canvas id="bar-chartcanvas" width="600" height="300"></canvas>
+  <h1>Admin Data Dashboard</h1>
+
+<table style="width:100%">
+  <tr>
+    <th><canvas id="portionSizes" width=50% height=40%></canvas>
+</th>
+    <th><canvas id="dataBaseUsage" width=50% height=40%></canvas>
+</th>
+  </tr>
+
+  <tr class="spaceUnder">
+      <td>____________________________________________________________________________________________</td>
+      <td>____________________________________________________________________________________________</td>
+  </tr>
+  <tr>
+    <td><canvas id="userRatios" width=50% height=40%></canvas></td>
+    <td><canvas id="topLocations2" width=50% height=40%></canvas></td>
+  </tr>
+  <tr class="spaceUnder">
+      <td>____________________________________________________________________________________________</td>
+      <td>____________________________________________________________________________________________</td>
+  </tr>
+  <tr>
+    <td> <canvas id="topLocations" width=50% height=40%></canvas>
+</td>
+    <td>    <canvas id="topUsersByNumPosts" width=50% height=40%></canvas>
+</td>
+  </tr>
+</table>
+
+<!--     <canvas id="topUsersByNumPosts" width="600" height="300"></canvas>
+    <canvas id="topLocations" width="600" height="300"></canvas>
+    <canvas id="topLocations2" width="600" height="300"></canvas>
+    <canvas id="userRatios" width="600" height="300"></canvas>
+    <canvas id="portionSizes" width="600" height="300"></canvas>
+    <canvas id="dataBaseUsage" width="600" height="300"></canvas>
+
+    <canvas id="bar-chartcanvas" width="600" height="300"></canvas> -->
     <br>
     <br>
     <br>
@@ -29,59 +66,69 @@
     <canvas id="doughnut-chart" width="600" height="300"></canvas>
 
     <script>
-
-  var donut1 = document.getElementById("doughnut-chart").getContext("2d");
-
-  new Chart(document.getElementById("doughnut-chart").getContext("2d"), {
-      type: 'doughnut',
-      data: {
-        labels: ["Africa", "Asia", "Europe", "Latin America", "North America"],
-        datasets: [
-          {
-            label: "Population (millions)",
-            backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
-            data: [2478,5267,734,784,433]
-          }
-        ]
-      },
-      options: {
-        title: {
-          display: true,
-          text: 'Predicted world population (millions) in 2050'
-        }
-      }
-  });
-
-
-    var data1;
-  fetch('http://localhost:3000/graphData')
+  var masterData;
+  fetch('http://localhost:3000/visualize')
     .then((response) => {
       return response.json();
     })
     .then((returnedData) => {
-      data1 = returnedData;
-      console.log(data);
-    var ctx = document.getElementById("bar-chartcanvas").getContext("2d");
+      masterData = returnedData;
+      console.log(masterData);
 
-        var data = {
-        labels : ["match1", "match2", "match3", "match4", "match5"],
+
+     var firstChart = masterData[0];
+     var firstKeys = [];
+     var firstVals = [];
+     for (var i = 0; i < firstChart.length; i++) {
+        firstKeys.push(firstChart[i][0]);
+        firstVals.push(firstChart[i][1]);
+     }
+
+     var secondChart = masterData[1];
+     var secondKeys = [];
+     var secondVals = [];
+
+     for (var i = 0; i < secondChart.length; i++) {
+      var addArray = secondChart[i][0].split(' ');
+      var address = addArray[0] + " " + addArray[1] + " " + addArray[2];
+        if (addArray[2].charAt(addArray[2].length - 1) == ',') {
+          secondKeys.push(address.substring(0, address.length - 1));
+        } else {
+          secondKeys.push(address);
+
+        }
+
+
+        secondVals.push(secondChart[i][1]);
+     }
+
+     console.log(secondKeys);
+
+     var ctx0 = document.getElementById("topUsersByNumPosts").getContext("2d");
+
+     var ctx1 = document.getElementById("topLocations").getContext("2d");
+
+        var dataFirst = {
+        labels : firstKeys,
         datasets : [
           {
-            label : "TeamA score",
-            data : data1,
+            label : "Location Posts:",
+            data : firstVals,
             backgroundColor : [
               "red",
               "green",
               "blue",
-              "purple",
-              "magenta"
+              "red",
+              "green",
+              "blue",
             ],
             borderColor : [
               "#111",
               "#111",
               "#111",
               "#111",
-              "#111"
+              "#111",
+              "#111",
             ],
             borderWidth : 1
           }
@@ -92,7 +139,7 @@
         title : {
           display : true,
           position : "top",
-          text : "Multicolor Bar Graph",
+          text : "Top Users by Number of Posts",
           fontSize : 18,
           fontColor : "#111"
         },
@@ -107,80 +154,192 @@
           }]
         }
       };
-      var chart = new Chart( ctx, {
-        scales: {
-          yAxes: [{
-            scaleLabel: {
-              display: true,
-              labelString: 'probability'
-            }
-          }],
-          xAxes: [{
-            scaleLabel: {
-              display: true,
-              labelString: 'hola'
-            }
-          }],
+
+      var options2 = {
+        title : {
+          display : true,
+          position : "top",
+          text : "Top Locations by Posts",
+          fontSize : 18,
+          fontColor : "#111"
         },
+        legend : {
+          display : false
+        },
+        scales : {
+          yAxes : [{
+            ticks : {
+              min : 0
+            }
+          }]
+        }
+      };
+      var chart = new Chart( ctx0, {
         type : "bar",
-        data : data,
+        data : dataFirst,
         options : options
       });
+
+
+    var dataSecond = {
+        labels : ["1600 Penn. Ave", "5201 E. Poinsettia", "3935 Walnut St", "954 Carol Lane", "3333 Walnut St", "3909 Spruce St."],
+        datasets : [
+          {
+            label : "User Posts",
+            data : secondVals,
+            backgroundColor : [
+              "red",
+              "green",
+              "blue",
+              "red",
+              "green",
+              "blue",
+            ],
+            borderColor : [
+              "#111",
+              "#111",
+              "#111",
+              "#111",
+              "#111",
+              "#111",
+            ],
+            borderWidth : 1
+          }
+        ]
+      };
+
+      var chart2 = new Chart( ctx1, {
+        type : "bar",
+        data : dataSecond,
+        options : options2
+      });
+
+
+     var thirdChart = masterData[2];
+     var thirdKeys = [];
+     var thirdVals = [];
+     for (var i = 0; i < thirdChart.length; i++) {
+        thirdKeys.push(thirdChart[i][0]);
+        thirdVals.push(thirdChart[i][1]);
+     }
+
+       // first two graphs finished, onto 3 and 4
+
+    new Chart(document.getElementById("topLocations2").getContext("2d"), {
+        type: 'doughnut',
+        data: {
+          labels: thirdKeys,
+          datasets: [
+            {
+              label: "Users",
+              backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850", "#3e95cd", "#8e5ea2"],
+              data: thirdVals
+            }
+          ]
+        },
+        options: {
+          title: {
+            display: true,
+            text: 'Top Locations by User Number'
+          }
+        }
+    
+      });
+
+     var fourthChart = masterData[3];
+     var fourthKeys = [];
+     var fourthVals = [];
+     for (var i = 0; i < fourthChart.length; i++) {
+        fourthKeys.push(fourthChart[i][0]);
+        fourthVals.push(fourthChart[i][1]);
+     }
+
+    new Chart(document.getElementById("userRatios").getContext("2d"), {
+        type: 'doughnut',
+        data: {
+          labels: fourthKeys,
+          datasets: [
+            {
+              label: "Users",
+              backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850", "#3e95cd", "#8e5ea2"],
+              data: fourthVals
+            }
+          ]
+        },
+        options: {
+          title: {
+            display: true,
+            text: 'User Type Ratios'
+          }
+        }
+    
+      });
+
+    var fifthChart = masterData[4];
+     var fifthKeys = [];
+     var fifthVals = [];
+     for (var i = 0; i < fifthChart.length; i++) {
+        fifthKeys.push(fifthChart[i][0]);
+        fifthVals.push(fifthChart[i][1]);
+     }
+
+    // moving on to charts 5 and 6 
+    // portion chart attempt
+    new Chart(document.getElementById("portionSizes").getContext("2d"), {
+        type: 'polarArea',
+        data: {
+          labels: fifthKeys,
+          datasets: [
+            {
+              label: "Users",
+              backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850", "#3e95cd", "#8e5ea2"],
+              data: fifthVals
+            }
+          ]
+        },
+        options: {
+          title: {
+            display: true,
+            text: 'Top Donated Portions by User'
+          }
+        }
+    
+      });
+
+    var sixChart = masterData[5];
+     var sixKeys = [];
+     var sixVals = [];
+     for (var i = 0; i < sixChart.length; i++) {
+        sixKeys.push(sixChart[i][0]);
+        sixVals.push(sixChart[i][1]);
+     }
+
+    // moving on to charts 5 and 6 
+    // portion chart attempt
+    new Chart(document.getElementById("dataBaseUsage").getContext("2d"), {
+        type: 'pie',
+        data: {
+          labels: sixKeys,
+          datasets: [
+            {
+              label: "Users",
+              backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850", "#3e95cd", "#8e5ea2"],
+              data: sixVals
+            }
+          ]
+        },
+        options: {
+          title: {
+            display: true,
+            text: 'Data Base Collection Sizes'
+          }
+        }
+    
+      });
+
     });
 
-    // var ctx = document.getElementById("bar-chartcanvas").getContext("2d");
-
-console.log("Init Graph")
-  //       var data = {
-  //   labels : ["match1", "match2", "match3", "match4", "match5"],
-  //   datasets : [
-  //     {
-  //       label : "TeamA score",
-  //       data : data1,
-  //       backgroundColor : [
-  //         "red",
-  //         "green",
-  //         "blue",
-  //         "purple",
-  //         "magenta"
-  //       ],
-  //       borderColor : [
-  //         "#111",
-  //         "#111",
-  //         "#111",
-  //         "#111",
-  //         "#111"
-  //       ],
-  //       borderWidth : 1
-  //     }
-  //   ]
-  // };
-
-  // var options = {
-  //   title : {
-  //     display : true,
-  //     position : "top",
-  //     text : "Multicolor Bar Graph",
-  //     fontSize : 18,
-  //     fontColor : "#111"
-  //   },
-  //   legend : {
-  //     display : false
-  //   },
-  //   scales : {
-  //     yAxes : [{
-  //       ticks : {
-  //         min : 0
-  //       }
-  //     }]
-  //   }
-  // };
-  // var chart = new Chart( ctx, {
-  //   type : "bar",
-  //   data : data,
-  //   options : options
-  // });
-    </script>
+     </script>
 
 </body>
 <!-- 

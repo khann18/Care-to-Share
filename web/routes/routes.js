@@ -651,7 +651,7 @@ var dataVis = async function(req, res) {
 		finalData.push(values[2]);
 		finalData.push(values[6]);
 		finalData.push(values[7]);
-
+		finalData.push(metaStats);
 		res.send(finalData);
 	});
 }
