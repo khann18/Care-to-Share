@@ -589,19 +589,6 @@ var dataVis = async function(req, res) {
 		});
 	})
 
-	// const promise0 = new Promise(function(resolve, reject) {
-	// 	post_db.getTopUsersByNumPosts(10, function(err, data) {
-	// 		stats.push(data);
-	// 		post_db.getTopLocationsByNumPosts(10, function(err, data) {
-	// 			stats.push(data)
-	// 			user_db.getTopLocationsByNumUsers(10, function(err, data) {
-	// 				stats.push(data)
-	// 				console.log(stats)
-	// 				resolve(stats);
-	// 			});
-	// 		});
-	// 	});
-	// })
 
 	const promise1 = new Promise(function(resolve, reject) {
 	  user_db.getUser("", function(err, data) {
@@ -631,21 +618,18 @@ var dataVis = async function(req, res) {
 
 	const promise4 = new Promise(function(resolve, reject) {
 		user_db.getUserTypes(2, function(err, data) {
-			console.log(data);
 			resolve(data);
 		});
 	});
 
 	const promise5 = new Promise(function(resolve, reject) {
 		post_db.getPortionData(10, function(err, data) {
-			console.log(data);
 			resolve(data);
 		});
 	});
 
 	Promise.all([promise_0A, promise_0B, promise_0C, promise1, promise2, promise3, promise4, promise5]).then(function(values) {
 
-		console.log("PROMISE TEST");
 		finalData.push(values[0]);
 		finalData.push(values[1]);
 		finalData.push(values[2]);
@@ -683,6 +667,16 @@ var get_data = function(req, res) {
 	
 }
 
+var getStatsForProfile = function(req, res) {
+	post_db.getTopUsersByNumPosts(10, function(err, data) {
+		if (err) {
+			console.log("Error getting stats");
+		} else {
+			console.log(data);
+			res.send(data);
+		}
+	});
+}
 
 var getUserProfile = function (req, res) {
 	user_db.getUser({username : req.body.username}, function(err, user_data) {
@@ -718,7 +712,17 @@ var deleteUserAdmin = function (req, res) {
 	});
 };
 
+var getAllUsers = function(req, res) {
+	console.log("getting all users");
+	user_db.get_users(function(err, data){
+		if (err) {
+			console.log("error getting all users");
+		} else {
+			console.log(data);
+			res.send(data);
+		}});
 
+}
 
 var routes = {
 	admin_approve: editPostMarked,
@@ -726,18 +730,18 @@ var routes = {
 	create_post: createNewPost,
 	get_post: getPosts,
 	get_admin_post: getAdminPosts,
-  get_users: getUser,
-  login: getLogin,
-  logout: getLogout,
-  account_creation: getCreateAccount,
-  create_user: createNewUser,
+  	get_users: getUser,
+  	login: getLogin,
+  	logout: getLogout,
+  	account_creation: getCreateAccount,
+  	create_user: createNewUser,
  	console: displayConsole,
-  check_password: checkPassword,
-  set_post_is_claimed: setPostIsClaimed,
-  check_username: checkUsername,
-  get_user: userInfo,
-  update_account: updateAccount,
-  deleteaccount: deleteaccount,
+  	check_password: checkPassword,
+  	set_post_is_claimed: setPostIsClaimed,
+  	check_username: checkUsername,
+  	get_user: userInfo,
+  	update_account: updateAccount,
+  	deleteaccount: deleteaccount,
 	delete_all_claims_after_accepting: deleteAllClaimsAfterAccepting,
 	get_claims_by_donor: getClaimsByDonor,
 	get_claims_by_obtainer: getClaimsByObtainer,
@@ -747,10 +751,12 @@ var routes = {
 	update_claims_for_accepted_post: updateClaimsForAcceptedPost,
 	get_close_posts: getClosePosts,
 	get_data: get_data,
-  displayUser: getUserProfile,
+  	displayUser: getUserProfile,
 	deleteUser: deleteUserAdmin,
 	create_claim: createNewClaim,
 	visualizeData: dataVis,
+	getAllUsers: getAllUsers,
+	get_stats_for_profile: getStatsForProfile
 };
 //exporting the routes
 module.exports = routes;

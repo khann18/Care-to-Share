@@ -85,11 +85,12 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
                     String postId = jItem.getString("_id");
                     String description = jItem.getString("description");
 
-                    Intent myIntent = new Intent(MainActivity.this, ClaimPostActivity.class);
-                    myIntent.putExtra("postid", postId);
-                    myIntent.putExtra("description", description);
-                    myIntent.putExtra("username", username);
-                    MainActivity.this.startActivity(myIntent);
+                    Intent i = new Intent(MainActivity.this, ClaimPostActivity.class);
+                    i.putExtra("postid", postId);
+                    i.putExtra("description", description);
+                    i.putExtra("username", username);
+                    startActivity(i);
+//                    MainActivity.this.startActivity(myIntent);
 
                 } catch (Exception e) {
                     e.printStackTrace();

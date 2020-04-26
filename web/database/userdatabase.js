@@ -126,6 +126,10 @@ var getUserTypes = function(num_types, route_callback) {
 	});
 }
 
+var getAllUsers = function(route_callback) {
+	User.find({}).exec(route_callback);
+}
+
 module.exports = {
 	createUser: createUser,
 	getPassword: getPassword,
@@ -135,5 +139,6 @@ module.exports = {
 	userInfo: userInfo,
 	deleteUser: deleteUser,
 	getTopLocationsByNumUsers, getTopLocationsByNumUsers,
-	getUserTypes: getUserTypes
+	getUserTypes: getUserTypes,
+	get_users: getAllUsers,
 }

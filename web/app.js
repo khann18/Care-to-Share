@@ -50,14 +50,9 @@ app.get('/updateClaimsForAcceptedPost', routes.update_claims_for_accepted_post);
 app.get('/getCPost', routes.get_close_posts);
 app.get('/data', routes.get_data);
 app.get('/visualize', routes.visualizeData);
+app.get('/getAllUsers', routes.getAllUsers);
+app.get('/getStatsForProfile', routes.get_stats_for_profile);
 
-app.get('/graphs', function(req, res) {
-	res.sendFile(path.join(__dirname, '../web/views', 'data.html'));
-});
-
-app.get('/graphData', function(req, res) {
-	res.send([10, 20, 30, 40, 50]);
-});
 
 
 

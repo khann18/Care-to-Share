@@ -46,6 +46,11 @@
         <activity android:name=".MessageResponseActivity" />
         <activity android:name=".ViewAcceptOrRejectActivity" />
         <activity android:name=".ViewDonorResponsesActivity" />
+        <activity android:name=".SearchProfilesActivity"></activity>
+        <activity
+            android:name=".ViewProfileActivity"
+            android:label="@string/title_activity_view_profile"
+            android:theme="@style/AppTheme.NoActionBar" />
         <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyD9L96DpB9wyP4Are37YqzlJlICplSR-B0"/>
     </application
         >
