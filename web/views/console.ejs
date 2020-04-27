@@ -19,7 +19,7 @@
   <script src="https://kit.fontawesome.com/566c51828b.js" crossorigin="anonymous"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-  <script type="text/javascript" src="http://maps.google.com/maps/api/js?key=AIzaSyBWxc2yvhpFCdEBcgGrDkSY1QleD3lygGU"></script>
+  <script async defer type="text/javascript" src="http://maps.google.com/maps/api/js?key=AIzaSyBWxc2yvhpFCdEBcgGrDkSY1QleD3lygGU&callback=loadMap"></script>
 </head>
 
 <body>
@@ -100,7 +100,7 @@ var map;
 
 var loadMap = function()
 {
-
+  var directionsService = new google.maps.DirectionsService();
   var myLatLng = {lat: 38.8976633, lng: -77.0365739};
   var myOptions = {
     center: new google.maps.LatLng(38.8976633, -77.0365739),
@@ -116,6 +116,7 @@ var loadMap = function()
       map: map
     });
 
+
     var contentString = '<b>' + "<%= JSON.parse(item).contactInfo%>" + '</b> <br>' + "<%= JSON.parse(item).description %>" + '<br>' +  '<i> Created by ' + "<%= JSON.parse(item).postedBy %>" + '</i>';
     marker['infowindow'] = new google.maps.InfoWindow({
       content: contentString
@@ -130,6 +131,28 @@ var loadMap = function()
         this['infowindow'].open(map, this);
         });
   <% } %>
+
+  
+  <% for (var item of claims) { %>
+      directionsService.route(
+          {
+            origin: {query:  "<%= JSON.parse(item).obtainerLocation%>"},
+            destination: {query: "<%= JSON.parse(item).latlng%>"},
+            travelMode: 'DRIVING'
+          },
+          function(response, status) {
+            if (status === 'OK') {
+              var directionsDisplay = new google.maps.DirectionsRenderer({
+              map: map,
+              suppressMarkers: true
+              });
+              directionsDisplay.setDirections(response);
+            } else {
+              window.alert('Directions request failed due to ' + status);
+            }
+          });
+  <% } %>
+
 };
 
 window.onload = loadMap;
