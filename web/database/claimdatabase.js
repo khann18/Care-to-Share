@@ -48,7 +48,7 @@ var getAllClaims = function(username, route_callback) {
 // 		username: user.username,
 // 		password: user.password,
 // 		phoneNumber: user.phoneNumber,
-// 		email: user.email, 
+// 		email: user.email,
 // 		location: user.location,
 // 		organization: user.organization,
 // 		userType: user.userType
@@ -76,6 +76,10 @@ var updateClaimsForAcceptedPost = function(id, route_callback) {
 	Claim.updateMany({postId : id}, {$set : {claimStatus : 'rejected'}}).exec(route_callback);
 }
 
+var getAcceptedClaims = function(req, route_callback) {
+	Claim.find({claimStatus: "accepted"}).exec(route_callback);
+}
+
 module.exports = {
 	deleteAllClaimsAfterAccepting: deleteAllClaimsAfterAccepting,
 	createClaim: createClaim,
@@ -84,5 +88,6 @@ module.exports = {
 	getClaimById: getClaimById,
 	updateClaimStatus: updateClaimStatus,
 	updateClaimsForAcceptedPost: updateClaimsForAcceptedPost,
+	getAcceptedClaims: getAcceptedClaims,
 	getAllClaims: getAllClaims
 }

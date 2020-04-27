@@ -166,7 +166,7 @@ var getClosePosts = function(req, res) {
 				if (coordString != undefined && coordString.length > 0) {
 					var coordArr = coordString.split(",");
 
-					var dist = distance(parseFloat(coordArr[0]), 
+					var dist = distance(parseFloat(coordArr[0]),
 						parseFloat(coordArr[1]),
 						parseFloat(latitude),
 						parseFloat(long), "K") ;
@@ -228,7 +228,7 @@ var getClosePosts = function(req, res) {
 				if (coordString != undefined && coordString.length > 0) {
 					var coordArr = coordString.split(",");
 
-					var dist = distance(parseFloat(coordArr[0]), 
+					var dist = distance(parseFloat(coordArr[0]),
 						parseFloat(coordArr[1]),
 						parseFloat(latitude),
 						parseFloat(long), "K") ;
@@ -490,7 +490,7 @@ var findPostById = function(req, res) {
 			} else {
 				res.send({result: null});
 			}
-			
+
 		}
 	});
 
@@ -507,7 +507,7 @@ var getClaimById = function(req, res) {
 			} else {
 				res.send({result: null});
 			}
-			
+
 		}
 	});
 
@@ -540,9 +540,20 @@ var displayConsole = function (req, res){
 					for (var i = 0; i < post_data.length; i++) {
 						var toAdd = JSON.stringify({"contactInfo": post_data[i].contactInfo, "lat": post_data[i].latlng.split(',')[0], "lng": post_data[i].latlng.split(',')[1], "description": post_data[i].description, "postedBy": post_data[i].postedBy});
 						arr.push(toAdd);
-						console.log(toAdd);
 					}
-					res.render('console.ejs', {message : null, results:testArray, posts: arr});
+
+					claim_db.getAcceptedClaims("hi", function(err, claim_data){
+						var claims_arr = [];
+
+						for (var i = 0; i < claim_data.length; i++) {
+							var toAdd = JSON.stringify({"obtainerLocation": claim_data[i].obtainerLocation,
+							"latlng": claim_data[i].postLatlng});
+							claims_arr.push(toAdd);
+						}
+
+						res.render('console.ejs', {message : null, results:testArray, posts: arr, claims: claims_arr});
+
+					});
 				}
 			});
 		}
@@ -642,7 +653,7 @@ var dataVis = async function(req, res) {
 
 
 var get_data = function(req, res) {
-	
+
 
 	post_db.getTopUsersByNumPosts(10, function(err, data) {
 		var postNum = 0;
@@ -663,8 +674,6 @@ var get_data = function(req, res) {
 			});
 		});
 	});
-	//TODO: stuff with claims database
-	
 }
 
 var getStatsForProfile = function(req, res) {
