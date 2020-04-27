@@ -5,13 +5,34 @@
     android:layout_height="fill_parent"
     android:fitsSystemWindows="true">
 
+
+
+
+
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="56dp"
+        android:paddingTop="16dp"
         android:paddingLeft="24dp"
+        android:layout_marginTop="10dp"
         android:paddingRight="24dp">
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="wrap_content">
+
+        <ImageButton
+            android:id="@+id/search_profiles"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_action_name"
+
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
 
 
         <TextView
@@ -19,11 +40,14 @@
             android:layout_height="wrap_content"
             android:text="Your Profile"
             android:textAlignment="center"
+            android:layout_marginStart="80dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             android:textAllCaps="true"
             android:textColor="@color/colorPrimary"
             android:textSize="30dp" />
-
-<!--        Profile Picture-->
+</androidx.constraintlayout.widget.ConstraintLayout>
+        <!--        Profile Picture-->
 
         <ImageView
             android:layout_width="300dp"

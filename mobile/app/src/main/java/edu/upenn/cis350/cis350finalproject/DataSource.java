@@ -7,6 +7,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.net.URL;
+import java.util.ArrayList;
 
 import edu.upenn.cis350.cis350finalproject.AccessWebTask;
 import edu.upenn.cis350.cis350finalproject.Post;
@@ -27,9 +28,11 @@ public class DataSource {
         }
     }
 
-    public static void createAccount(String firstName, String lastName) {
+    public static void createPost(String description, String contact, String location, String marked, String poster, String numPortions, ArrayList<String> foods) {
         try {
-            URL url = new URL("http://10.0.2.2:3000/createaccount?firstName=" + firstName + "&lastName=" + lastName);
+            URL url = new URL("http://10.0.2.2:3000/post?description=" + description +
+                    "&location=" + location + "&poster=" + poster + "&contact=" + contact + "&marked=" + marked
+                    + "&numPortions=" + numPortions + "&tags=" + foods);
             AccessWebTask task = new AccessWebTask();
             task.execute(url);
             String result = task.get();
@@ -80,16 +83,15 @@ public class DataSource {
         }
     }
 
-    public static void setClaimMessage(Post p) {
+    public static void setPostIsClaimed(String postId) {
         try {
-            URL url = new URL("http://10.0.2.2:3000/setclaimmessage?description=" +
-                    p.getDescription() + "&message=" + p.getClaimMessage());
+            URL url = new URL("http://10.0.2.2:3000/setPostIsClaimed?postId=" + postId);
             AccessWebTask task = new AccessWebTask();
             task.execute(url);
             String result = task.get();
             Log.d("RESULT", result);
         }catch (Exception e){
-            System.out.println("yikessssss");
+            Log.d("post is claimed", "yikessssss");
         }
     }
 

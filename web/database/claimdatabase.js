@@ -36,6 +36,10 @@ var updateClaimStatus = function(claimId, route_callback) {
 	Claim.findById(claimId).exec(route_callback);
 }
 
+var getAllClaims = function(username, route_callback) {
+	Claim.find().exec(route_callback);
+}
+
 // var saveClaim = function(claim, route_callback) {
 
 // 	var updated = {
@@ -84,5 +88,6 @@ module.exports = {
 	getClaimById: getClaimById,
 	updateClaimStatus: updateClaimStatus,
 	updateClaimsForAcceptedPost: updateClaimsForAcceptedPost,
-	getAcceptedClaims: getAcceptedClaims
+	getAcceptedClaims: getAcceptedClaims,
+	getAllClaims: getAllClaims
 }

@@ -103,6 +103,38 @@ var getTopLocationsByNumPosts = function(num_locations, route_callback) {
 	});
 }
 
+var getPortionData = function(datapoints, route_callback) {
+	Post.find({}, function(err, docs) {
+		var post_count = {};
+
+		docs.forEach((doc) => {
+			numPortions = doc.numPortions;
+			if (doc.postedBy in post_count) {
+				if (numPortions > post_count[doc.postedBy]) {
+					post_count[doc.postedBy] = numPortions;
+				}
+			} else {
+				post_count[doc.postedBy] = doc.numPortions;
+			}
+		});
+		console.log()
+
+		var items = Object.keys(post_count).map(function(key) {
+  			return [key, post_count[key]];
+		});
+		items.sort(function(first, second) {
+  			return second[1] - first[1];
+		});
+
+		// Create a new array with only the first num_users items
+		//console.log(items.slice(0, num_locations));
+		var data = items.slice(0, datapoints);
+
+		//return dictionary with key username and value number of posts, sorted in decreasing number of posts
+		route_callback(null, data);
+	});
+}
+
 module.exports = {
 	editMarked: updatePostMark,
 	deletePost: removePost,
@@ -113,5 +145,7 @@ module.exports = {
 	deletePosts: deleteUserPosts,
 	findPostById: findPostById,
   getTopUsersByNumPosts: getTopUsersByNumPosts, 
-  getTopLocationsByNumPosts: getTopLocationsByNumPosts 
+  getTopLocationsByNumPosts: getTopLocationsByNumPosts,
+  getAllPosts: getPost,
+  getPortionData: getPortionData
 }

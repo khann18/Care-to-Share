@@ -5,6 +5,8 @@ import android.util.Log;
 import com.google.android.gms.maps.model.LatLng;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 import edu.upenn.cis350.cis350finalproject.APITask;
 import edu.upenn.cis350.cis350finalproject.AccessWebTask;
@@ -31,10 +33,11 @@ public class DataSource {
     }
 
 
-    public static void createPost(String description, String contact, String location, String marked, String poster) {
+    public static void createPost(String description, String contact, String location, String marked, String poster, String numPortions, ArrayList<String> foods) {
         try {
             URL url = new URL("http://10.0.2.2:3000/post?description=" + description +
-                    "&location=" + location + "&poster=" + poster + "&contact=" + contact + "&marked=" + marked);
+                    "&location=" + location + "&poster=" + poster + "&contact=" + contact + "&marked=" + marked
+                    + "&numPortions=" + numPortions + "&tags=" + foods);
             AccessWebTask task = new AccessWebTask();
             task.execute(url);
             String result = task.get();
@@ -43,7 +46,6 @@ public class DataSource {
 
         }
     }
-
     public static JSONObject getAccountInfo(String username) {
         try {
             URL url = new URL("http://10.0.2.2:3000/getUser?username=" + username);
@@ -167,12 +169,19 @@ public class DataSource {
             task.execute(url);
             res = task.get();
             int t = res.indexOf('[');
-            int t1 = res.indexOf(']');
+            int t1 = res.lastIndexOf(']');
             res = res.substring(t, t1) + "]";
 
             Log.d("RESULT", res);
             JSONArray j = new JSONArray(res);
             return j;
+
+//            APITask task = new APITask();
+//            task.execute(url);
+//            String result = task.get();
+//            JSONArray j = new JSONArray(result);
+//            Log.d("RESULT", result);
+//            return j;
         }catch (Exception e) {
             e.printStackTrace();
             return null;
@@ -184,15 +193,22 @@ public class DataSource {
         String res = null;
         try {
             URL url = new URL("http://10.0.2.2:3000/getCPost?" + "lat" + coords.latitude + "&" + "lng" + coords.longitude);
-            AccessWebTask task = new AccessWebTask();
-            task.execute(url);
-            res = task.get();
-            int t = res.indexOf('[');
-            int t1 = res.indexOf(']');
-            res = res.substring(t, t1) + "]";
+//            AccessWebTask task = new AccessWebTask();
+//            task.execute(url);
+//            res = task.get();
+//            int t = res.indexOf('[');
+//            int t1 = res.indexOf(']');
+//            res = res.substring(t, t1) + "]";
+//
+//            Log.d("RESULT", res);
+//            JSONArray j = new JSONArray(res);
+//            return j;
 
-            Log.d("RESULT", res);
-            JSONArray j = new JSONArray(res);
+            APITask task = new APITask();
+            task.execute(url);
+            String result = task.get();
+            JSONArray j = new JSONArray(result);
+            Log.d("RESULT", result);
             return j;
         }catch (Exception e) {
             e.printStackTrace();
@@ -276,6 +292,70 @@ public class DataSource {
             Log.d("RESULT", result);
         }catch (Exception e){
 
+        }
+    }
+
+    public static void setPostIsClaimed(String postId) {
+        try {
+            URL url = new URL("http://10.0.2.2:3000/setPostIsClaimed?postId=" + postId);
+            AccessWebTask task = new AccessWebTask();
+            task.execute(url);
+            String result = task.get();
+            Log.d("RESULT", result);
+        }catch (Exception e){
+            Log.d("post is claimed", "yikessssss");
+        }
+    }
+
+    public static JSONArray getAllUsers() {
+
+        try {
+            URL url = new URL("http://10.0.2.2:3000/getAllUsers");
+            APITask task = new APITask();
+            task.execute(url);
+            String result = task.get();
+            Log.d("Getting all users", result);
+            JSONArray j = new JSONArray(result);
+            return j;
+        }catch (Exception e){
+            return null;
+        }
+    }
+
+    public static HashMap<String, Integer> getStatsForProfile(String method) {
+
+        try {
+            URL url = new URL("http://10.0.2.2:3000/" + method);
+            AccessWebTask task = new AccessWebTask();
+            task.execute(url);
+            String result = task.get();
+            String res = result.toString();
+            Log.d("YIKESSSS", res);
+            String[] arr = res.split("],");
+            HashMap<String, Integer> numPosts = new HashMap<>();
+            for (int i = 0; i < arr.length; i++) {
+                String s = arr[i];
+                String[] data = s.split(",");
+
+                String name = data[0].substring(data[0].indexOf("\"") + 1, data[0].lastIndexOf("\""));
+                Log.d("just name", name);
+//                Log.d("num", data[1]);
+
+                String numString = data[1];
+                if(i == arr.length - 1) {
+                     String[] more = data[1].split("]");
+                     numString = more[0];
+                }
+
+                int num = Integer.parseInt(numString);
+                Log.d("adding in", numString);
+                numPosts.put(name, num);
+            }
+
+            Log.d("RESULT", res);
+            return numPosts;
+        }catch (Exception e){
+            return null;
         }
     }
 }

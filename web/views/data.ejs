@@ -1,114 +1,344 @@
-<!DOCTYPE html>
-<html lang="en">
-<meta charset="UTF-8">
-<link rel="stylesheet" type="text/css" href="/data.css">
-<title>Admin Dashboard</title>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>Chart.js demo</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
-<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+</head>
+<body>
 
-
-<nav class="navbar navbar-default" role="navigation">
-<div class="container-fluid">
-
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
     <div class="navbar-header">
-        <a class="navbar-brand" href="/console">
-            <span class="glyphicon glyphicon glyphicon-apple"></span>
-            Dashboard
-        </a>
-
+      <a class="navbar-brand" href="#">Dashboard</a>
     </div>
-</div>
+    <ul class="nav navbar-nav">
+
+    </ul>
+  </div>
+
 </nav>
+  <h1 style="text-align:center">Admin Data Dashboard</h1>
 
+<table style="width:100%">
+  <tr>
+    <th><canvas id="portionSizes" width=40% height=30%></canvas>
+</th>
+    <th><canvas id="dataBaseUsage" width=40% height=30%></canvas>
+</th>
+  </tr>
 
-
-
-<main>
-	
-
-<div id="tables" style="padding-left: 300px"> 
-
-<table class="table table-hover table-bordered" style="width: 80%; padding-left:200px">
-	<caption style="font-weight:bold; color: blue; font-size: 25px">Top Users by Number of Posts</caption>
-  <thead>
-    <tr class="table-primary">
-      <th scope="col">Username</th>
-      <th scope="col">Number of Posts</th>
-    </tr>
-  </thead>
-  <tbody>
-  	<% var topUsersByNumPosts = stats[0]%>
-
-	<% for(var i=0; i < topUsersByNumPosts.length; i++) { %>
-	<% 		var user = topUsersByNumPosts[i]%>
-    <tr>
-      <td><%= user[0] %></td>
-      <td><%= user[1] %></td>
-    </tr>
-    <% } %>
-  </tbody>
+  <tr class="spaceUnder">
+      <td>____________________________________________________________________________________________</td>
+      <td>____________________________________________________________________________________________</td>
+  </tr>
+  <tr>
+    <td><canvas id="userRatios" width=40% height=30%></canvas></td>
+    <td><canvas id="topLocations2" width=40% height=30%></canvas></td>
+  </tr>
+  <tr class="spaceUnder">
+      <td>____________________________________________________________________________________________</td>
+      <td>____________________________________________________________________________________________</td>
+  </tr>
+  <tr>
+    <td> <canvas id="topLocations" width=40% height=30%></canvas>
+</td>
+    <td>    <canvas id="topUsersByNumPosts" width=40% height=30%></canvas>
+</td>
+  </tr>
 </table>
 
-<br>
-<br>
+<!--     <canvas id="topUsersByNumPosts" width="600" height="300"></canvas>
+    <canvas id="topLocations" width="600" height="300"></canvas>
+    <canvas id="topLocations2" width="600" height="300"></canvas>
+    <canvas id="userRatios" width="600" height="300"></canvas>
+    <canvas id="portionSizes" width="600" height="300"></canvas>
+    <canvas id="dataBaseUsage" width="600" height="300"></canvas>
 
-<table class="table table-hover table-bordered" style="width: 80%; padding-left:200px">
-	<caption style="font-weight:bold; color: red; font-size: 25px">Top Locations by Number of Posts</caption>
-  <thead>
-    <tr class="table-primary">
-      <th scope="col">Location</th>
-      <th scope="col">Number of Posts</th>
-    </tr>
-  </thead>
-  <tbody>
-  	<% var topLocationsByNumPosts = stats[1]%>
+    <canvas id="bar-chartcanvas" width="600" height="300"></canvas> -->
+    <br>
+    <br>
+    <br>
 
-	<% for(var i=0; i < topLocationsByNumPosts.length; i++) { %>
-	<% 		var location = topLocationsByNumPosts[i]%>
-    <tr>
-      <td><%= location[0] %></td>
-      <td><%= location[1] %></td>
-    </tr>
-    <% } %>
-  </tbody>
-</table>
+    <canvas id="doughnut-chart" width="600" height="300"></canvas>
 
-
-<br>
-
-<br>
-
-<table class="table table-hover table-bordered" style="width: 80%; padding-left:200px">
-	<caption style="font-weight:bold; color: green; font-size: 25px">Top Locations by Number of Users</caption>
-  <thead>
-    <tr class="table-primary">
-      <th scope="col">Location</th>
-      <th scope="col">Number of Users</th>
-    </tr>
-  </thead>
-  <tbody>
-  	<% var topLocationsByNumUsers = stats[2]%>
-
-	<% for(var i=0; i < topLocationsByNumUsers.length; i++) { %>
-	<% 		var location = topLocationsByNumUsers[i]%>
-    <tr>
-      <td><%= location[0] %></td>
-      <td><%= location[1] %></td>
-    </tr>
-    <% } %>
-  </tbody>
-</table>
-
-</div>
-
-</main>
-
-<br>
-<br>
-
-<p class="text-center text-muted">CIS 350 Final Project</p>
+    <script>
+  var masterData;
+  fetch('http://localhost:3000/visualize')
+    .then((response) => {
+      return response.json();
+    })
+    .then((returnedData) => {
+      masterData = returnedData;
+      console.log(masterData);
 
 
-</html>
+     var firstChart = masterData[0];
+     var firstKeys = [];
+     var firstVals = [];
+     for (var i = 0; i < firstChart.length; i++) {
+        firstKeys.push(firstChart[i][0]);
+        firstVals.push(firstChart[i][1]);
+     }
+
+     var secondChart = masterData[1];
+     var secondKeys = [];
+     var secondVals = [];
+
+     for (var i = 0; i < secondChart.length; i++) {
+      var addArray = secondChart[i][0].split(' ');
+      var address = addArray[0] + " " + addArray[1] + " " + addArray[2];
+        if (addArray[2].charAt(addArray[2].length - 1) == ',') {
+          secondKeys.push(address.substring(0, address.length - 1));
+        } else {
+          secondKeys.push(address);
+
+        }
 
 
+        secondVals.push(secondChart[i][1]);
+     }
+
+     console.log(secondKeys);
+
+     var ctx0 = document.getElementById("topUsersByNumPosts").getContext("2d");
+
+     var ctx1 = document.getElementById("topLocations").getContext("2d");
+
+        var dataFirst = {
+        labels : firstKeys,
+        datasets : [
+          {
+            label : "Location Posts:",
+            data : firstVals,
+            backgroundColor : [
+              "red",
+              "green",
+              "blue",
+              "red",
+              "green",
+              "blue",
+            ],
+            borderColor : [
+              "#111",
+              "#111",
+              "#111",
+              "#111",
+              "#111",
+              "#111",
+            ],
+            borderWidth : 1
+          }
+        ]
+      };
+
+      var options = {
+        title : {
+          display : true,
+          position : "top",
+          text : "Top Users by Number of Posts",
+          fontSize : 18,
+          fontColor : "#111"
+        },
+        legend : {
+          display : false
+        },
+        scales : {
+          yAxes : [{
+            ticks : {
+              min : 0
+            }
+          }]
+        }
+      };
+
+      var options2 = {
+        title : {
+          display : true,
+          position : "top",
+          text : "Top Locations by Posts",
+          fontSize : 18,
+          fontColor : "#111"
+        },
+        legend : {
+          display : false
+        },
+        scales : {
+          yAxes : [{
+            ticks : {
+              min : 0
+            }
+          }]
+        }
+      };
+      var chart = new Chart( ctx0, {
+        type : "bar",
+        data : dataFirst,
+        options : options
+      });
+
+
+    var dataSecond = {
+        labels : ["1600 Penn. Ave", "5201 E. Poinsettia", "3935 Walnut St", "954 Carol Lane", "3333 Walnut St", "3909 Spruce St."],
+        datasets : [
+          {
+            label : "User Posts",
+            data : secondVals,
+            backgroundColor : [
+              "red",
+              "green",
+              "blue",
+              "red",
+              "green",
+              "blue",
+            ],
+            borderColor : [
+              "#111",
+              "#111",
+              "#111",
+              "#111",
+              "#111",
+              "#111",
+            ],
+            borderWidth : 1
+          }
+        ]
+      };
+
+      var chart2 = new Chart( ctx1, {
+        type : "bar",
+        data : dataSecond,
+        options : options2
+      });
+
+
+     var thirdChart = masterData[2];
+     var thirdKeys = [];
+     var thirdVals = [];
+     for (var i = 0; i < thirdChart.length; i++) {
+        thirdKeys.push(thirdChart[i][0]);
+        thirdVals.push(thirdChart[i][1]);
+     }
+
+       // first two graphs finished, onto 3 and 4
+
+    new Chart(document.getElementById("topLocations2").getContext("2d"), {
+        type: 'doughnut',
+        data: {
+          labels: thirdKeys,
+          datasets: [
+            {
+              label: "Users",
+              backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850", "#3e95cd", "#8e5ea2"],
+              data: thirdVals
+            }
+          ]
+        },
+        options: {
+          title: {
+            display: true,
+            text: 'Top Locations by User Number'
+          }
+        }
+    
+      });
+
+     var fourthChart = masterData[3];
+     var fourthKeys = [];
+     var fourthVals = [];
+     for (var i = 0; i < fourthChart.length; i++) {
+        fourthKeys.push(fourthChart[i][0]);
+        fourthVals.push(fourthChart[i][1]);
+     }
+
+    new Chart(document.getElementById("userRatios").getContext("2d"), {
+        type: 'doughnut',
+        data: {
+          labels: fourthKeys,
+          datasets: [
+            {
+              label: "Users",
+              backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850", "#3e95cd", "#8e5ea2"],
+              data: fourthVals
+            }
+          ]
+        },
+        options: {
+          title: {
+            display: true,
+            text: 'User Type Ratios'
+          }
+        }
+    
+      });
+
+    var fifthChart = masterData[4];
+     var fifthKeys = [];
+     var fifthVals = [];
+     for (var i = 0; i < fifthChart.length; i++) {
+        fifthKeys.push(fifthChart[i][0]);
+        fifthVals.push(fifthChart[i][1]);
+     }
+
+    // moving on to charts 5 and 6 
+    // portion chart attempt
+    new Chart(document.getElementById("portionSizes").getContext("2d"), {
+        type: 'polarArea',
+        data: {
+          labels: fifthKeys,
+          datasets: [
+            {
+              label: "Users",
+              backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850", "#3e95cd", "#8e5ea2"],
+              data: fifthVals
+            }
+          ]
+        },
+        options: {
+          title: {
+            display: true,
+            text: 'Top Donated Portions by User'
+          }
+        }
+    
+      });
+
+    var sixChart = masterData[5];
+     var sixKeys = [];
+     var sixVals = [];
+     for (var i = 0; i < sixChart.length; i++) {
+        sixKeys.push(sixChart[i][0]);
+        sixVals.push(sixChart[i][1]);
+     }
+
+    // moving on to charts 5 and 6 
+    // portion chart attempt
+    new Chart(document.getElementById("dataBaseUsage").getContext("2d"), {
+        type: 'pie',
+        data: {
+          labels: sixKeys,
+          datasets: [
+            {
+              label: "Users",
+              backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850", "#3e95cd", "#8e5ea2"],
+              data: sixVals
+            }
+          ]
+        },
+        options: {
+          title: {
+            display: true,
+            text: 'Data Base Collection Sizes'
+          }
+        }
+    
+      });
+
+    });
+
+     </script>
+
+</body>

@@ -97,6 +97,39 @@ var getTopLocationsByNumUsers = function(num_locations, route_callback) {
 	});
 }
 
+var getUserTypes = function(num_types, route_callback) {
+	User.find({}, function(err, docs) {
+		var user_count = {};
+		docs.forEach((doc) => {
+			userType = doc.userType;
+			if (userType in user_count) {
+				user_count[userType] = user_count[userType] + 1;
+			} else {
+				user_count[userType] = 1;
+			}
+		});
+
+		var items = Object.keys(user_count).map(function(key) {
+  			return [key, user_count[key]];
+		});
+
+		items.sort(function(first, second) {
+  			return second[1] - first[1];
+		});
+
+		// Create a new array with only the first num_users items
+		//console.log(items.slice(0, num_locations));
+		var data = items.slice(0, num_types);
+
+		//return dictionary with key username and value number of posts, sorted in decreasing number of posts
+		route_callback(null, data);
+	});
+}
+
+var getAllUsers = function(route_callback) {
+	User.find({}).exec(route_callback);
+}
+
 module.exports = {
 	createUser: createUser,
 	getPassword: getPassword,
@@ -106,4 +139,6 @@ module.exports = {
 	userInfo: userInfo,
 	deleteUser: deleteUser,
 	getTopLocationsByNumUsers, getTopLocationsByNumUsers,
+	getUserTypes: getUserTypes,
+	get_users: getAllUsers,
 }

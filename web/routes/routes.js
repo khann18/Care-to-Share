@@ -47,12 +47,13 @@ var createNewPost = function(req, res) {
 					postedBy: req.query.poster,
 					pickupTime: req.query.pickupTime,
 					contactInfo: req.query.contact,
-					isClaimed: req.query.isClaimed,
-					claimMessage: req.query.claimMessage,
+					isClaimed: false,
 					marked: req.query.marked,
-					latlng: coords
+					latlng: coords,
+					numPortions: req.query.numPortions,
+					tags: req.query.tags
 				});
-
+				console.log(req.query.tags);
 				post_db.createPost(newPost, function(err, data){
 					if (err) {
 						console.log(err);
@@ -60,7 +61,7 @@ var createNewPost = function(req, res) {
 						console.log(data);
 					}
 				});
-				res.send(200);
+				res.sendStatus(200);
        	} else {
 	    	var newPost = new Post({
 				description: req.query.description,
@@ -68,10 +69,11 @@ var createNewPost = function(req, res) {
 				postedBy: req.query.poster,
 				pickupTime: req.query.pickupTime,
 				contactInfo: req.query.contact,
-				isClaimed: req.query.isClaimed,
-				claimMessage: req.query.claimMessage,
+				isClaimed: false,
 				marked: req.query.marked,
-				latlng: ""
+				latlng: "",
+				numPortions: req.query.numPortions,
+				tags: req.query.tags
 			});
 
 			post_db.createPost(newPost, function(err, data){
@@ -88,26 +90,6 @@ var createNewPost = function(req, res) {
     });
 
     console.log(coords);
-
-	// var newPost = new Post({
-	// 	description: req.query.description,
-	// 	location: req.query.location,
-	// 	postedBy: req.query.poster,
-	// 	pickupTime: req.query.pickupTime,
-	// 	contactInfo: req.query.contact,
-	// 	isClaimed: req.query.isClaimed,
-	// 	claimMessage: req.query.claimMessage,
-	// 	marked: req.query.marked,
-	// 	latlng: coords
-	// });
-
-	// post_db.createPost(newPost, function(err, data){
-	// 	if (err) {
-	// 		console.log(err);
-	// 	} else {
-	// 		console.log(data);
-	// 	}
-	// });
 }
 
 var createNewClaim = function(req, res) {
@@ -131,7 +113,7 @@ var createNewClaim = function(req, res) {
 
 var getPosts = function(req, res) {
 
-	post_db.getPosts({marked: 'user'}, function(err, data) {
+	post_db.getPosts({marked: 'user', isClaimed: false}, function(err, data) {
 
 		if (err) {
 			console.log(err);
@@ -173,7 +155,7 @@ var getClosePosts = function(req, res) {
 
     var postID = 0;
 
-	post_db.getPosts({marked: 'user'}, function(err, data) {
+	post_db.getPosts({marked: 'user', isClaimed: false}, function(err, data) {
 		if (err) {
 			console.log(err);
 		} else {
@@ -235,7 +217,7 @@ var getClosePosts = function(req, res) {
 
     var postID = 0;
 
-	post_db.getPosts({marked: 'user'}, function(err, data) {
+	post_db.getPosts({marked: 'user', isClaimed: false}, function(err, data) {
 		if (err) {
 			console.log(err);
 		} else {
@@ -393,28 +375,24 @@ var checkUsername = function(req, res) {
 
 }
 
-// var setPostClaimMessage = function(req, res) {
-// 	var description = req.query.description;
-// 	var message = req.query.message;
+var setPostIsClaimed = function(req, res) {
+	post_db.findPostById(req.query.postId, function(err, data) {
+		if (err) {
+			console.log(err);
+		} else {
+			data.isClaimed = true;
+			console.log(data);
+			data.save( (err) => {
+				if (err) {
+					console.log(err);
+				} else {
+				 	res.send({result : req.query.isClaimed});
+			    }
+			});
 
-// 	post_db.setClaimMessage(description, function(err, data) {
-// 		if (err) {
-// 			console.log(err);
-// 		} else {
-// 			data.claimMessage = message;
-// 			data.isClaimed = true;
-// 			console.log(data);
-// 			data.save( (err) => {
-// 				if (err) {
-// 					console.log(err);
-// 				} else {
-// 				 	res.send({result: message});
-// 			    }
-// 			});
-
-// 		}
-// 	});
-// }
+		}
+	});
+}
 
 var updateClaimStatus = function(req, res) {
 
@@ -594,33 +572,120 @@ var getUser = function(req, res) {
 	});
 }
 
+var dataVis = async function(req, res) {
+	var postNum = 0;
+	var claimNum = 0;
+	var userNum = 0;
+	var metaStats = [];
+	stats = [];
+	var finalData = [];
+
+	const promise_0A = new Promise(function(resolve, reject) {
+		post_db.getTopUsersByNumPosts(10, function(err, data) {
+			resolve(data);
+		});
+	})
+
+	const promise_0B = new Promise(function(resolve, reject) {
+
+		post_db.getTopLocationsByNumPosts(10, function(err, data) {
+			resolve(data);
+		});
+	})
+
+	const promise_0C = new Promise(function(resolve, reject) {
+
+		user_db.getTopLocationsByNumUsers(10, function(err, data) {
+			resolve(data);
+		});
+	})
+
+
+	const promise1 = new Promise(function(resolve, reject) {
+	  user_db.getUser("", function(err, data) {
+		userNum = data.length;
+		metaStats.push(['User Number', userNum]);
+		resolve();
+	  });
+	});
+
+	const promise2 = new Promise(function(resolve, reject) {
+		post_db.getAllPosts("User", function(err, data) {
+			console.log(data.length);
+			postNum = data.length;
+			metaStats.push(['Post Number', postNum]);
+			resolve();
+		});
+	});
+
+
+	const promise3 = new Promise(function(resolve, reject) {
+		claim_db.getAllClaims("Claim", function(err, data) {
+			claimNum = data.length;
+			metaStats.push(['Claim Number', claimNum]);
+			resolve();
+		});
+	});
+
+	const promise4 = new Promise(function(resolve, reject) {
+		user_db.getUserTypes(2, function(err, data) {
+			resolve(data);
+		});
+	});
+
+	const promise5 = new Promise(function(resolve, reject) {
+		post_db.getPortionData(10, function(err, data) {
+			resolve(data);
+		});
+	});
+
+	Promise.all([promise_0A, promise_0B, promise_0C, promise1, promise2, promise3, promise4, promise5]).then(function(values) {
+
+		finalData.push(values[0]);
+		finalData.push(values[1]);
+		finalData.push(values[2]);
+		finalData.push(values[6]);
+		finalData.push(values[7]);
+		finalData.push(metaStats);
+		res.send(finalData);
+	});
+}
+
+
 var get_data = function(req, res) {
 
 
 	post_db.getTopUsersByNumPosts(10, function(err, data) {
+		var postNum = 0;
+		var claimNum = 0;
+		var userNum = 0;
+
 		stats = [];
 		stats.push(data);
 		post_db.getTopLocationsByNumPosts(10, function(err, data) {
 			stats.push(data)
 			user_db.getTopLocationsByNumUsers(10, function(err, data) {
 				stats.push(data)
-				console.log(stats)
-				res.render('data.ejs', {stats: stats})
+				post_db.getAllPosts("User", function(err, data) {
+					console.log(data.length);
+					res.render('data.ejs', {stats: stats})
+				});
+				console.log("DATASTAT")
 			});
 		});
 	});
-
-
-
-
-	//TODO: stuff with claims database
-
-
-
 }
 
-
-
+var getStatsForProfile = function(req, res) {
+	post_db.getTopUsersByNumPosts(10, function(err, data) {
+		if (err) {
+			console.log("Error getting stats");
+		} else {
+			console.log(data);
+			res.send(data);
+		}
+	});
+}
 
 var getUserProfile = function (req, res) {
 	user_db.getUser({username : req.body.username}, function(err, user_data) {
@@ -656,7 +721,17 @@ var deleteUserAdmin = function (req, res) {
 	});
 };
 
+var getAllUsers = function(req, res) {
+	console.log("getting all users");
+	user_db.get_users(function(err, data){
+		if (err) {
+			console.log("error getting all users");
+		} else {
+			console.log(data);
+			res.send(data);
+		}});
 
+}
 
 var routes = {
 	admin_approve: editPostMarked,
@@ -664,18 +739,18 @@ var routes = {
 	create_post: createNewPost,
 	get_post: getPosts,
 	get_admin_post: getAdminPosts,
-  get_users: getUser,
-  login: getLogin,
-  logout: getLogout,
-  account_creation: getCreateAccount,
-  create_user: createNewUser,
+  	get_users: getUser,
+  	login: getLogin,
+  	logout: getLogout,
+  	account_creation: getCreateAccount,
+  	create_user: createNewUser,
  	console: displayConsole,
-  check_password: checkPassword,
-  // set_claim_message: setPostClaimMessage,
-  check_username: checkUsername,
-  get_user: userInfo,
-  update_account: updateAccount,
-  deleteaccount: deleteaccount,
+  	check_password: checkPassword,
+  	set_post_is_claimed: setPostIsClaimed,
+  	check_username: checkUsername,
+  	get_user: userInfo,
+  	update_account: updateAccount,
+  	deleteaccount: deleteaccount,
 	delete_all_claims_after_accepting: deleteAllClaimsAfterAccepting,
 	get_claims_by_donor: getClaimsByDonor,
 	get_claims_by_obtainer: getClaimsByObtainer,
@@ -685,9 +760,12 @@ var routes = {
 	update_claims_for_accepted_post: updateClaimsForAcceptedPost,
 	get_close_posts: getClosePosts,
 	get_data: get_data,
-  displayUser: getUserProfile,
+  	displayUser: getUserProfile,
 	deleteUser: deleteUserAdmin,
 	create_claim: createNewClaim,
+	visualizeData: dataVis,
+	getAllUsers: getAllUsers,
+	get_stats_for_profile: getStatsForProfile
 };
 //exporting the routes
 module.exports = routes;
